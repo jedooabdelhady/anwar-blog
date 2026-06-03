@@ -73,7 +73,26 @@ export default async function BlogIndex({
           </ul>
         </section>
 
-        <BlogGrid posts={filtered} />
+        {filtered.length > 0 ? (
+          <BlogGrid posts={filtered} />
+        ) : (
+          <section className="mx-auto max-w-2xl px-5 sm:px-8 py-16 text-center">
+            <div className="rounded-3xl border border-line bg-card p-10">
+              <p className="text-pepper text-lg font-bold mb-2">
+                لا توجد مقالات في هذا التصنيف بعد
+              </p>
+              <p className="text-pepper/70 text-sm">
+                نعمل على إضافة محتوى جديد قريباً — تابعنا.
+              </p>
+              <a
+                href="/blog"
+                className="inline-block mt-6 rounded-full px-6 py-2 bg-sienna text-white text-sm font-medium hover:bg-pepper transition-colors"
+              >
+                عرض كل المقالات
+              </a>
+            </div>
+          </section>
+        )}
       </main>
       <Footer />
       <BottomWaves />

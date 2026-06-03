@@ -31,6 +31,11 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
 };
 
+/** Apply brand color to mobile browser chrome (status bar / tab strip). */
+export const viewport = {
+  themeColor: "#6B3F23",
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{

@@ -94,7 +94,9 @@ export async function POST(req: NextRequest) {
   // 2) Notify by email (if Resend configured)
   const resendKey = process.env.RESEND_API_KEY;
   const to = process.env.CONTACT_EMAIL_TO;
-  const from = process.env.CONTACT_EMAIL_FROM || "onboarding@resend.dev";
+  const fromRaw = process.env.CONTACT_EMAIL_FROM || "onboarding@resend.dev";
+  // Display a friendly brand name in the inbox: "تأويل الرؤى <addr>"
+  const from = fromRaw.includes("<") ? fromRaw : `تأويل الرؤى <${fromRaw}>`;
 
   if (resendKey && to) {
     try {
