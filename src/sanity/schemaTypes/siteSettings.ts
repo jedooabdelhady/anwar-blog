@@ -1,9 +1,16 @@
-import { defineField, defineType } from "sanity";
+import { defineField, defineType, defineArrayMember } from "sanity";
 import { CogIcon } from "@sanity/icons";
 
+const SLIDE_COLORS = [
+  { title: "بني محمر (Sienna)", value: "sienna" },
+  { title: "بني فاتح (Oak)",     value: "oak" },
+  { title: "بني داكن (Pepper)",  value: "pepper" },
+  { title: "زيتي (Gum)",         value: "gum" },
+] as const;
+
 /**
- * Singleton document — the editor sees only ONE entry which contains all
- * the main editable text on the home page. No "create new" / no delete.
+ * Singleton "إعدادات الموقع" — every editable string on the home page
+ * lives here so the editor can rewrite without touching code.
  */
 export default defineType({
   name: "siteSettings",
@@ -11,11 +18,10 @@ export default defineType({
   type: "document",
   icon: CogIcon,
   fields: [
-    /* ------------------ Brand ------------------ */
+    /* ─────────────── Brand ─────────────── */
     defineField({
       name: "siteName",
       title: "اسم الموقع",
-      description: "يظهر في تبويب المتصفح ومحركات البحث.",
       type: "string",
       initialValue: "علم تأويل الرؤى",
       validation: (R) => R.required().max(60),
@@ -23,7 +29,6 @@ export default defineType({
     defineField({
       name: "siteTagline",
       title: "وصف مختصر للموقع (SEO)",
-      description: "جملة قصيرة تصف الموقع في محركات البحث ووسائل التواصل.",
       type: "text",
       rows: 2,
       initialValue:
@@ -31,87 +36,59 @@ export default defineType({
       validation: (R) => R.max(200),
     }),
 
-    /* ------------------ Hero banner ------------------ */
+    /* ─────────────── Hero carousel ─────────────── */
     defineField({
-      name: "hero",
-      title: "البانر الرئيسي",
-      type: "object",
-      options: { collapsible: true, collapsed: false },
-      fields: [
-        defineField({
-          name: "title",
-          title: "العنوان (يظهر بخط صغير تحت البانر)",
-          type: "string",
-          initialValue: "أهلاً بكم في علم تأويل الرؤى",
-          validation: (R) => R.required().max(80),
+      name: "heroQuotes",
+      title: "شرائح البانر (اقتباسات متحركة)",
+      description:
+        "تتبدّل تلقائياً كل 6 ثواني. أضف/احذف بحرّية — الترتيب يحفظ كما هو.",
+      type: "array",
+      of: [
+        defineArrayMember({
+          type: "object",
+          name: "quote",
+          fields: [
+            defineField({
+              name: "text",
+              title: "نص الاقتباس",
+              type: "text",
+              rows: 2,
+              validation: (R) => R.required().max(200),
+            }),
+            defineField({
+              name: "source",
+              title: "المصدر (اختياري)",
+              type: "string",
+              validation: (R) => R.max(80),
+            }),
+            defineField({
+              name: "color",
+              title: "لون الخلفية",
+              type: "string",
+              options: { list: [...SLIDE_COLORS], layout: "radio" },
+              initialValue: "sienna",
+            }),
+          ],
+          preview: {
+            select: { title: "text", subtitle: "source" },
+            prepare: ({ title, subtitle }) => ({
+              title: title?.length > 50 ? title.slice(0, 50) + "…" : title,
+              subtitle,
+            }),
+          },
         }),
-        defineField({
-          name: "subtitle",
-          title: "نص فرعي (غير معروض حالياً — محفوظ للاستخدام لاحقاً)",
-          type: "text",
-          rows: 2,
-          validation: (R) => R.max(400),
-        }),
+      ],
+      initialValue: [
+        { _type: "quote", _key: "q1", text: "الحكمة هي نور العقل.",                                source: "مثل عربي",   color: "sienna" },
+        { _type: "quote", _key: "q2", text: "الرؤيا الصالحة من الله، والحُلم من الشيطان.",          source: "حديث شريف", color: "pepper" },
+        { _type: "quote", _key: "q3", text: "أصدقُ الرؤى ما كان عند الأسحار.",                     source: "أثر",       color: "oak"    },
       ],
     }),
 
-    /* ------------------ The 3 cards ------------------ */
+    /* ─────────────── Three gates (cards) ─────────────── */
     defineField({
       name: "cardPublic",
-      title: "البطاقة 1 — الرؤى العامة (أخضر زيتي)",
-      type: "object",
-      options: { collapsible: true, collapsed: true },
-      fields: [
-        defineField({ name: "title", title: "العنوان", type: "string", initialValue: "الرؤى العامة" }),
-        defineField({
-          name: "body",
-          title: "النص",
-          type: "text",
-          rows: 2,
-          initialValue: "نستقبل آرائكم ومقترحاتكم لتحسين خدماتنا",
-        }),
-        defineField({ name: "cta", title: "نص الزر", type: "string", initialValue: "تقديم رؤيتي" }),
-      ],
-    }),
-    defineField({
-      name: "cardPrivate",
-      title: "البطاقة 2 — الرؤى الخاصة (بني محمر)",
-      type: "object",
-      options: { collapsible: true, collapsed: true },
-      fields: [
-        defineField({ name: "title", title: "العنوان", type: "string", initialValue: "الرؤى الخاصة" }),
-        defineField({
-          name: "body",
-          title: "النص",
-          type: "text",
-          rows: 2,
-          initialValue: "شاركنا رؤيتك الخاصة أو مشروعك لنناقشه معك",
-        }),
-        defineField({ name: "cta", title: "نص الزر", type: "string", initialValue: "تقديم رؤيتي" }),
-      ],
-    }),
-    defineField({
-      name: "cardInquiry",
-      title: "البطاقة 3 — تساؤل واستعلام (بني)",
-      type: "object",
-      options: { collapsible: true, collapsed: true },
-      fields: [
-        defineField({ name: "title", title: "العنوان", type: "string", initialValue: "تساؤل واستعلام" }),
-        defineField({
-          name: "body",
-          title: "النص",
-          type: "text",
-          rows: 2,
-          initialValue: "نحن هنا للإجابة على تساؤلاتكم واستفساراتكم",
-        }),
-        defineField({ name: "cta", title: "نص الزر", type: "string", initialValue: "أرسل استفسارك" }),
-      ],
-    }),
-
-    /* ------------------ Blog section header ------------------ */
-    defineField({
-      name: "blogSection",
-      title: "قسم المدونة",
+      title: "البطاقة 1 — بوابة الرؤى العامة (أخضر زيتي)",
       type: "object",
       options: { collapsible: true, collapsed: true },
       fields: [
@@ -119,14 +96,90 @@ export default defineType({
           name: "title",
           title: "العنوان",
           type: "string",
-          initialValue: "مدونتنا",
+          initialValue: "بوابة الرؤى العامة",
         }),
         defineField({
-          name: "subtitle",
-          title: "النص الفرعي",
-          type: "string",
-          initialValue: "مواضيع ومقالات تهمك",
+          name: "body",
+          title: "النص",
+          type: "text",
+          rows: 3,
+          initialValue:
+            "مساحة تُروى فيها الرؤى العامة بتفاصيلها ودلالاتها، لفهم الرموز والإشارات والمعاني الكامنة خلفها.",
         }),
+        defineField({
+          name: "cta",
+          title: "نص الزر",
+          type: "string",
+          initialValue: "قدّم رؤياك",
+        }),
+      ],
+    }),
+    defineField({
+      name: "cardPrivate",
+      title: "البطاقة 2 — بوابة الرؤى الشخصية (بني محمر)",
+      type: "object",
+      options: { collapsible: true, collapsed: true },
+      fields: [
+        defineField({
+          name: "title",
+          title: "العنوان",
+          type: "string",
+          initialValue: "بوابة الرؤى الشخصية",
+        }),
+        defineField({
+          name: "body",
+          title: "النص",
+          type: "text",
+          rows: 3,
+          initialValue:
+            "مساحة خاصة بكَ، شارك رؤياك الخاصة لتُفسَّر رموزها في مساحة آمنة وهادئة بما تحمله من أثر ومعنى.",
+        }),
+        defineField({
+          name: "cta",
+          title: "نص الزر",
+          type: "string",
+          initialValue: "قدّم رؤياك",
+        }),
+      ],
+    }),
+    defineField({
+      name: "cardInquiry",
+      title: "البطاقة 3 — بوابة تساؤل واستعلام (بني)",
+      type: "object",
+      options: { collapsible: true, collapsed: true },
+      fields: [
+        defineField({
+          name: "title",
+          title: "العنوان",
+          type: "string",
+          initialValue: "بوابة تساؤل واستعلام",
+        }),
+        defineField({
+          name: "body",
+          title: "النص",
+          type: "text",
+          rows: 3,
+          initialValue:
+            "نافذة للتساؤلات والاستفسارات العامة، تُطرح فيها الأفكار والرموز والمعاني المختلفة للبحث والتأمل.",
+        }),
+        defineField({
+          name: "cta",
+          title: "نص الزر",
+          type: "string",
+          initialValue: "ابدأ استعلامك",
+        }),
+      ],
+    }),
+
+    /* ─────────────── Blog section ─────────────── */
+    defineField({
+      name: "blogSection",
+      title: "قسم المدونة",
+      type: "object",
+      options: { collapsible: true, collapsed: true },
+      fields: [
+        defineField({ name: "title",    title: "العنوان",       type: "string", initialValue: "مدونتنا" }),
+        defineField({ name: "subtitle", title: "النص الفرعي",   type: "string", initialValue: "مواضيع ومقالات تهمك" }),
       ],
     }),
   ],

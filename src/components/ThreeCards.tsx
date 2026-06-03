@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Logo from "./Logo";
-import type { SiteSettings } from "@/sanity/lib/settings";
+import type { CardCopy } from "@/sanity/lib/settings";
 
 type CardLook = {
   iconVariant: "pepper" | "sienna" | "gum" | "oak";
@@ -34,22 +34,50 @@ const LOOK: Record<"cardPublic" | "cardPrivate" | "cardInquiry", CardLook> = {
   },
 };
 
-function CardTitle({ children }: { children: React.ReactNode }) {
+/**
+ * Renders the card title with the first word ("بوابة" or similar) in
+ * a bolder weight so it reads as a label. Falls back gracefully if the
+ * title is a single word.
+ */
+function CardTitle({ children }: { children: string }) {
+  const parts = children.trim().split(/\s+/);
+  const head = parts[0];
+  const tail = parts.slice(1).join(" ");
   return (
-    <h3 className="text-center text-lg sm:text-xl font-bold text-pepper">
+    <h3 className="text-center text-lg sm:text-xl text-pepper">
       <span className="section-title-deco">
         <span className="section-title-deco-dot" />
-        <span>{children}</span>
+        <span>
+          <strong className="font-extrabold">{head}</strong>
+          {tail ? ` ${tail}` : ""}
+        </span>
         <span className="section-title-deco-dot" />
       </span>
     </h3>
   );
 }
 
+/**
+ * Bolden the first word of the body (an action/space label like
+ * "مساحة" / "نافذة") so the card reads at a glance.
+ */
+function CardBody({ children }: { children: string }) {
+  const text = children.trim();
+  const i = text.indexOf(" ");
+  const head = i === -1 ? text : text.slice(0, i);
+  const tail = i === -1 ? "" : text.slice(i);
+  return (
+    <p className="text-pepper/85 text-[15px] sm:text-base leading-relaxed mb-7 min-h-[3.2em]">
+      <strong className="font-bold text-pepper">{head}</strong>
+      {tail}
+    </p>
+  );
+}
+
 type Props = {
-  cardPublic: SiteSettings["cardPublic"];
-  cardPrivate: SiteSettings["cardPrivate"];
-  cardInquiry: SiteSettings["cardInquiry"];
+  cardPublic: CardCopy;
+  cardPrivate: CardCopy;
+  cardInquiry: CardCopy;
 };
 
 export default function ThreeCards({
@@ -69,7 +97,7 @@ export default function ThreeCards({
       className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12 py-12 sm:py-16"
     >
       <h2 id="cards-heading" className="sr-only">
-        خيارات التواصل والمشاركة
+        البوابات
       </h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7">
         {cards.map((c) => (
@@ -84,9 +112,7 @@ export default function ThreeCards({
               <Logo size={88} variant={c.look.iconVariant} withRing={false} />
             </div>
 
-            <p className="text-pepper/85 text-[15px] sm:text-base leading-relaxed mb-7 min-h-[3.2em]">
-              {c.body}
-            </p>
+            <CardBody>{c.body}</CardBody>
 
             <Link
               href={c.look.href}

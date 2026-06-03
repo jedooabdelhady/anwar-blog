@@ -21,8 +21,8 @@ export default async function Home() {
       <Header active="/" />
       <main>
         <Hero
-          title={settings.hero.title}
-          subtitle={settings.hero.subtitle}
+          title={settings.siteName}
+          quotes={settings.heroQuotes}
         />
         <ThreeCards
           cardPublic={settings.cardPublic}

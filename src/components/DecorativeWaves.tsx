@@ -1,13 +1,20 @@
 /**
- * Soft organic wave bands — used at very top and bottom of the page
- * to echo the earthy brand mood. Pure SVG, no images.
+ * Decorative band at the top + bottom of the home page:
+ *   1. Soft organic wave shape (existing).
+ *   2. A faint line of stylised Tifinagh / Thamudic-inspired glyphs
+ *      so the page has the same "archaeological" feel the client showed
+ *      in her reference image.
  */
+
+const GLYPHS = "ⵀ ⵙ ⴻ ⴽ ⵏ ⵎ ⵓ ⵣ ⵉ ⵜ ⵒ ⴹ ⴳ ⴱ ⴷ ⵟ ⵍ ⵕ ⵇ";
+
 export function TopWaves() {
   return (
     <div
       aria-hidden
       className="pointer-events-none absolute inset-x-0 top-0 -z-10 overflow-hidden"
     >
+      {/* Wave layer */}
       <svg
         viewBox="0 0 1440 220"
         preserveAspectRatio="none"
@@ -24,6 +31,19 @@ export function TopWaves() {
           opacity="0.18"
         />
       </svg>
+
+      {/* Faint Tifinagh-style glyph row, just under the wave */}
+      <div
+        className="absolute inset-x-0 top-[150px] sm:top-[180px] text-center select-none whitespace-nowrap overflow-hidden"
+        style={{
+          color: "#6B3F23",
+          opacity: 0.18,
+          fontSize: "22px",
+          letterSpacing: "0.6em",
+        }}
+      >
+        {GLYPHS}
+      </div>
     </div>
   );
 }
@@ -34,6 +54,19 @@ export function BottomWaves() {
       aria-hidden
       className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 overflow-hidden"
     >
+      {/* Glyph row sitting just above the bottom wave */}
+      <div
+        className="absolute inset-x-0 bottom-[150px] sm:bottom-[180px] text-center select-none whitespace-nowrap overflow-hidden"
+        style={{
+          color: "#6B3F23",
+          opacity: 0.18,
+          fontSize: "22px",
+          letterSpacing: "0.6em",
+        }}
+      >
+        {GLYPHS}
+      </div>
+
       <svg
         viewBox="0 0 1440 220"
         preserveAspectRatio="none"
