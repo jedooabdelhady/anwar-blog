@@ -1,0 +1,106 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------
+   Anwar — Earthy Brand Palette (per client's approved color board)
+   SIENNA #6B3F23 — رئيسي بني محمر / Terracotta
+   GUM    #8F8C78 — أخضر زيتي هادئ / Sage
+   CLAY   #EDE5DE — بيج فاتح للخلفيات
+   OAK    #B0997D — بني فاتح
+   PEPPER #38261C — بني داكن للهيدر/الأزرار الأساسية
+   SMOKE  #DBD9CF — رمادي محايد فاتح
+   ------------------------------------------------------------------ */
+:root {
+  --sienna: #6b3f23;
+  --gum:    #8f8c78;
+  --clay:   #ede5de;
+  --oak:    #b0997d;
+  --pepper: #38261c;
+  --smoke:  #dbd9cf;
+
+  --bg:        #f5efe8;   /* خلفية أفتح قليلاً من CLAY */
+  --ink:       #2b1d15;
+  --muted:     #6b5b50;
+  --card:      #f7f1ea;
+  --card-2:    #ece2d6;
+  --card-3:    #e3d8c9;
+  --line:      #d9cdbe;
+}
+
+@theme inline {
+  --color-sienna: var(--sienna);
+  --color-gum:    var(--gum);
+  --color-clay:   var(--clay);
+  --color-oak:    var(--oak);
+  --color-pepper: var(--pepper);
+  --color-smoke:  var(--smoke);
+
+  --color-bg:     var(--bg);
+  --color-ink:    var(--ink);
+  --color-muted:  var(--muted);
+  --color-card:   var(--card);
+  --color-card-2: var(--card-2);
+  --color-card-3: var(--card-3);
+  --color-line:   var(--line);
+
+  --font-sans: var(--font-tajawal), ui-sans-serif, system-ui, "Segoe UI",
+               "Tahoma", sans-serif;
+}
+
+html, body {
+  background: var(--bg);
+  color: var(--ink);
+}
+
+/* Smooth Arabic text rendering */
+body {
+  font-feature-settings: "kern", "liga", "calt";
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Selection */
+::selection {
+  background: var(--sienna);
+  color: #fff;
+}
+
+/* Focus ring */
+:focus-visible {
+  outline: 2px solid var(--sienna);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* Subtle utility for soft cards */
+.card-soft {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  box-shadow: 0 1px 0 rgba(56, 38, 28, 0.04),
+              0 12px 28px -18px rgba(56, 38, 28, 0.18);
+}
+
+/* Section title with decorative dots ─ • ─ on each side */
+.section-title-deco::before,
+.section-title-deco::after {
+  content: "";
+  display: inline-block;
+  width: 2.5rem;
+  height: 1px;
+  background: var(--pepper);
+  vertical-align: middle;
+  margin: 0 0.75rem 0.5rem;
+}
+.section-title-deco {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+.section-title-deco-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--pepper);
+  border-radius: 999px;
+  display: inline-block;
+  margin: 0 0.35rem 0.45rem;
+}
