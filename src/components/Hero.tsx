@@ -1,6 +1,11 @@
 import Logo from "./Logo";
 
-export default function Hero() {
+type Props = {
+  title: string;
+  subtitle: string;
+};
+
+export default function Hero({ title, subtitle }: Props) {
   return (
     <section className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12 pt-2 pb-10">
       <div
@@ -32,11 +37,10 @@ export default function Hero() {
         {/* Text content (RTL → starts on right) */}
         <div className="relative z-10 max-w-2xl text-right text-clay">
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight mb-4">
-            مرحباً بك في تأويل الرؤى
+            {title}
           </h1>
           <p className="text-base sm:text-lg lg:text-xl text-clay/90 leading-relaxed">
-            مساحة عربية للتأمّل والتفسير، ومحتوى متخصص يعينك على فهم رؤاك
-            والاطلاع على ما ينير دربك. شاركنا، اقرأ، وكن جزءاً من المجتمع.
+            {subtitle}
           </p>
         </div>
       </div>

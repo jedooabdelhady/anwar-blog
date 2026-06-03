@@ -34,7 +34,7 @@ export default function Logo({
       width={size}
       height={size}
       role="img"
-      aria-label="شعار تأويل الرؤى"
+      aria-label="شعار علم تأويل الرؤى"
       className={className}
     >
       {withRing && (

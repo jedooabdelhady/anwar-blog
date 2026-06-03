@@ -1,49 +1,38 @@
 import Link from "next/link";
 import Logo from "./Logo";
+import type { SiteSettings } from "@/sanity/lib/settings";
 
-type CardData = {
-  title: string;
-  body: string;
-  cta: string;
-  href: string;
+type CardLook = {
   iconVariant: "pepper" | "sienna" | "gum" | "oak";
   cardBg: string;
   btnBg: string;
   btnHover: string;
+  href: string;
 };
 
-const CARDS: CardData[] = [
-  {
-    title: "الرؤى العامة",
-    body: "نستقبل آرائكم ومقترحاتكم لتحسين خدماتنا",
-    cta: "تقديم رؤيتي",
-    href: "/forms/public-vision",
+const LOOK: Record<"cardPublic" | "cardPrivate" | "cardInquiry", CardLook> = {
+  cardPublic: {
     iconVariant: "gum",
     cardBg: "#F0EBE0",
     btnBg: "#8F8C78",
     btnHover: "#75725f",
+    href: "/forms/public-vision",
   },
-  {
-    title: "الرؤى الخاصة",
-    body: "شاركنا رؤيتك الخاصة أو مشروعك لنناقشه معك",
-    cta: "تقديم رؤيتي",
-    href: "/forms/private-vision",
+  cardPrivate: {
     iconVariant: "sienna",
     cardBg: "#EDDFD2",
     btnBg: "#6B3F23",
     btnHover: "#5a341c",
+    href: "/forms/private-vision",
   },
-  {
-    title: "تساؤل واستعلام",
-    body: "نحن هنا للإجابة على تساؤلاتكم واستفساراتكم",
-    cta: "أرسل استفسارك",
-    href: "/forms/inquiry",
+  cardInquiry: {
     iconVariant: "oak",
     cardBg: "#E8DDD0",
     btnBg: "#7a5c43",
     btnHover: "#664a35",
+    href: "/forms/inquiry",
   },
-];
+};
 
 function CardTitle({ children }: { children: React.ReactNode }) {
   return (
@@ -57,7 +46,23 @@ function CardTitle({ children }: { children: React.ReactNode }) {
   );
 }
 
-export default function ThreeCards() {
+type Props = {
+  cardPublic: SiteSettings["cardPublic"];
+  cardPrivate: SiteSettings["cardPrivate"];
+  cardInquiry: SiteSettings["cardInquiry"];
+};
+
+export default function ThreeCards({
+  cardPublic,
+  cardPrivate,
+  cardInquiry,
+}: Props) {
+  const cards = [
+    { ...cardPublic,  look: LOOK.cardPublic  },
+    { ...cardPrivate, look: LOOK.cardPrivate },
+    { ...cardInquiry, look: LOOK.cardInquiry },
+  ];
+
   return (
     <section
       aria-labelledby="cards-heading"
@@ -67,16 +72,16 @@ export default function ThreeCards() {
         خيارات التواصل والمشاركة
       </h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7">
-        {CARDS.map((c) => (
+        {cards.map((c) => (
           <article
             key={c.title}
             className="rounded-[28px] border border-line p-7 sm:p-8 flex flex-col items-center text-center shadow-[0_1px_0_rgba(56,38,28,0.04),0_18px_32px_-22px_rgba(56,38,28,0.22)] transition-transform duration-300 hover:-translate-y-1"
-            style={{ background: c.cardBg }}
+            style={{ background: c.look.cardBg }}
           >
             <CardTitle>{c.title}</CardTitle>
 
             <div className="my-6 sm:my-7">
-              <Logo size={88} variant={c.iconVariant} withRing={false} />
+              <Logo size={88} variant={c.look.iconVariant} withRing={false} />
             </div>
 
             <p className="text-pepper/85 text-[15px] sm:text-base leading-relaxed mb-7 min-h-[3.2em]">
@@ -84,12 +89,12 @@ export default function ThreeCards() {
             </p>
 
             <Link
-              href={c.href}
+              href={c.look.href}
               className="inline-flex items-center justify-center rounded-full px-7 py-2.5 text-white text-sm sm:text-[15px] font-medium transition-colors bg-[var(--btn)] hover:bg-[var(--btn-h)]"
               style={
                 {
-                  ["--btn" as string]: c.btnBg,
-                  ["--btn-h" as string]: c.btnHover,
+                  ["--btn" as string]: c.look.btnBg,
+                  ["--btn-h" as string]: c.look.btnHover,
                 } as React.CSSProperties
               }
             >

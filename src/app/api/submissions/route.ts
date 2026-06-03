@@ -96,7 +96,7 @@ export async function POST(req: NextRequest) {
   const to = process.env.CONTACT_EMAIL_TO;
   const fromRaw = process.env.CONTACT_EMAIL_FROM || "onboarding@resend.dev";
   // Display a friendly brand name in the inbox: "تأويل الرؤى <addr>"
-  const from = fromRaw.includes("<") ? fromRaw : `تأويل الرؤى <${fromRaw}>`;
+  const from = fromRaw.includes("<") ? fromRaw : `علم تأويل الرؤى <${fromRaw}>`;
 
   if (resendKey && to) {
     try {

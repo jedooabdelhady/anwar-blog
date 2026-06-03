@@ -5,19 +5,35 @@ import BlogGrid from "@/components/BlogGrid";
 import Footer from "@/components/Footer";
 import { TopWaves, BottomWaves } from "@/components/DecorativeWaves";
 import { getAllPosts } from "@/sanity/lib/fetch";
+import { getSiteSettings } from "@/sanity/lib/settings";
 
 export const revalidate = 60;
 
 export default async function Home() {
-  const posts = await getAllPosts();
+  const [posts, settings] = await Promise.all([
+    getAllPosts(),
+    getSiteSettings(),
+  ]);
+
   return (
     <div className="relative flex-1 w-full">
       <TopWaves />
       <Header active="/" />
       <main>
-        <Hero />
-        <ThreeCards />
-        <BlogGrid posts={posts.slice(0, 6)} />
+        <Hero
+          title={settings.hero.title}
+          subtitle={settings.hero.subtitle}
+        />
+        <ThreeCards
+          cardPublic={settings.cardPublic}
+          cardPrivate={settings.cardPrivate}
+          cardInquiry={settings.cardInquiry}
+        />
+        <BlogGrid
+          posts={posts.slice(0, 6)}
+          title={settings.blogSection.title}
+          subtitle={settings.blogSection.subtitle}
+        />
       </main>
       <Footer />
       <BottomWaves />

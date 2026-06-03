@@ -9,7 +9,7 @@ export default function NotFound() {
         <Logo size={88} variant="sienna" />
         <h1 className="text-6xl font-bold text-pepper mt-6">404</h1>
         <p className="text-pepper/80 mt-3 text-lg">
-          عذراً، الصفحة التي تبحث عنها غير موجودة في تأويل الرؤى.
+          عذراً، الصفحة التي تبحث عنها غير موجودة في علم تأويل الرؤى.
         </p>
         <Link
           href="/"

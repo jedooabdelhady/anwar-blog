@@ -9,7 +9,7 @@ export default defineConfig({
   basePath: "/studio",
   projectId,
   dataset,
-  title: "لوحة تأويل الرؤى",
+  title: "لوحة علم تأويل الرؤى",
   name: "anwar-studio",
   theme: anwarStudioTheme,
   icon: StudioLogo,
@@ -30,10 +30,24 @@ export default defineConfig({
    * by default (instead of "Published" which feels confusing while drafting).
    */
   document: {
-    // Hide the default action `unpublish` for non-technical safety — they can
-    // still delete via Field actions if truly needed.
-    actions: (prev) =>
-      prev.filter((a) => !["unpublish"].includes(a.action ?? "")),
+    // Prevent creating duplicates of the singleton siteSettings doc.
+    newDocumentOptions: (prev, { creationContext }) => {
+      if (creationContext.type === "global") {
+        return prev.filter((t) => t.templateId !== "siteSettings");
+      }
+      return prev;
+    },
+    // Hide the default `unpublish` action for non-technical safety;
+    // additionally lock down siteSettings so it can't be deleted/duplicated.
+    actions: (prev, { schemaType }) => {
+      if (schemaType === "siteSettings") {
+        return prev.filter(
+          ({ action }) =>
+            !["unpublish", "duplicate", "delete"].includes(action ?? "")
+        );
+      }
+      return prev.filter((a) => !["unpublish"].includes(a.action ?? ""));
+    },
   },
 
   schema,
@@ -43,6 +57,17 @@ export default defineConfig({
         S.list()
           .title("المحتوى")
           .items([
+            // Singleton settings document — pinned at top
+            S.listItem()
+              .title("⚙️ إعدادات الموقع")
+              .id("siteSettings")
+              .child(
+                S.document()
+                  .schemaType("siteSettings")
+                  .documentId("siteSettings")
+                  .title("إعدادات الموقع")
+              ),
+            S.divider(),
             S.listItem()
               .title("📝 المقالات")
               .child(

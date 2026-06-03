@@ -22,7 +22,7 @@ export function StudioLogo() {
           letterSpacing: "0.5px",
         }}
       >
-        تأويل الرؤى
+        علم تأويل الرؤى
       </span>
     </div>
   );

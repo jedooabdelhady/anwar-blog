@@ -74,7 +74,7 @@ export default async function BlogIndex({
         </section>
 
         {filtered.length > 0 ? (
-          <BlogGrid posts={filtered} />
+          <BlogGrid posts={filtered} title="" subtitle="" />
         ) : (
           <section className="mx-auto max-w-2xl px-5 sm:px-8 py-16 text-center">
             <div className="rounded-3xl border border-line bg-card p-10">

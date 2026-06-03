@@ -2,10 +2,10 @@ import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "تأويل الرؤى",
+    name: "علم تأويل الرؤى",
     short_name: "تأويل الرؤى",
     description:
-      "مدونة عربية متخصصة في تأويل الرؤى والأحلام والمحتوى الثري.",
+      "موقع عربي متخصص في علم تأويل الرؤى والأحلام والمحتوى الثري.",
     start_url: "/",
     display: "standalone",
     orientation: "portrait",

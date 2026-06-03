@@ -25,7 +25,7 @@ export default function Header({ active = "/" }: { active?: string }) {
           <Link
             href="/"
             className="flex items-center gap-3 shrink-0"
-            aria-label="تأويل الرؤى — الصفحة الرئيسية"
+            aria-label="علم تأويل الرؤى — الصفحة الرئيسية"
           >
             <Logo size={48} variant="pepper" />
           </Link>
