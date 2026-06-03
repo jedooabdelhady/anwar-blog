@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { headers } from "next/headers";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { ArrowRight, Calendar, Clock, Tag } from "lucide-react";
@@ -9,6 +10,15 @@ import Footer from "@/components/Footer";
 import ShareButtons from "@/components/ShareButtons";
 import { TopWaves, BottomWaves } from "@/components/DecorativeWaves";
 import { getAllSlugs, getPostBySlug } from "@/sanity/lib/fetch";
+
+/** Determine the canonical origin (env first, then request headers). */
+async function getOrigin(): Promise<string> {
+  if (process.env.NEXT_PUBLIC_SITE_URL) return process.env.NEXT_PUBLIC_SITE_URL;
+  const h = await headers();
+  const host = h.get("x-forwarded-host") || h.get("host");
+  const proto = h.get("x-forwarded-proto") || "https";
+  return host ? `${proto}://${host}` : "http://localhost:3000";
+}
 
 type Params = { slug: string };
 
@@ -65,6 +75,9 @@ export default async function ArticlePage({
   const { slug } = await params;
   const post = await getPostBySlug(slug);
   if (!post) notFound();
+
+  const origin = await getOrigin();
+  const articleUrl = `${origin}/blog/${post.slug}`;
 
   const dateFmt = new Intl.DateTimeFormat("ar-EG", {
     year: "numeric",
@@ -146,7 +159,7 @@ export default async function ArticlePage({
 
           {/* Share row — ONLY on a published article. */}
           <div className="mt-12 pt-8 border-t border-line flex flex-col sm:flex-row sm:items-center sm:justify-between gap-5">
-            <ShareButtons title={post.title} path={`/blog/${post.slug}`} />
+            <ShareButtons title={post.title} url={articleUrl} />
 
             <Link
               href="/blog"

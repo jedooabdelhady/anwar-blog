@@ -4,8 +4,11 @@ import { useEffect, useState } from "react";
 
 type Props = {
   title: string;
-  /** path-only, e.g. "/blog/some-slug" — origin is read from window */
-  path: string;
+  /**
+   * Absolute URL when known (server-side), otherwise just the path —
+   * we'll prepend window.location.origin on the client.
+   */
+  url: string;
 };
 
 const ICONS = {
@@ -38,17 +41,23 @@ const COLORS = {
   telegram: "#229ED9",
 } as const;
 
-export default function ShareButtons({ title, path }: Props) {
-  const [fullUrl, setFullUrl] = useState("");
+function isAbsolute(u: string) {
+  return /^https?:\/\//i.test(u);
+}
+
+export default function ShareButtons({ title, url }: Props) {
+  const [absoluteUrl, setAbsoluteUrl] = useState(
+    isAbsolute(url) ? url : url
+  );
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      setFullUrl(window.location.origin + path);
+    if (!isAbsolute(url) && typeof window !== "undefined") {
+      setAbsoluteUrl(window.location.origin + url);
     }
-  }, [path]);
+  }, [url]);
 
   const encodedTitle = encodeURIComponent(title);
-  const encodedUrl = encodeURIComponent(fullUrl || path);
+  const encodedUrl = encodeURIComponent(absoluteUrl);
 
   const links = {
     whatsapp: `https://wa.me/?text=${encodedTitle}%20${encodedUrl}`,
