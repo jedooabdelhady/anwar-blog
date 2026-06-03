@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>دليل استخدام موقع أنوار</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root {
+    --sienna:#6B3F23; --pepper:#38261C; --bg:#f5efe8; --card:#f7f1ea;
+    --line:#d9cdbe; --muted:#6b5b50; --gum:#8F8C78; --terra:#8B6849;
+  }
+  *{box-sizing:border-box}
+  body{
+    font-family: "Tajawal","Cairo","Segoe UI",sans-serif;
+    background:var(--bg); color:var(--pepper);
+    margin:0; padding:30px 20px; line-height:1.8;
+  }
+  .doc{max-width:840px; margin:0 auto}
+  header{
+    background:linear-gradient(135deg,#8B6849 0%,#966F4F 50%,#8B6849 100%);
+    color:#f7f1ea; padding:50px 40px; border-radius:24px; text-align:center;
+    margin-bottom:40px; box-shadow:0 20px 40px -20px rgba(56,38,28,.35);
+  }
+  header h1{margin:0; font-size:36px; font-weight:800}
+  header p{margin:8px 0 0; opacity:.9; font-size:18px}
+  h2{
+    color:var(--sienna); margin-top:50px; padding-bottom:10px;
+    border-bottom:2px solid var(--line); font-size:24px;
+  }
+  h3{color:var(--pepper); margin-top:30px; font-size:19px}
+  .card{
+    background:var(--card); border:1px solid var(--line); border-radius:20px;
+    padding:24px 28px; margin:20px 0;
+  }
+  .links{
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+    gap:16px; margin:24px 0;
+  }
+  .link-card{
+    background:#fff; border:1px solid var(--line); border-radius:18px;
+    padding:20px; text-align:center; transition:.2s;
+  }
+  .link-card:hover{transform:translateY(-3px); box-shadow:0 12px 28px -16px rgba(56,38,28,.25)}
+  .link-card .icon{font-size:36px; margin-bottom:8px}
+  .link-card a{
+    display:inline-block; margin-top:8px; color:var(--sienna);
+    text-decoration:none; font-weight:600; word-break:break-all;
+  }
+  ol li, ul li{margin:8px 0}
+  .step{
+    background:#fff; border-right:4px solid var(--sienna);
+    padding:14px 18px; margin:12px 0; border-radius:12px;
+  }
+  .step strong{color:var(--sienna)}
+  .kbd{
+    background:var(--pepper); color:#fff; padding:2px 8px;
+    border-radius:6px; font-family:monospace; font-size:13px;
+  }
+  .warn{
+    background:#fdf4e8; border-right:4px solid #b08833;
+    padding:14px 18px; border-radius:12px; margin:14px 0;
+  }
+  .note{
+    background:#f0eddf; border-right:4px solid var(--gum);
+    padding:14px 18px; border-radius:12px; margin:14px 0;
+  }
+  table{width:100%; border-collapse:collapse; margin:20px 0; background:#fff; border-radius:14px; overflow:hidden}
+  th,td{padding:12px 14px; text-align:right; border-bottom:1px solid var(--line)}
+  th{background:var(--card); color:var(--pepper); font-weight:700}
+  tr:last-child td{border-bottom:none}
+  code{
+    background:#ede2d4; padding:2px 8px; border-radius:6px;
+    color:var(--pepper); font-family:monospace; font-size:14px;
+  }
+  .check{color:#5e8a4f; font-weight:bold}
+  .x{color:#a3422f}
+  footer{
+    margin-top:60px; padding:24px; text-align:center;
+    color:var(--muted); border-top:1px solid var(--line);
+    font-size:14px;
+  }
+  .logo-sun{
+    display:inline-block; width:54px; height:54px;
+    background:radial-gradient(circle, #f5efe8 1px, transparent 2px) 0 0/8px 8px,
+               linear-gradient(135deg, #6B3F23, #8B6849);
+    border-radius:50%; margin-bottom:8px;
+  }
+  @media print{
+    body{background:#fff}
+    header{background:var(--sienna)!important; -webkit-print-color-adjust:exact}
+  }
+</style>
+</head>
+<body>
+<div class="doc">
+
+<header>
+  <h1>أنوار</h1>
+  <p>مدونة احترافية — دليل الاستخدام والتسليم</p>
+</header>
+
+<!-- 1. الروابط الرئيسية -->
+<h2>🔗 الروابط الرئيسية</h2>
+
+<div class="links">
+  <div class="link-card">
+    <div class="icon">🌐</div>
+    <strong>الموقع الرئيسي</strong>
+    <br><a href="https://anwar-blog-phi.vercel.app" target="_blank">anwar-blog-phi.vercel.app</a>
+  </div>
+  <div class="link-card">
+    <div class="icon">⚙️</div>
+    <strong>لوحة التحكم</strong>
+    <br><a href="https://anwar-blog-phi.vercel.app/studio" target="_blank">/studio</a>
+  </div>
+  <div class="link-card">
+    <div class="icon">📨</div>
+    <strong>الرسائل تصل إلى</strong>
+    <br><a href="mailto:blog.anwar1@gmail.com">blog.anwar1@gmail.com</a>
+  </div>
+</div>
+
+<!-- 2. ماذا تم بناؤه -->
+<h2>✅ ما تم تسليمه</h2>
+
+<table>
+  <tr><th>القسم</th><th>الوصف</th><th>الحالة</th></tr>
+  <tr><td>الواجهة الأمامية</td><td>صفحة رئيسية + 13 صفحة كاملة بالعربي و RTL</td><td class="check">جاهزة ✓</td></tr>
+  <tr><td>لوحة تحكم</td><td>إدارة احترافية بالعربي لرفع وتعديل وحذف المقالات</td><td class="check">جاهزة ✓</td></tr>
+  <tr><td>نظام التصنيفات</td><td>6 تصنيفات جاهزة، قابلة للإضافة والتعديل</td><td class="check">جاهزة ✓</td></tr>
+  <tr><td>نماذج التواصل</td><td>3 نماذج (رؤى عامة/خاصة/استعلام) تعمل وتصل إيميل + تحفظ في اللوحة</td><td class="check">جاهزة ✓</td></tr>
+  <tr><td>صفحة المقال</td><td>مع أيقونات مشاركة (واتساب/X/تيليجرام)</td><td class="check">جاهزة ✓</td></tr>
+  <tr><td>SEO</td><td>عناوين meta، sitemap.xml، robots.txt، روابط صديقة</td><td class="check">جاهزة ✓</td></tr>
+  <tr><td>التصميم المتجاوب</td><td>يعمل على الجوال، التابلت، الكمبيوتر</td><td class="check">جاهزة ✓</td></tr>
+  <tr><td>السرعة</td><td>متوسط استجابة 500ms، CDN عالمي</td><td class="check">جاهزة ✓</td></tr>
+</table>
+
+<!-- 3. كيف ترفع مقال جديد -->
+<h2>📝 كيف ترفع مقال جديد؟</h2>
+
+<div class="step"><strong>الخطوة 1:</strong> ادخل لوحة التحكم على <code>/studio</code> وسجّل دخول</div>
+<div class="step"><strong>الخطوة 2:</strong> من القائمة اليمنى اضغط <strong>📝 المقالات</strong></div>
+<div class="step"><strong>الخطوة 3:</strong> اضغط زر <strong>+</strong> أعلى الصفحة لإنشاء مقال جديد</div>
+<div class="step"><strong>الخطوة 4:</strong> املأ الحقول:
+  <ul>
+    <li><strong>العنوان</strong> — عنوان المقال</li>
+    <li><strong>الرابط (Slug)</strong> — اضغط <strong>Generate</strong> لتوليده تلقائياً</li>
+    <li><strong>نبذة مختصرة</strong> — وصف من سطرين يظهر في بطاقة المقال</li>
+    <li><strong>صورة الغلاف</strong> — اسحب صورة أو اضغط Upload</li>
+    <li><strong>التصنيف</strong> — اختر من القائمة (مطلوب)</li>
+    <li><strong>المحتوى</strong> — اكتب نص المقال بالكامل، يمكنك إضافة عناوين فرعية وصور</li>
+  </ul>
+</div>
+<div class="step"><strong>الخطوة 5:</strong> اضغط <strong>Publish</strong> أو الاختصار <span class="kbd">Ctrl + Alt + P</span></div>
+<div class="step"><strong>الخطوة 6:</strong> انتظر دقيقة وافتح الموقع — مقالك ظاهر في قسم "مدونتنا"</div>
+
+<div class="note">
+  <strong>💡 ملاحظة:</strong> الموقع يعرض حالياً 6 بطاقات تجريبية كنماذج للزينة. اللحظة اللي ترفع أول مقال حقيقي، تختفي البطاقات التجريبية تلقائياً ويحلّ محلها مقالك.
+</div>
+
+<!-- 4. كيف تدير الرسائل -->
+<h2>📨 كيف تدير رسائل الزوار؟</h2>
+
+<p>كل رسالة من الزوار تصلك بطريقتين في نفس الوقت:</p>
+
+<div class="card">
+  <h3>1. على إيميلك</h3>
+  <p>يصلك إشعار فوري على <code>blog.anwar1@gmail.com</code> بمحتوى الرسالة. اضغط Reply في Gmail للرد على الزائر مباشرة.</p>
+</div>
+
+<div class="card">
+  <h3>2. في لوحة التحكم</h3>
+  <p>ادخل <code>/studio</code> → <strong>📨 الرسائل الواردة</strong> — كل الرسائل محفوظة هنا للأرشيف، مع إمكانية تغيير حالتها (جديدة / قيد المراجعة / تم الرد / أُرشفت).</p>
+</div>
+
+<!-- 5. الأقسام -->
+<h2>📂 أقسام لوحة التحكم</h2>
+
+<table>
+  <tr><th>القسم</th><th>الغرض</th></tr>
+  <tr><td>📝 المقالات</td><td>إضافة وتعديل وحذف المقالات</td></tr>
+  <tr><td>🏷️ التصنيفات</td><td>إدارة التصنيفات (6 موجودة، تقدر تضيف المزيد)</td></tr>
+  <tr><td>👤 الكتّاب</td><td>إضافة كتّاب جدد للمدونة (اختياري)</td></tr>
+  <tr><td>📨 الرسائل الواردة</td><td>عرض كل النماذج المُرسلة من الزوار</td></tr>
+</table>
+
+<!-- 6. تنبيهات مهمة -->
+<h2>⚠️ ملاحظات تحتاج قرارك</h2>
+
+<div class="warn">
+  <strong>🎨 الشعار:</strong>
+  <p>الشعار الحالي رُسم بالتقريب من الصورة. للحصول على شعارك الأصلي بدقة 100%، أرسل الملف الأصلي (SVG أو AI أو PNG عالي الدقة) وسيُستبدل في 5 دقائق.</p>
+</div>
+
+<div class="warn">
+  <strong>🌐 الدومين المخصص:</strong>
+  <p>الموقع الآن على <code>anwar-blog-phi.vercel.app</code> (مجاني). لو أردت دومين خاص مثل <code>anwar.com</code> أو غيره، يمكن إضافته في 10 دقائق (السعر ~$12/سنة من Namecheap).</p>
+</div>
+
+<div class="warn">
+  <strong>🎨 ألوان الواجهة:</strong>
+  <p>اللون البني الحالي للبانر تم تعديله ليطابق التصميم المعتمد. لو تبغى تعديلات لونية إضافية، خبّرنا.</p>
+</div>
+
+<!-- 7. التكلفة -->
+<h2>💰 التكلفة الشهرية للتشغيل</h2>
+
+<table>
+  <tr><th>الخدمة</th><th>الباقة</th><th>السعر</th></tr>
+  <tr><td>Vercel (الاستضافة)</td><td>Hobby</td><td><strong>مجاني</strong></td></tr>
+  <tr><td>Sanity (لوحة التحكم)</td><td>Free tier</td><td><strong>مجاني</strong></td></tr>
+  <tr><td>Resend (الإيميل)</td><td>Free tier</td><td><strong>مجاني</strong></td></tr>
+  <tr><th colspan="2">المجموع الشهري</th><th class="check">$0 / صفر</th></tr>
+</table>
+
+<p style="color:var(--muted); font-size:14px;">
+الباقات المجانية تكفي حتى 100,000 زائر/شهر و 3,000 رسالة إيميل/شهر — أكثر من احتياج المدونة في السنوات الأولى.
+</p>
+
+<!-- 8. الدعم -->
+<h2>🛠️ بعد التسليم</h2>
+
+<div class="card">
+  <p>للأسئلة أو طلبات التعديل أو الإضافات المستقبلية، تواصل عبر:</p>
+  <ul>
+    <li>📧 إيميل المدونة: <a href="mailto:blog.anwar1@gmail.com">blog.anwar1@gmail.com</a></li>
+    <li>📝 أو من نموذج "تساؤل واستعلام" في الموقع</li>
+  </ul>
+</div>
+
+<footer>
+  <p>أُنشئ بحب لمدونة أنوار · ٢٠٢٦</p>
+  <p>Next.js · Sanity CMS · Vercel</p>
+</footer>
+
+</div>
+</body>
+</html>
