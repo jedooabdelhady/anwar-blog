@@ -1,0 +1,90 @@
+<!-- Repeating Thamudic-inspired glyph pattern.
+     Used as a body background-image, repeated across the page so the
+     site feels like a stone tablet rather than a plain surface. -->
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="320" viewBox="0 0 320 320">
+  <defs>
+    <style>
+      .g { stroke: #6B3F23; stroke-width: 2.4; stroke-linecap: round;
+           stroke-linejoin: round; fill: none; opacity: 0.085; }
+      .gf { fill: #6B3F23; opacity: 0.085; }
+    </style>
+  </defs>
+
+  <!-- Row 1 -->
+  <g transform="translate(40 50)" class="g">
+    <!-- H — ⵀ inspired -->
+    <path d="M 0 0 L 0 30 M 18 0 L 18 30 M 0 15 L 18 15"/>
+  </g>
+  <g transform="translate(110 45)" class="g">
+    <!-- + cross -->
+    <path d="M 0 12 L 24 12 M 12 0 L 12 24"/>
+  </g>
+  <g transform="translate(180 40)" class="gf">
+    <!-- Y / yaz -->
+    <circle cx="10" cy="0" r="2.5"/>
+    <path d="M 0 12 L 10 4 L 20 12" stroke="#6B3F23" stroke-width="2.4" fill="none" opacity="1"/>
+    <path d="M 10 4 L 10 18" stroke="#6B3F23" stroke-width="2.4" fill="none" opacity="1"/>
+  </g>
+  <g transform="translate(250 45)" class="g">
+    <!-- Triangle Δ -->
+    <path d="M 12 0 L 24 22 L 0 22 Z"/>
+  </g>
+
+  <!-- Row 2 -->
+  <g transform="translate(20 120)" class="g">
+    <!-- Open circle -->
+    <circle cx="12" cy="12" r="11"/>
+  </g>
+  <g transform="translate(85 115)" class="g">
+    <!-- T shape -->
+    <path d="M 0 0 L 22 0 M 11 0 L 11 28"/>
+  </g>
+  <g transform="translate(155 115)" class="g">
+    <!-- X -->
+    <path d="M 0 0 L 22 22 M 22 0 L 0 22"/>
+  </g>
+  <g transform="translate(220 120)" class="g">
+    <!-- Open square -->
+    <path d="M 0 0 L 22 0 L 22 22 L 0 22 Z"/>
+  </g>
+  <g transform="translate(285 115)" class="g">
+    <!-- Crescent ) -->
+    <path d="M 6 0 Q -6 14 6 28"/>
+  </g>
+
+  <!-- Row 3 -->
+  <g transform="translate(50 195)" class="g">
+    <!-- + cross variant -->
+    <path d="M 0 14 L 28 14 M 14 0 L 14 28"/>
+  </g>
+  <g transform="translate(120 190)" class="g">
+    <!-- ⵏ-like vertical -->
+    <path d="M 6 0 L 6 30 M 0 6 L 12 6 M 0 24 L 12 24"/>
+  </g>
+  <g transform="translate(190 195)" class="g">
+    <!-- I-bar / yat -->
+    <path d="M 0 0 L 18 0 M 9 0 L 9 26 M 0 26 L 18 26"/>
+  </g>
+  <g transform="translate(255 195)" class="gf">
+    <circle cx="9" cy="9" r="5"/>
+  </g>
+
+  <!-- Row 4 -->
+  <g transform="translate(20 265)" class="g">
+    <!-- 8 vertical -->
+    <circle cx="8" cy="6" r="6"/>
+    <circle cx="8" cy="20" r="6"/>
+  </g>
+  <g transform="translate(95 265)" class="g">
+    <!-- Arrow -->
+    <path d="M 0 14 L 24 14 M 18 8 L 24 14 L 18 20"/>
+  </g>
+  <g transform="translate(165 260)" class="g">
+    <!-- Trident -->
+    <path d="M 0 0 L 0 22 M 11 0 L 11 22 M 22 0 L 22 22 M 0 22 L 22 22"/>
+  </g>
+  <g transform="translate(230 265)" class="g">
+    <!-- Zigzag -->
+    <path d="M 0 0 L 8 12 L 16 0 L 24 12"/>
+  </g>
+</svg>

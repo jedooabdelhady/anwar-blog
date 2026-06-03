@@ -64,7 +64,21 @@ export default function Hero({ title, quotes }: Props) {
     <section className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12 pt-2 pb-4">
       <h1 className="sr-only">{title}</h1>
 
-      <div className="relative overflow-hidden rounded-[32px] sm:rounded-[40px] h-[220px] sm:h-[280px]">
+      <div
+        className="relative overflow-hidden rounded-[32px] sm:rounded-[40px] h-[220px] sm:h-[280px]"
+        style={{
+          /* Lifted "carved" feel:
+             — outer drop shadow gives the banner depth against the page
+             — inset highlight at the top edge fakes a bevel
+             — inset dark at the bottom mimics a chiseled edge          */
+          boxShadow: [
+            "0 22px 50px -22px rgba(56,38,28,0.55)",       // drop
+            "inset 0 1px 0 rgba(255,255,255,0.18)",        // top highlight
+            "inset 0 -2px 0 rgba(0,0,0,0.18)",             // bottom carve
+            "inset 0 0 80px rgba(0,0,0,0.18)",             // inner vignette
+          ].join(", "),
+        }}
+      >
         {safeQuotes.map((q, i) => {
           const color = q.color ?? "sienna";
           const bg = GRADIENT[color] ?? GRADIENT.sienna;
@@ -79,10 +93,26 @@ export default function Hero({ title, quotes }: Props) {
               }`}
               style={{ background: bg }}
             >
+              {/* Soft paper-grain texture overlay */}
+              <div
+                aria-hidden
+                className="absolute inset-0 pointer-events-none mix-blend-overlay"
+                style={{
+                  backgroundImage:
+                    "radial-gradient(rgba(255,255,255,0.06) 1px, transparent 1px), radial-gradient(rgba(0,0,0,0.05) 1px, transparent 1px)",
+                  backgroundSize: "3px 3px, 5px 5px",
+                  backgroundPosition: "0 0, 1.5px 1.5px",
+                  opacity: 0.6,
+                }}
+              />
+
               {/* Quote text (right-aligned in RTL) */}
               <div
                 className="relative z-10 max-w-[60%] text-right"
-                style={{ color: tone.fg }}
+                style={{
+                  color: tone.fg,
+                  textShadow: "0 1px 1px rgba(0,0,0,0.15)",
+                }}
               >
                 <p className="text-xl sm:text-3xl font-bold leading-snug mb-3">
                   &quot;{renderQuote(q.text)}&quot;
@@ -95,7 +125,7 @@ export default function Hero({ title, quotes }: Props) {
               </div>
 
               {/* Watermark logo on the LEFT — colored to match the slide tone */}
-              <div className="opacity-30 sm:opacity-40 shrink-0" aria-hidden>
+              <div className="opacity-35 sm:opacity-45 shrink-0" aria-hidden>
                 <Logo
                   size={140}
                   variant={tone.logo}
@@ -103,13 +133,13 @@ export default function Hero({ title, quotes }: Props) {
                 />
               </div>
 
-              {/* Soft top-right highlight */}
+              {/* Soft top-right highlight (specular) */}
               <div
                 aria-hidden
                 className="absolute inset-0 pointer-events-none"
                 style={{
                   background:
-                    "radial-gradient(120% 80% at 80% 20%, rgba(255,255,255,0.10), transparent 60%)",
+                    "radial-gradient(110% 70% at 80% 15%, rgba(255,255,255,0.16), transparent 55%)",
                 }}
               />
             </div>

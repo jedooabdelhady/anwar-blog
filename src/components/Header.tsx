@@ -28,12 +28,11 @@ const SOCIAL_LABEL = {
   tiktok:   "تيك توك",
 } as const;
 
-const SOCIAL_COLOR = {
-  youtube:  "#FF0000",
-  telegram: "#229ED9",
-  x:        "#000000",
-  tiktok:   "#010101",
-} as const;
+/** All socials sit on the smoke/oak palette so they blend with the
+ *  earthy site (per client direction — no brand-color circles). */
+const SOCIAL_BG    = "#DBD9CF";   // smoke
+const SOCIAL_FG    = "#38261C";   // pepper
+const SOCIAL_RING  = "#B0997D";   // oak hairline border
 
 function SocialIcon({ kind }: { kind: keyof typeof SOCIALS }) {
   const common = { width: 20, height: 20, fill: "currentColor" as const };
@@ -87,8 +86,12 @@ function SocialStack({
           aria-label={SOCIAL_LABEL[k]}
           title={SOCIAL_LABEL[k]}
           onClick={onItemClick}
-          className="inline-flex items-center justify-center w-10 h-10 rounded-full text-white transition-transform hover:scale-110 shadow-[0_4px_10px_-4px_rgba(0,0,0,0.25)]"
-          style={{ background: SOCIAL_COLOR[k] }}
+          className="inline-flex items-center justify-center w-10 h-10 rounded-full transition-transform hover:scale-110 shadow-[0_4px_10px_-4px_rgba(56,38,28,0.18)]"
+          style={{
+            background: SOCIAL_BG,
+            color: SOCIAL_FG,
+            border: `1px solid ${SOCIAL_RING}`,
+          }}
         >
           <SocialIcon kind={k} />
         </a>
