@@ -42,8 +42,10 @@
   --color-card-3: var(--card-3);
   --color-line:   var(--line);
 
-  --font-sans: var(--font-tajawal), ui-sans-serif, system-ui, "Segoe UI",
-               "Tahoma", sans-serif;
+  /* Times New Roman first (per client's Word document aesthetic), with
+     Arabic-capable serif fallbacks so older devices still read well. */
+  --font-sans: "Times New Roman", "Times", "Amiri", "Traditional Arabic",
+               "Noto Naskh Arabic", Georgia, serif;
 }
 
 html, body {
