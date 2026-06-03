@@ -4,9 +4,11 @@ import type { PublicPost } from "@/sanity/lib/fetch";
 
 type Props = {
   post: PublicPost;
+  /** Boost first-row cards: eager-load + high fetch priority for LCP. */
+  priority?: boolean;
 };
 
-export default function BlogCard({ post }: Props) {
+export default function BlogCard({ post, priority = false }: Props) {
   return (
     <article className="flex flex-col items-center text-center">
       <Link
@@ -20,6 +22,7 @@ export default function BlogCard({ post }: Props) {
             alt={post.imageAlt || post.title}
             fill
             sizes="170px"
+            priority={priority}
             className="object-cover transition-transform duration-500 group-hover:scale-105"
           />
         </div>

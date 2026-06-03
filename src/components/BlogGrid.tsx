@@ -36,8 +36,8 @@ export default function BlogGrid({
       )}
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-12 sm:gap-y-14">
-        {posts.map((p) => (
-          <BlogCard key={p.slug} post={p} />
+        {posts.map((p, i) => (
+          <BlogCard key={p.slug} post={p} priority={i < 3} />
         ))}
       </div>
     </section>
