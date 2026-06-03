@@ -178,8 +178,8 @@ export default defineType({
       type: "object",
       options: { collapsible: true, collapsed: true },
       fields: [
-        defineField({ name: "title",    title: "العنوان",       type: "string", initialValue: "مدونتنا" }),
-        defineField({ name: "subtitle", title: "النص الفرعي",   type: "string", initialValue: "مواضيع ومقالات تهمك" }),
+        defineField({ name: "title",    title: "العنوان",       type: "string", initialValue: "الواردّ العلميِ" }),
+        defineField({ name: "subtitle", title: "النص الفرعي",   type: "string", initialValue: "بحرْ العلمْ بوابةّ العالمْ فارتّق نْ" }),
       ],
     }),
   ],

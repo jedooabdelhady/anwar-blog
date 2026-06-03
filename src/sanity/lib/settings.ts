@@ -50,8 +50,8 @@ export const DEFAULT_SETTINGS: SiteSettings = {
     cta:   "ابدأ استعلامك",
   },
   blogSection: {
-    title:    "مدونتنا",
-    subtitle: "مواضيع ومقالات تهمك",
+    title:    "الواردّ العلميِ",
+    subtitle: "بحرْ العلمْ بوابةّ العالمْ فارتّق نْ",
   },
 };
 
