@@ -39,10 +39,10 @@ export default function BlogCard({ post, priority = false }: Props) {
 
       <Link
         href={`/blog/${post.slug}`}
-        className="mt-4 inline-flex items-center justify-center rounded-full px-6 py-2 text-white text-sm font-medium transition-colors"
+        className="mt-4 inline-flex items-center justify-center rounded-full px-5 sm:px-6 py-2 text-white text-sm font-medium transition-colors whitespace-nowrap"
         style={{ background: "#6B3F23" }}
       >
-        اقرأ المزيد
+        اطَّلِعْ عَلَى المُفيدِ
       </Link>
     </article>
   );
