@@ -53,13 +53,23 @@ html, body {
   color: var(--ink);
 }
 
-/* Engraved Thamudic-style backdrop — gives the page the "stone tablet"
-   feel the client asked for instead of a plain cream surface. */
+/* Engraved Thamudic-style backdrop — slow horizontal drift so the
+   glyphs feel like sand shifting rather than a static cluttered grid. */
 body {
   background-image: url("/thamudic-bg.svg");
   background-repeat: repeat;
-  background-size: 320px 320px;
-  background-attachment: fixed;
+  background-size: 380px 380px;
+  animation: thamudic-drift 120s linear infinite;
+}
+
+@keyframes thamudic-drift {
+  from { background-position: 0 0; }
+  to   { background-position: 380px 380px; }
+}
+
+/* Honour the visitor's "reduce motion" preference. */
+@media (prefers-reduced-motion: reduce) {
+  body { animation: none; background-attachment: fixed; }
 }
 
 /* Smooth Arabic text rendering */

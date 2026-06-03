@@ -65,12 +65,17 @@ export default function Hero({ title, quotes }: Props) {
       <h1 className="sr-only">{title}</h1>
 
       <div
-        className="relative overflow-hidden rounded-[32px] sm:rounded-[40px] h-[220px] sm:h-[280px]"
+        className="relative overflow-hidden h-[220px] sm:h-[280px]"
         style={{
-          /* Lifted "carved" feel:
-             — outer drop shadow gives the banner depth against the page
-             — inset highlight at the top edge fakes a bevel
-             — inset dark at the bottom mimics a chiseled edge          */
+          /* Mihrab-arched silhouette — top corners use elliptical radii
+             that read as an Islamic arch while keeping the bottom edge
+             rectangular for legibility. */
+          borderTopLeftRadius:     "55% 38%",
+          borderTopRightRadius:    "55% 38%",
+          borderBottomLeftRadius:  "28px",
+          borderBottomRightRadius: "28px",
+
+          /* Lifted "carved" feel layered on top of the arch. */
           boxShadow: [
             "0 22px 50px -22px rgba(56,38,28,0.55)",       // drop
             "inset 0 1px 0 rgba(255,255,255,0.18)",        // top highlight
