@@ -32,11 +32,11 @@ export default function Hero() {
         {/* Text content (RTL → starts on right) */}
         <div className="relative z-10 max-w-2xl text-right text-clay">
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight mb-4">
-            مرحباً بك في أنوار
+            مرحباً بك في تأويل الرؤى
           </h1>
           <p className="text-base sm:text-lg lg:text-xl text-clay/90 leading-relaxed">
-            مساحة عربية أنيقة للأفكار الملهمة، المحتوى الريادي، وقصص النمو
-            الشخصي والمهني. اقرأ، شاركنا رؤيتك، وكن جزءاً من المجتمع.
+            مساحة عربية للتأمّل والتفسير، ومحتوى متخصص يعينك على فهم رؤاك
+            والاطلاع على ما ينير دربك. شاركنا، اقرأ، وكن جزءاً من المجتمع.
           </p>
         </div>
       </div>

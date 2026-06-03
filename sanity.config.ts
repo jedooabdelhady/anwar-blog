@@ -9,7 +9,7 @@ export default defineConfig({
   basePath: "/studio",
   projectId,
   dataset,
-  title: "لوحة أنوار",
+  title: "لوحة تأويل الرؤى",
   name: "anwar-studio",
   theme: anwarStudioTheme,
   icon: StudioLogo,

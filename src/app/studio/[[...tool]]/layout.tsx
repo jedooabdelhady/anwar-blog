@@ -3,7 +3,7 @@
  * Studio chrome (Sanity's UI is English-internationalized, not RTL-aware).
  */
 export const metadata = {
-  title: "لوحة التحكم — أنوار",
+  title: "لوحة التحكم — تأويل الرؤى",
   robots: { index: false, follow: false },
 };
 

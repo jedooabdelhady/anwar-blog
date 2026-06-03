@@ -22,7 +22,7 @@ export function StudioLogo() {
           letterSpacing: "0.5px",
         }}
       >
-        لوحة أنوار
+        تأويل الرؤى
       </span>
     </div>
   );
