@@ -2,10 +2,11 @@ import { defineField, defineType, defineArrayMember } from "sanity";
 import { CogIcon } from "@sanity/icons";
 
 const SLIDE_COLORS = [
-  { title: "بني محمر (Sienna)", value: "sienna" },
-  { title: "بني فاتح (Oak)",     value: "oak" },
-  { title: "بني داكن (Pepper)",  value: "pepper" },
-  { title: "زيتي (Gum)",         value: "gum" },
+  { title: "بني محمر (Sienna)",       value: "sienna" },
+  { title: "بني فاتح (Oak)",          value: "oak" },
+  { title: "بني داكن (Pepper)",       value: "pepper" },
+  { title: "زيتي (Gum)",              value: "gum" },
+  { title: "مخطوط فاتح (Smoke) 📜",   value: "smoke" },
 ] as const;
 
 /**
@@ -51,9 +52,11 @@ export default defineType({
             defineField({
               name: "text",
               title: "نص الاقتباس",
+              description:
+                "لتغميق كلمة، ضعيها بين نجمتين هكذا: **الكلمة**. مثال: \"فلا ذنبَ لي أنْ كانتْ العين تحلمُ\" • م: **المخطوطُ**",
               type: "text",
               rows: 2,
-              validation: (R) => R.required().max(200),
+              validation: (R) => R.required().max(300),
             }),
             defineField({
               name: "source",

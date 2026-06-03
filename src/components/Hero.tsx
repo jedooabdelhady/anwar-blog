@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, Fragment } from "react";
 import Logo from "./Logo";
 import type { HeroQuote, SlideColor } from "@/sanity/lib/settings";
 
@@ -10,21 +10,48 @@ type Props = {
   quotes: HeroQuote[];
 };
 
-/** Background gradients per palette slot (extracted from the brand board). */
+/** Background gradients per palette slot. */
 const GRADIENT: Record<SlideColor, string> = {
   sienna: "linear-gradient(135deg, #8B6849 0%, #966F4F 50%, #8B6849 100%)",
   oak:    "linear-gradient(135deg, #B0997D 0%, #BDA48A 50%, #9B856B 100%)",
   pepper: "linear-gradient(135deg, #4D372A 0%, #5A4232 50%, #38261C 100%)",
   gum:    "linear-gradient(135deg, #8F8C78 0%, #9D9A86 50%, #75725F 100%)",
+  smoke:  "linear-gradient(135deg, #E5E3D8 0%, #DBD9CF 50%, #CECABE 100%)",
+};
+
+/** Text color per slide — smoke is a parchment, the rest are dark/saturated. */
+const TEXT_TONE: Record<SlideColor, { fg: string; sub: string; logo: "clay" | "pepper" }> = {
+  sienna: { fg: "#EDE5DE", sub: "rgba(237,229,222,0.85)", logo: "clay"   },
+  oak:    { fg: "#EDE5DE", sub: "rgba(237,229,222,0.85)", logo: "clay"   },
+  pepper: { fg: "#EDE5DE", sub: "rgba(237,229,222,0.85)", logo: "clay"   },
+  gum:    { fg: "#EDE5DE", sub: "rgba(237,229,222,0.85)", logo: "clay"   },
+  smoke:  { fg: "#38261C", sub: "rgba(56,38,28,0.70)",    logo: "pepper" },
 };
 
 const AUTO_ROTATE_MS = 6000;
+
+/**
+ * Render quote text with **double-asterisk** bold support.
+ * "م: **المخطوطُ**" → "م: <strong>المخطوطُ</strong>"
+ */
+function renderQuote(text: string): React.ReactNode {
+  const parts = text.split(/(\*\*[^*]+\*\*)/g);
+  return parts.map((p, i) => {
+    if (p.startsWith("**") && p.endsWith("**")) {
+      return (
+        <strong key={i} className="font-extrabold">
+          {p.slice(2, -2)}
+        </strong>
+      );
+    }
+    return <Fragment key={i}>{p}</Fragment>;
+  });
+}
 
 export default function Hero({ title, quotes }: Props) {
   const safeQuotes = quotes.length > 0 ? quotes : [{ text: title }];
   const [idx, setIdx] = useState(0);
 
-  // Auto-rotate, pausing reset on manual navigation.
   useEffect(() => {
     if (safeQuotes.length < 2) return;
     const id = setInterval(() => {
@@ -37,10 +64,11 @@ export default function Hero({ title, quotes }: Props) {
     <section className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12 pt-2 pb-4">
       <h1 className="sr-only">{title}</h1>
 
-      {/* Carousel viewport */}
       <div className="relative overflow-hidden rounded-[32px] sm:rounded-[40px] h-[220px] sm:h-[280px]">
         {safeQuotes.map((q, i) => {
-          const bg = GRADIENT[q.color ?? "sienna"] ?? GRADIENT.sienna;
+          const color = q.color ?? "sienna";
+          const bg = GRADIENT[color] ?? GRADIENT.sienna;
+          const tone = TEXT_TONE[color] ?? TEXT_TONE.sienna;
           const active = i === idx;
           return (
             <div
@@ -52,23 +80,27 @@ export default function Hero({ title, quotes }: Props) {
               style={{ background: bg }}
             >
               {/* Quote text (right-aligned in RTL) */}
-              <div className="relative z-10 max-w-[60%] text-right text-clay">
+              <div
+                className="relative z-10 max-w-[60%] text-right"
+                style={{ color: tone.fg }}
+              >
                 <p className="text-xl sm:text-3xl font-bold leading-snug mb-3">
-                  {`"${q.text}"`}
+                  &quot;{renderQuote(q.text)}&quot;
                 </p>
                 {q.source && (
-                  <p className="text-sm sm:text-base text-clay/85">
+                  <p className="text-sm sm:text-base" style={{ color: tone.sub }}>
                     — {q.source}
                   </p>
                 )}
               </div>
 
-              {/* Faded watermark logo on the LEFT side of the slide */}
-              <div
-                className="opacity-30 sm:opacity-40 shrink-0"
-                aria-hidden
-              >
-                <Logo size={140} variant="clay" className="sm:!w-[200px] sm:!h-[200px]" />
+              {/* Watermark logo on the LEFT — colored to match the slide tone */}
+              <div className="opacity-30 sm:opacity-40 shrink-0" aria-hidden>
+                <Logo
+                  size={140}
+                  variant={tone.logo}
+                  className="sm:!w-[200px] sm:!h-[200px]"
+                />
               </div>
 
               {/* Soft top-right highlight */}

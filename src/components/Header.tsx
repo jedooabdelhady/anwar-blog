@@ -13,27 +13,26 @@ const NAV = [
   { href: "/services", label: "بَوّابةُ التَّساؤُل" },
 ];
 
-/**
- * Social URLs — temporary placeholders. The client will send YouTube /
- * Telegram / X URLs and we plug them in (or we promote these to Sanity
- * siteSettings so she edits them herself).
- */
+/** Client's actual social channels (June 2026). */
 const SOCIALS = {
-  youtube:  "#",
-  telegram: "#",
-  x:        "#",
-};
+  youtube:  "https://youtube.com/@sahaarr299?si=K5zRBaF-pAPDaajB",
+  telegram: "https://t.me/Fnon0",
+  x:        "https://x.com/sahaarr299?s=21",
+  tiktok:   "https://www.tiktok.com/@sahaarr299?_r=1&_t=ZS-96ukqXNqjAt",
+} as const;
 
 const SOCIAL_LABEL = {
   youtube:  "يوتيوب",
   telegram: "تيليجرام",
   x:        "إكس (تويتر)",
+  tiktok:   "تيك توك",
 } as const;
 
 const SOCIAL_COLOR = {
   youtube:  "#FF0000",
   telegram: "#229ED9",
   x:        "#000000",
+  tiktok:   "#010101",
 } as const;
 
 function SocialIcon({ kind }: { kind: keyof typeof SOCIALS }) {
@@ -52,10 +51,17 @@ function SocialIcon({ kind }: { kind: keyof typeof SOCIALS }) {
       </svg>
     );
   }
-  // x (twitter)
+  if (kind === "x") {
+    return (
+      <svg viewBox="0 0 24 24" {...common} aria-hidden>
+        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.66l-5.214-6.817-5.97 6.817H1.673l7.73-8.836L1.25 2.25H8.08l4.713 6.231 5.451-6.231zm-1.161 17.52h1.833L7.084 4.126H5.117l11.966 15.644z" />
+      </svg>
+    );
+  }
+  // tiktok
   return (
     <svg viewBox="0 0 24 24" {...common} aria-hidden>
-      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.66l-5.214-6.817-5.97 6.817H1.673l7.73-8.836L1.25 2.25H8.08l4.713 6.231 5.451-6.231zm-1.161 17.52h1.833L7.084 4.126H5.117l11.966 15.644z" />
+      <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5.8 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1.84-.1z" />
     </svg>
   );
 }
@@ -67,14 +73,16 @@ function SocialStack({
   vertical?: boolean;
   onItemClick?: () => void;
 }) {
-  const kinds = ["youtube", "telegram", "x"] as const;
+  // Order chosen so that in RTL flow the visual reading (right→left) is
+  // YouTube · Telegram · X · TikTok, matching the client's mock-up.
+  const kinds = ["youtube", "telegram", "x", "tiktok"] as const;
   return (
     <div className={clsx("flex gap-3", vertical ? "flex-col items-center" : "items-center")}>
       {kinds.map((k) => (
         <a
           key={k}
           href={SOCIALS[k]}
-          target={SOCIALS[k] === "#" ? undefined : "_blank"}
+          target="_blank"
           rel="noopener noreferrer"
           aria-label={SOCIAL_LABEL[k]}
           title={SOCIAL_LABEL[k]}
