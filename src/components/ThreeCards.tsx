@@ -35,32 +35,30 @@ const LOOK: Record<"cardPublic" | "cardPrivate" | "cardInquiry", CardLook> = {
 };
 
 /**
- * Renders the card title with the first word ("بوابة" or similar) in
- * a bolder weight so it reads as a label. Falls back gracefully if the
- * title is a single word.
+ * Card title — first word ("بوابة") rendered extra-bold, preceded by
+ * a red dotted-circle (◌, U+25CC) ornament. No side dashes — they
+ * forced the title onto two lines on small screens.
  */
 function CardTitle({ children }: { children: string }) {
   const parts = children.trim().split(/\s+/);
   const head = parts[0];
   const tail = parts.slice(1).join(" ");
   return (
-    <h3 className="text-center text-lg sm:text-xl text-pepper">
-      <span className="section-title-deco">
-        <span className="section-title-deco-dot" />
-        <span>
-          <strong className="font-extrabold">{head}</strong>
-          {tail ? ` ${tail}` : ""}
-        </span>
-        <span className="section-title-deco-dot" />
+    <h3 className="text-center text-lg sm:text-xl text-pepper leading-tight">
+      <span
+        aria-hidden
+        className="me-2 align-middle"
+        style={{ color: "#b03a2e", fontSize: "0.85em", letterSpacing: 0 }}
+      >
+        ◌
       </span>
+      <strong className="font-extrabold">{head}</strong>
+      {tail ? ` ${tail}` : ""}
     </h3>
   );
 }
 
-/**
- * Bolden the first word of the body (an action/space label like
- * "مساحة" / "نافذة") so the card reads at a glance.
- */
+/** First word of the body bolded, matching the mockup. */
 function CardBody({ children }: { children: string }) {
   const text = children.trim();
   const i = text.indexOf(" ");
@@ -106,14 +104,20 @@ export default function ThreeCards({
             className="rounded-[28px] border border-line p-7 sm:p-8 flex flex-col items-center text-center shadow-[0_1px_0_rgba(56,38,28,0.04),0_18px_32px_-22px_rgba(56,38,28,0.22)] transition-transform duration-300 hover:-translate-y-1"
             style={{ background: c.look.cardBg }}
           >
-            <CardTitle>{c.title}</CardTitle>
-
-            <div className="my-6 sm:my-7">
+            {/* Icon at the top */}
+            <div className="mb-5 sm:mb-6">
               <Logo size={88} variant={c.look.iconVariant} withRing={false} />
             </div>
 
-            <CardBody>{c.body}</CardBody>
+            {/* Title below the icon */}
+            <CardTitle>{c.title}</CardTitle>
 
+            {/* Body */}
+            <div className="mt-5">
+              <CardBody>{c.body}</CardBody>
+            </div>
+
+            {/* Button */}
             <Link
               href={c.look.href}
               className="inline-flex items-center justify-center rounded-full px-7 py-2.5 text-white text-sm sm:text-[15px] font-medium transition-colors bg-[var(--btn)] hover:bg-[var(--btn-h)]"
