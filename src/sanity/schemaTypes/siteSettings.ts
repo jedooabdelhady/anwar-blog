@@ -40,19 +40,17 @@ export default defineType({
       fields: [
         defineField({
           name: "title",
-          title: "العنوان الكبير",
+          title: "العنوان (يظهر بخط صغير تحت البانر)",
           type: "string",
-          initialValue: "مرحباً بك في علم تأويل الرؤى",
+          initialValue: "أهلاً بكم في علم تأويل الرؤى",
           validation: (R) => R.required().max(80),
         }),
         defineField({
           name: "subtitle",
-          title: "النص التحت العنوان",
+          title: "نص فرعي (غير معروض حالياً — محفوظ للاستخدام لاحقاً)",
           type: "text",
-          rows: 3,
-          initialValue:
-            "مساحة عربية للتأمّل والتفسير، ومحتوى متخصص يعينك على فهم رؤاك والاطلاع على ما ينير دربك. شاركنا، اقرأ، وكن جزءاً من المجتمع.",
-          validation: (R) => R.required().max(400),
+          rows: 2,
+          validation: (R) => R.max(400),
         }),
       ],
     }),

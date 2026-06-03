@@ -1,29 +1,32 @@
 import { ImageResponse } from "next/og";
 
-export const size = { width: 180, height: 180 };
+export const alt = "علم تأويل الرؤى";
+export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
 /**
- * Apple touch icon — drawn from the same brand mark used in Logo.tsx.
- * Transparent background per client request; iOS will mask it under
- * its own rounded-corner overlay anyway.
+ * Open Graph image — pure brand mark on a brown gradient.
+ * No Arabic text is rendered (Satori cannot reliably shape Tajawal),
+ * so the logo speaks for itself when the link is shared on
+ * WhatsApp/Twitter/Facebook.
  */
-export default function AppleIcon() {
-  const STROKE = "#38261C";
+export default function OGImage() {
+  const STROKE = "#EDE5DE";
   return new ImageResponse(
     (
       <div
         style={{
           width: "100%",
           height: "100%",
-          background: "transparent",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
+          background:
+            "linear-gradient(135deg, #8B6849 0%, #6B3F23 50%, #38261C 100%)",
         }}
       >
-        <svg viewBox="0 0 240 240" width="180" height="180">
-          {/* Crescent on the left */}
+        <svg viewBox="0 0 240 240" width="500" height="500">
+          {/* Crescent */}
           <path
             d="M 120 30 C 56 30 24 70 24 120 C 24 170 56 210 120 210"
             fill="none"
@@ -70,10 +73,7 @@ export default function AppleIcon() {
             <path d="M 120 90 L 80 42" />
             <path d="M 120 90 L 160 42" />
             <path d="M 120 90 L 120 120" />
-            <path
-              d="M 120 120 L 134 142 L 120 166 L 106 142 Z"
-              fill={STROKE}
-            />
+            <path d="M 120 120 L 134 142 L 120 166 L 106 142 Z" fill={STROKE} />
             <path d="M 120 166 L 120 180" />
             <path d="M 78 212 L 78 210 Q 120 172 162 210 L 162 212" />
           </g>

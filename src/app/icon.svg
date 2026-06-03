@@ -1,27 +1,30 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
-  <rect width="200" height="200" rx="40" fill="#EDE5DE"/>
-  <!-- Crescent on the left -->
-  <path d="M 100 28 C 60 28 32 60 32 100 C 32 140 60 172 100 172"
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240">
+  <!-- Crescent (left, opens right) -->
+  <path d="M 120 30 C 56 30 24 70 24 120 C 24 170 56 210 120 210"
         fill="none" stroke="#38261C" stroke-width="4" stroke-linecap="round"/>
+  <!-- Whisker at the bottom of the crescent -->
+  <path d="M 120 210 q 4 6 -2 14 q -2 4 4 6"
+        fill="none" stroke="#38261C" stroke-width="2.5" stroke-linecap="round"/>
   <!-- Sun/leaf rays on the right -->
   <g fill="#38261C">
-    <g transform="rotate(-100 100 100) translate(100 12)"><path d="M 0 0 Q -3.5 -19 0 -38 Q 3.5 -19 0 0 Z"/></g>
-    <g transform="rotate(-75 100 100) translate(100 8)"><path d="M 0 0 Q -3.5 -21 0 -42 Q 3.5 -21 0 0 Z"/></g>
-    <g transform="rotate(-55 100 100) translate(100 6)"><path d="M 0 0 Q -3.5 -22 0 -44 Q 3.5 -22 0 0 Z"/></g>
-    <g transform="rotate(-35 100 100) translate(100 5)"><path d="M 0 0 Q -3.5 -22.5 0 -45 Q 3.5 -22.5 0 0 Z"/></g>
-    <g transform="rotate(-15 100 100) translate(100 6)"><path d="M 0 0 Q -3.5 -22 0 -44 Q 3.5 -22 0 0 Z"/></g>
-    <g transform="rotate(10 100 100) translate(100 8)"><path d="M 0 0 Q -3.5 -21 0 -42 Q 3.5 -21 0 0 Z"/></g>
-    <g transform="rotate(35 100 100) translate(100 10)"><path d="M 0 0 Q -3.5 -20 0 -40 Q 3.5 -20 0 0 Z"/></g>
-    <g transform="rotate(60 100 100) translate(100 12)"><path d="M 0 0 Q -3.5 -19 0 -38 Q 3.5 -19 0 0 Z"/></g>
-    <g transform="rotate(85 100 100) translate(100 14)"><path d="M 0 0 Q -3.5 -18 0 -36 Q 3.5 -18 0 0 Z"/></g>
+    <g transform="rotate(-82 120 120) translate(120 32)"><path d="M 0 0 C -6 -15 -6 -35 0 -50 C 6 -35 6 -15 0 0 Z"/></g>
+    <g transform="rotate(-62 120 120) translate(120 32)"><path d="M 0 0 C -6 -18 -6 -42 0 -60 C 6 -42 6 -18 0 0 Z"/></g>
+    <g transform="rotate(-42 120 120) translate(120 32)"><path d="M 0 0 C -6 -20 -6 -46 0 -66 C 6 -46 6 -20 0 0 Z"/></g>
+    <g transform="rotate(-22 120 120) translate(120 32)"><path d="M 0 0 C -6 -21 -6 -49 0 -70 C 6 -49 6 -21 0 0 Z"/></g>
+    <g transform="rotate(-2 120 120) translate(120 32)"><path d="M 0 0 C -6 -22 -6 -50 0 -72 C 6 -50 6 -22 0 0 Z"/></g>
+    <g transform="rotate(18 120 120) translate(120 32)"><path d="M 0 0 C -6 -21 -6 -49 0 -70 C 6 -49 6 -21 0 0 Z"/></g>
+    <g transform="rotate(38 120 120) translate(120 32)"><path d="M 0 0 C -6 -20 -6 -46 0 -66 C 6 -46 6 -20 0 0 Z"/></g>
+    <g transform="rotate(58 120 120) translate(120 32)"><path d="M 0 0 C -6 -18 -6 -42 0 -60 C 6 -42 6 -18 0 0 Z"/></g>
+    <g transform="rotate(78 120 120) translate(120 32)"><path d="M 0 0 C -6 -15 -6 -35 0 -50 C 6 -35 6 -15 0 0 Z"/></g>
   </g>
-  <!-- Yaz human figure -->
-  <g stroke="#38261C" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
-    <circle cx="100" cy="58" r="5.5" fill="#38261C" stroke="none"/>
-    <path d="M 76 56 L 100 80 L 124 56"/>
-    <path d="M 100 80 L 100 96"/>
-    <path d="M 100 96 L 109 106 L 100 116 L 91 106 Z" fill="#38261C"/>
-    <path d="M 100 116 L 100 132"/>
-    <path d="M 74 168 L 74 144 Q 100 122 126 144 L 126 168"/>
+  <!-- Yaz figure -->
+  <g stroke="#38261C" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <circle cx="120" cy="65" r="8" fill="#38261C" stroke="none"/>
+    <path d="M 120 90 L 80 42"/>
+    <path d="M 120 90 L 160 42"/>
+    <path d="M 120 90 L 120 120"/>
+    <path d="M 120 120 L 134 142 L 120 166 L 106 142 Z" fill="#38261C"/>
+    <path d="M 120 166 L 120 180"/>
+    <path d="M 78 212 L 78 210 Q 120 172 162 210 L 162 212"/>
   </g>
 </svg>
