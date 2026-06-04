@@ -101,17 +101,17 @@ export default function ThreeCards({
         {cards.map((c) => (
           <article
             key={c.title}
-            className="border border-line pt-10 sm:pt-12 px-7 sm:px-8 pb-7 sm:pb-8 flex flex-col items-center text-center shadow-[0_1px_0_rgba(56,38,28,0.04),0_18px_32px_-22px_rgba(56,38,28,0.22)] transition-transform duration-300 hover:-translate-y-1"
+            className="border border-line pt-14 sm:pt-16 px-7 sm:px-8 pb-8 sm:pb-10 flex flex-col items-center text-center min-h-[500px] sm:min-h-[560px] shadow-[0_1px_0_rgba(56,38,28,0.04),0_18px_32px_-22px_rgba(56,38,28,0.22)] transition-transform duration-300 hover:-translate-y-1"
             style={{
               background: c.look.cardBg,
-              /* Mihrab / Roshn-style silhouette: arched top, squared base.
-                 Top corners use elliptical radii so the curve reads as an
-                 Islamic arch above the figure; bottom stays rounded but
-                 close to a normal rectangle for legibility. */
-              borderTopLeftRadius:     "50% 38%",
-              borderTopRightRadius:    "50% 38%",
-              borderBottomLeftRadius:  "22px",
-              borderBottomRightRadius: "22px",
+              /* Roshn-style silhouette: only the very TOP curves into a
+                 dome, then straight vertical sides, then squared base.
+                 We use mixed % / px:
+                   - horizontal radius = 50% so the dome spans the width
+                   - vertical radius = 110px (fixed) so the arch is the
+                     same height regardless of how tall the card grows,
+                     leaving long straight sides below it. */
+              borderRadius: "50% 50% 22px 22px / 110px 110px 22px 22px",
             }}
           >
             {/* Icon at the top — sits inside the arch */}
@@ -122,8 +122,9 @@ export default function ThreeCards({
             {/* Title below the icon */}
             <CardTitle>{c.title}</CardTitle>
 
-            {/* Body */}
-            <div className="mt-5">
+            {/* Body — stretches to fill remaining height so the button
+                pins to the bottom of the long silhouette. */}
+            <div className="flex-1 flex items-center mt-5">
               <CardBody>{c.body}</CardBody>
             </div>
 
