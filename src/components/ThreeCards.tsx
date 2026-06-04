@@ -101,10 +101,20 @@ export default function ThreeCards({
         {cards.map((c) => (
           <article
             key={c.title}
-            className="rounded-[28px] border border-line p-7 sm:p-8 flex flex-col items-center text-center shadow-[0_1px_0_rgba(56,38,28,0.04),0_18px_32px_-22px_rgba(56,38,28,0.22)] transition-transform duration-300 hover:-translate-y-1"
-            style={{ background: c.look.cardBg }}
+            className="border border-line pt-10 sm:pt-12 px-7 sm:px-8 pb-7 sm:pb-8 flex flex-col items-center text-center shadow-[0_1px_0_rgba(56,38,28,0.04),0_18px_32px_-22px_rgba(56,38,28,0.22)] transition-transform duration-300 hover:-translate-y-1"
+            style={{
+              background: c.look.cardBg,
+              /* Mihrab / Roshn-style silhouette: arched top, squared base.
+                 Top corners use elliptical radii so the curve reads as an
+                 Islamic arch above the figure; bottom stays rounded but
+                 close to a normal rectangle for legibility. */
+              borderTopLeftRadius:     "50% 38%",
+              borderTopRightRadius:    "50% 38%",
+              borderBottomLeftRadius:  "22px",
+              borderBottomRightRadius: "22px",
+            }}
           >
-            {/* Icon at the top */}
+            {/* Icon at the top — sits inside the arch */}
             <div className="mb-5 sm:mb-6">
               <Logo size={88} variant={c.look.iconVariant} withRing={false} />
             </div>
