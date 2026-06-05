@@ -1,6 +1,22 @@
 import Link from "next/link";
+import { Fragment } from "react";
 import Logo from "./Logo";
 import type { CardCopy } from "@/sanity/lib/settings";
+
+/** Render with **double-asterisk** bold support — used by the body text. */
+function renderRich(text: string): React.ReactNode {
+  const parts = text.split(/(\*\*[^*]+\*\*)/g);
+  return parts.map((p, i) => {
+    if (p.startsWith("**") && p.endsWith("**")) {
+      return (
+        <strong key={i} className="font-bold text-pepper">
+          {p.slice(2, -2)}
+        </strong>
+      );
+    }
+    return <Fragment key={i}>{p}</Fragment>;
+  });
+}
 
 type CardLook = {
   iconVariant: "pepper" | "sienna" | "gum" | "oak";
@@ -58,16 +74,11 @@ function CardTitle({ children }: { children: string }) {
   );
 }
 
-/** First word of the body bolded, matching the mockup. */
+/** Body text — bolds any **double-asterisk** runs the editor adds. */
 function CardBody({ children }: { children: string }) {
-  const text = children.trim();
-  const i = text.indexOf(" ");
-  const head = i === -1 ? text : text.slice(0, i);
-  const tail = i === -1 ? "" : text.slice(i);
   return (
     <p className="text-pepper/85 text-[15px] sm:text-base leading-relaxed mb-7 min-h-[3.2em]">
-      <strong className="font-bold text-pepper">{head}</strong>
-      {tail}
+      {renderRich(children)}
     </p>
   );
 }

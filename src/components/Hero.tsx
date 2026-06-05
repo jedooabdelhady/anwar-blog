@@ -88,32 +88,6 @@ export default function Hero({ title, quotes }: Props) {
               }`}
               style={{ background: bg }}
             >
-              {/* Najdi pattern band — TOP (inset from edges, soft) */}
-              <div
-                aria-hidden
-                className="absolute top-2 sm:top-3 left-5 right-5 sm:left-10 sm:right-10 h-4 sm:h-5 pointer-events-none"
-                style={{
-                  color: tone.band,
-                  backgroundImage: "url(/najdi-band.svg)",
-                  backgroundRepeat: "repeat-x",
-                  backgroundSize: "auto 100%",
-                  opacity: 0.45,
-                }}
-              />
-
-              {/* Najdi pattern band — BOTTOM (mirror placement) */}
-              <div
-                aria-hidden
-                className="absolute bottom-2 sm:bottom-3 left-5 right-5 sm:left-10 sm:right-10 h-4 sm:h-5 pointer-events-none"
-                style={{
-                  color: tone.band,
-                  backgroundImage: "url(/najdi-band.svg)",
-                  backgroundRepeat: "repeat-x",
-                  backgroundSize: "auto 100%",
-                  opacity: 0.45,
-                }}
-              />
-
               {/* Logo on the LEFT (visual left), vertically centered */}
               <div
                 className="absolute left-4 sm:left-10 top-1/2 -translate-y-1/2 shrink-0 opacity-75 sm:opacity-85"
@@ -154,25 +128,38 @@ export default function Hero({ title, quotes }: Props) {
         })}
       </div>
 
-      {/* Dots indicator */}
+      {/* Thamudic indicator row — each glyph is a clickable slide marker.
+          The active glyph is enlarged and tinted sienna so it reads as
+          "you are here" along the inscription. */}
       {safeQuotes.length > 1 && (
         <div
-          className="mt-4 flex items-center justify-center gap-2"
+          className="mt-5 flex items-center justify-center gap-3 sm:gap-4 select-none"
           role="tablist"
           aria-label="شرائح البانر"
+          style={{ fontFamily: "'Noto Sans Old South Arabian', 'Segoe UI Historic', serif" }}
         >
-          {safeQuotes.map((_, i) => (
-            <button
-              key={i}
-              role="tab"
-              aria-selected={i === idx}
-              aria-label={`الشريحة ${i + 1}`}
-              onClick={() => setIdx(i)}
-              className={`h-2 rounded-full transition-all ${
-                i === idx ? "w-6 bg-sienna" : "w-2 bg-pepper/30 hover:bg-pepper/50"
-              }`}
-            />
-          ))}
+          {safeQuotes.map((_, i) => {
+            const glyph = i % 2 === 0 ? "𐩥" : "𐩰";
+            const active = i === idx;
+            return (
+              <button
+                key={i}
+                role="tab"
+                aria-selected={active}
+                aria-label={`الشريحة ${i + 1}`}
+                onClick={() => setIdx(i)}
+                className="transition-all leading-none focus-visible:outline-none"
+                style={{
+                  fontSize: active ? "26px" : "18px",
+                  color: active ? "#6B3F23" : "rgba(56,38,28,0.35)",
+                  fontWeight: active ? 700 : 400,
+                  transform: active ? "translateY(-2px)" : "translateY(0)",
+                }}
+              >
+                {glyph}
+              </button>
+            );
+          })}
         </div>
       )}
     </section>
