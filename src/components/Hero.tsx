@@ -83,40 +83,52 @@ export default function Hero({ title, quotes }: Props) {
             <div
               key={i}
               aria-hidden={!active}
-              className={`absolute inset-0 flex items-center transition-opacity duration-700 ease-in-out ${
+              className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
                 active ? "opacity-100" : "opacity-0 pointer-events-none"
               }`}
               style={{ background: bg }}
             >
-              {/* Najdi pattern band along the very top — tinted via CSS color. */}
+              {/* Najdi pattern band — TOP (inset from edges, soft) */}
               <div
                 aria-hidden
-                className="absolute top-0 inset-x-0 h-7 sm:h-9 pointer-events-none"
+                className="absolute top-2 sm:top-3 left-5 right-5 sm:left-10 sm:right-10 h-4 sm:h-5 pointer-events-none"
                 style={{
                   color: tone.band,
                   backgroundImage: "url(/najdi-band.svg)",
                   backgroundRepeat: "repeat-x",
                   backgroundSize: "auto 100%",
-                  WebkitMaskImage:
-                    "linear-gradient(to bottom, #000 70%, transparent 100%)",
-                  maskImage:
-                    "linear-gradient(to bottom, #000 70%, transparent 100%)",
-                  opacity: 0.85,
+                  opacity: 0.45,
                 }}
               />
 
-              {/* Logo on the LEFT, vertically centered */}
-              <div className="absolute left-4 sm:left-10 top-1/2 -translate-y-1/2 shrink-0 opacity-70 sm:opacity-80" aria-hidden>
+              {/* Najdi pattern band — BOTTOM (mirror placement) */}
+              <div
+                aria-hidden
+                className="absolute bottom-2 sm:bottom-3 left-5 right-5 sm:left-10 sm:right-10 h-4 sm:h-5 pointer-events-none"
+                style={{
+                  color: tone.band,
+                  backgroundImage: "url(/najdi-band.svg)",
+                  backgroundRepeat: "repeat-x",
+                  backgroundSize: "auto 100%",
+                  opacity: 0.45,
+                }}
+              />
+
+              {/* Logo on the LEFT (visual left), vertically centered */}
+              <div
+                className="absolute left-4 sm:left-10 top-1/2 -translate-y-1/2 shrink-0 opacity-75 sm:opacity-85"
+                aria-hidden
+              >
                 <Logo
-                  size={96}
+                  size={90}
                   variant={tone.logo}
-                  className="sm:!w-[140px] sm:!h-[140px]"
+                  className="sm:!w-[130px] sm:!h-[130px]"
                 />
               </div>
 
-              {/* Quote text on the RIGHT (RTL natural alignment) */}
+              {/* Quote text on the RIGHT — absolute right, right-aligned */}
               <div
-                className="relative z-10 mr-auto pl-[110px] sm:pl-[170px] pr-5 sm:pr-10 pt-7 sm:pt-10 pb-3 text-right max-w-full"
+                className="absolute right-5 sm:right-10 top-1/2 -translate-y-1/2 text-right max-w-[58%] sm:max-w-[58%]"
                 style={{
                   color: tone.fg,
                   textShadow:
