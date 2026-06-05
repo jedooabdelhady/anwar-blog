@@ -30,9 +30,12 @@ export const DEFAULT_SETTINGS: SiteSettings = {
   siteTagline:
     "موقع عربي متخصص في علم تأويل الرؤى والأحلام، مع محتوى ثري في المعرفة والإلهام.",
   heroQuotes: [
-    { text: "الحكمة هي نور العقل.",                          source: "مثل عربي",   color: "sienna" },
-    { text: "الرؤيا الصالحة من الله، والحُلم من الشيطان.",    source: "حديث شريف", color: "pepper" },
-    { text: "أصدقُ الرؤى ما كان عند الأسحار.",               source: "أثر",       color: "oak"    },
+    { text: "الحكمة هي نور العقل.",                          source: "مثل عربي",   color: "smoke"  },
+    { text: "الرؤيا الصالحة من الله، والحُلم من الشيطان.",    source: "حديث شريف", color: "gum"    },
+    { text: "أصدقُ الرؤى ما كان عند الأسحار.",               source: "أثر",       color: "pepper" },
+    { text: "العلمُ في الصغرِ كالنقشِ في الحجرِ.",            source: "مثل عربي",   color: "smoke"  },
+    { text: "خيرُ جليسٍ في الزمانِ كتابُ.",                   source: "المتنبي",   color: "gum"    },
+    { text: "لكلِّ رؤيا تأويلٌ، ولكلِّ تأويلٍ مفتاحٌ.",        source: "مأثور",     color: "pepper" },
   ],
   cardPublic: {
     title: "بوابة الرؤى العامة",

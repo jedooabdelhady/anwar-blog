@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>دليل لوحة التحكم — علم تأويل الرؤى</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root {
+    --sienna:#6B3F23; --pepper:#38261C; --bg:#f5efe8; --card:#f7f1ea;
+    --line:#d9cdbe; --muted:#6b5b50; --gum:#8F8C78; --terra:#8B6849;
+    --accent:#b03a2e;
+  }
+  *{box-sizing:border-box}
+  body{
+    font-family: "Times New Roman","Tajawal","Cairo",serif;
+    background:var(--bg); color:var(--pepper);
+    margin:0; padding:30px 20px; line-height:1.85;
+  }
+  .doc{max-width:900px; margin:0 auto}
+  header.hero{
+    background:linear-gradient(135deg,#8B6849 0%,#6B3F23 50%,#38261C 100%);
+    color:#f7f1ea; padding:48px 36px; border-radius:24px; text-align:center;
+    margin-bottom:32px; box-shadow:0 18px 36px -18px rgba(56,38,28,.4);
+    position:relative; overflow:hidden;
+  }
+  header.hero h1{margin:0; font-size:34px; font-weight:800}
+  header.hero p{margin:8px 0 0; opacity:.92; font-size:17px}
+  h2{
+    color:var(--sienna); margin-top:48px; padding-bottom:8px;
+    border-bottom:2px solid var(--line); font-size:23px;
+    display:flex; align-items:center; gap:10px;
+  }
+  h3{color:var(--pepper); margin-top:26px; font-size:18px; font-weight:bold}
+  h4{color:var(--terra); margin-top:18px; font-size:16px}
+  .card{
+    background:var(--card); border:1px solid var(--line); border-radius:18px;
+    padding:22px 26px; margin:18px 0;
+  }
+  .step{
+    background:#fff; border-right:4px solid var(--sienna);
+    padding:14px 18px; margin:12px 0; border-radius:12px;
+  }
+  .step strong{color:var(--sienna)}
+  .warn{
+    background:#fdf4e8; border-right:4px solid #b08833;
+    padding:14px 18px; border-radius:12px; margin:14px 0;
+  }
+  .note{
+    background:#f0eddf; border-right:4px solid var(--gum);
+    padding:14px 18px; border-radius:12px; margin:14px 0;
+  }
+  .tip{
+    background:#e8f1e3; border-right:4px solid #5e8a4f;
+    padding:14px 18px; border-radius:12px; margin:14px 0;
+  }
+  .danger{
+    background:#fbecec; border-right:4px solid #a3422f;
+    padding:14px 18px; border-radius:12px; margin:14px 0;
+  }
+  table{width:100%; border-collapse:collapse; margin:16px 0; background:#fff; border-radius:12px; overflow:hidden; font-size:15px}
+  th,td{padding:11px 13px; text-align:right; border-bottom:1px solid var(--line)}
+  th{background:var(--card); font-weight:700}
+  tr:last-child td{border-bottom:none}
+  code{
+    background:#ede2d4; padding:2px 8px; border-radius:6px;
+    color:var(--pepper); font-family:monospace; font-size:14px;
+    direction:ltr; display:inline-block;
+  }
+  .kbd{
+    background:var(--pepper); color:#fff; padding:2px 9px;
+    border-radius:6px; font-family:monospace; font-size:13px;
+  }
+  ol li, ul li{margin:6px 0}
+  .toc{
+    background:#fff; border:1px solid var(--line); border-radius:14px;
+    padding:18px 24px; margin:18px 0 28px;
+  }
+  .toc h3{margin-top:0}
+  .toc ol{padding-right:22px; margin:0}
+  .toc a{color:var(--sienna); text-decoration:none; font-weight:500}
+  .toc a:hover{text-decoration:underline}
+  .nav-pill{
+    display:inline-block; background:var(--sienna); color:#fff;
+    padding:4px 12px; border-radius:14px; font-size:14px;
+    margin:2px 0;
+  }
+  .icon{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:30px; height:30px; border-radius:8px; background:var(--card);
+    border:1px solid var(--line); margin-left:8px; font-size:16px;
+  }
+  footer{
+    margin-top:60px; padding:22px; text-align:center;
+    color:var(--muted); border-top:1px solid var(--line);
+    font-size:14px;
+  }
+  @media print{
+    body{background:#fff}
+    header.hero{background:var(--sienna)!important; -webkit-print-color-adjust:exact}
+  }
+</style>
+</head>
+<body>
+<div class="doc">
+
+<header class="hero">
+  <h1>دليل لوحة التحكم (Studio)</h1>
+  <p>كيف تديرين موقع علم تأويل الرؤى — خطوة بخطوة</p>
+</header>
+
+<!-- TOC -->
+<div class="toc">
+  <h3>📑 المحتويات</h3>
+  <ol>
+    <li><a href="#login">١. تسجيل الدخول</a></li>
+    <li><a href="#sections">٢. نظرة عامة على الأقسام</a></li>
+    <li><a href="#settings">٣. ⚙️ إعدادات الموقع</a></li>
+    <li><a href="#posts">٤. 📝 المقالات</a></li>
+    <li><a href="#categories">٥. 🏷️ التصنيفات</a></li>
+    <li><a href="#authors">٦. 👤 الكتّاب</a></li>
+    <li><a href="#submissions">٧. 📨 الرسائل الواردة</a></li>
+    <li><a href="#tips">٨. حيل ونصائح</a></li>
+    <li><a href="#troubleshoot">٩. حل المشاكل الشائعة</a></li>
+  </ol>
+</div>
+
+<!-- ─────────── 1. Login ─────────── -->
+<h2 id="login">🔐 ١. تسجيل الدخول</h2>
+
+<div class="step"><strong>الرابط:</strong> <code>https://sahaarr299.vercel.app/studio</code></div>
+
+<div class="step">
+  <strong>كيف تسجلين دخول:</strong>
+  <ol>
+    <li>افتحي الرابط أعلاه في المتصفح</li>
+    <li>اضغطي زر <strong>Continue with Google</strong></li>
+    <li>اختاري حساب <code>Sahaarr299@gmail.com</code> (الحساب اللي عملتي به Sanity)</li>
+    <li>تدخلين مباشرةً — Studio يفتح</li>
+  </ol>
+</div>
+
+<div class="tip">
+  💡 <strong>تثبيت على الشاشة الرئيسية:</strong> في الجوال، افتحي Studio في Safari/Chrome → اختاري "إضافة إلى الشاشة الرئيسية" — يصير كتطبيق سريع.
+</div>
+
+<div class="warn">
+  ⚠️ <strong>لا تشاركي الرابط مع أحد</strong> — أي شخص يفتحه ويسجّل بحسابه قد يصل للوحة (لو منحتيه الصلاحيات).
+</div>
+
+<!-- ─────────── 2. Overview ─────────── -->
+<h2 id="sections">🗂️ ٢. نظرة عامة على الأقسام</h2>
+
+<p>بعد تسجيل الدخول، تشاهدين 5 أقسام في القائمة اليمنى:</p>
+
+<table>
+  <tr><th>القسم</th><th>الغرض</th><th>التكرار</th></tr>
+  <tr>
+    <td><span class="nav-pill">⚙️ إعدادات الموقع</span></td>
+    <td>النصوص الرئيسية في الصفحة الأولى (شرائح البانر، البطاقات، إلخ)</td>
+    <td>كل ما تبغين تحدّثين نص ظاهر</td>
+  </tr>
+  <tr>
+    <td><span class="nav-pill">📝 المقالات</span></td>
+    <td>إضافة وتعديل المقالات اللي تظهر في المدونة</td>
+    <td>كل ما تنشرين محتوى</td>
+  </tr>
+  <tr>
+    <td><span class="nav-pill">🏷️ التصنيفات</span></td>
+    <td>إدارة فئات المقالات</td>
+    <td>نادراً (الفئات الست جاهزة)</td>
+  </tr>
+  <tr>
+    <td><span class="nav-pill">👤 الكتّاب</span></td>
+    <td>إضافة معلومات الكتّاب (اختياري)</td>
+    <td>عند إضافة كاتب جديد</td>
+  </tr>
+  <tr>
+    <td><span class="nav-pill">📨 الرسائل الواردة</span></td>
+    <td>أرشيف رسائل الزوار من نماذج الموقع</td>
+    <td>عند مراجعة الردود</td>
+  </tr>
+</table>
+
+<!-- ─────────── 3. Settings ─────────── -->
+<h2 id="settings">⚙️ ٣. إعدادات الموقع</h2>
+
+<p>هذا أهم قسم — منه تتحكمين بكل النصوص الرئيسية في الصفحة الأولى. اضغطي عليه من القائمة، ستفتح صفحة فيها 6 مجموعات:</p>
+
+<h3>أ. اسم الموقع + الوصف العام</h3>
+<div class="card">
+  <p><strong>اسم الموقع:</strong> يظهر في:</p>
+  <ul>
+    <li>تبويب المتصفح</li>
+    <li>نتائج بحث جوجل</li>
+    <li>معاينة الرابط في واتساب</li>
+  </ul>
+  <p><strong>وصف مختصر:</strong> الجملة تحت العنوان في نفس الأماكن.</p>
+</div>
+
+<h3>ب. شرائح البانر (الاقتباسات المتحركة)</h3>
+<div class="card">
+  <p>كل اقتباس له 3 حقول:</p>
+  <ul>
+    <li><strong>نص الاقتباس</strong> (مع التشكيل العربي الكامل)</li>
+    <li><strong>المصدر</strong> (مثل: مأثور، حديث شريف، إلخ)</li>
+    <li><strong>لون الخلفية</strong>: 5 خيارات</li>
+  </ul>
+
+  <h4>الألوان المتاحة:</h4>
+  <table>
+    <tr><th>اللون</th><th>الكود</th><th>الاستخدام المقترح</th></tr>
+    <tr><td>بني محمر (Sienna)</td><td>#6B3F23</td><td>اقتباسات قوية تاريخية</td></tr>
+    <tr><td>بني فاتح (Oak)</td><td>#B0997D</td><td>اقتباسات هادئة</td></tr>
+    <tr><td>بني داكن (Pepper)</td><td>#38261C</td><td>اقتباسات دينية رصينة</td></tr>
+    <tr><td>زيتي (Gum)</td><td>#8F8C78</td><td>اقتباسات أدبية</td></tr>
+    <tr><td>مخطوط فاتح (Smoke) 📜</td><td>#DBD9CF</td><td>اقتباسات بطابع مخطوط قديم</td></tr>
+  </table>
+
+  <div class="tip">
+    💡 <strong>تغميق كلمة في الاقتباس:</strong> ضعيها بين نجمتين هكذا:<br>
+    <code>فلا ذنبَ لي • م: **المخطوطُ**</code><br>
+    تظهر كلمة "المخطوطُ" بخط بارز.
+  </div>
+
+  <h4>إدارة الاقتباسات:</h4>
+  <ul>
+    <li><strong>إضافة:</strong> اضغطي زر <span class="kbd">+ Add item</span> أسفل القائمة</li>
+    <li><strong>حذف:</strong> ⋮ بجوار الاقتباس → Delete</li>
+    <li><strong>إعادة ترتيب:</strong> اسحبي الاقتباس بالماوس لمكانه الجديد</li>
+    <li><strong>تعديل:</strong> اضغطي على الاقتباس مرة لفتحه</li>
+  </ul>
+</div>
+
+<h3>ج. البطاقات الثلاث (البوابات)</h3>
+<div class="card">
+  <p>كل بطاقة لها 3 حقول قابلة للتعديل:</p>
+  <ul>
+    <li><strong>العنوان:</strong> مثلاً "بوابة الرؤى العامة"</li>
+    <li><strong>النص:</strong> الوصف تحت العنوان (الكلمة الأولى تظهر بارزة تلقائياً)</li>
+    <li><strong>نص الزر:</strong> مثلاً "قدّم رؤياك"</li>
+  </ul>
+  <div class="note">
+    📌 الألوان ووجهة الروابط (إلى أي نموذج تذهب) <b>ثابتة في الكود</b> — للتغيير راجعينا.
+  </div>
+</div>
+
+<h3>د. قسم المدونة (الواردّ العلميِ)</h3>
+<div class="card">
+  <p>حقلين:</p>
+  <ul>
+    <li><strong>العنوان:</strong> "الواردّ العلميِ" (مع التشكيل)</li>
+    <li><strong>النص الفرعي:</strong> الجملة الصغيرة تحته</li>
+  </ul>
+</div>
+
+<div class="step">
+  <strong>الخطوة الأخيرة دائماً:</strong> اضغطي زر <span class="kbd">Publish</span> الأخضر فوق يمين الصفحة. التحديث يظهر خلال <b>60 ثانية</b> على الموقع.
+</div>
+
+<!-- ─────────── 4. Posts ─────────── -->
+<h2 id="posts">📝 ٤. المقالات</h2>
+
+<h3>أ. إضافة مقال جديد</h3>
+<ol>
+  <li>اضغطي <span class="nav-pill">📝 المقالات</span> من القائمة</li>
+  <li>اضغطي <span class="kbd">+</span> في أعلى الصفحة</li>
+  <li>املأي الحقول (التفاصيل أدناه)</li>
+  <li>اضغطي <span class="kbd">Publish</span></li>
+</ol>
+
+<h3>ب. حقول المقال</h3>
+<table>
+  <tr><th>الحقل</th><th>هل مطلوب؟</th><th>الوصف</th></tr>
+  <tr><td>العنوان</td><td>✅ نعم</td><td>عنوان المقال</td></tr>
+  <tr><td>الرابط (Slug)</td><td>✅ نعم</td><td>اضغطي <span class="kbd">Generate</span> ليتولد تلقائياً من العنوان</td></tr>
+  <tr><td>نبذة مختصرة</td><td>✅ نعم</td><td>2-3 أسطر تظهر في بطاقة المقال</td></tr>
+  <tr><td>صورة الغلاف</td><td>⚠️ يُفضّل</td><td>اسحبي الصورة وأفلتي، أو اضغطي Upload</td></tr>
+  <tr><td>التصنيف</td><td>✅ نعم</td><td>اختاري من القائمة</td></tr>
+  <tr><td>الكاتب</td><td>⏸️ اختياري</td><td>اتركيه فارغاً إن لم تنشئي كتّاب بعد</td></tr>
+  <tr><td>تاريخ النشر</td><td>✅ نعم</td><td>افتراضياً تاريخ اليوم — يمكن جدولته للمستقبل</td></tr>
+  <tr><td>المحتوى</td><td>✅ نعم</td><td>النص الكامل (تفاصيل أدناه)</td></tr>
+  <tr><td>SEO meta</td><td>⏸️ اختياري</td><td>عنوان ووصف مخصصين لمحركات البحث</td></tr>
+</table>
+
+<h3>ج. محرر المحتوى</h3>
+<div class="card">
+  <p>المحرر يدعم:</p>
+  <ul>
+    <li><b>نص عادي</b> (Normal)</li>
+    <li><b>عنوان 2</b> — للأقسام الرئيسية</li>
+    <li><b>عنوان 3</b> — للأقسام الفرعية</li>
+    <li><b>اقتباس</b> (Blockquote)</li>
+    <li><strong>عريض</strong>، <i>مائل</i>، <u>تحته خط</u></li>
+    <li>صور داخل النص (اسحبي وأفلتي)</li>
+    <li>روابط</li>
+  </ul>
+  <div class="tip">
+    💡 لإضافة عنوان فرعي: حدّدي النص → افتحي قائمة "نص" → اختاري "عنوان 2".
+  </div>
+</div>
+
+<h3>د. جدولة النشر</h3>
+<div class="card">
+  <p>في حقل <b>تاريخ النشر</b>، اختاري تاريخاً ووقتاً في المستقبل. المقال يظهر تلقائياً في الموقع عند ذلك الوقت.</p>
+</div>
+
+<h3>هـ. تعديل / حذف مقال</h3>
+<ul>
+  <li><b>تعديل:</b> 📝 المقالات → اضغطي على المقال → عدّلي → Publish</li>
+  <li><b>حذف:</b> افتحي المقال → ⋮ في الأعلى → Delete → أكّدي</li>
+  <li><b>إخفاء مؤقت:</b> غيّري Publish إلى Draft (لا يظهر للزوار، يبقى في Studio)</li>
+</ul>
+
+<!-- ─────────── 5. Categories ─────────── -->
+<h2 id="categories">🏷️ ٥. التصنيفات</h2>
+
+<p>الستة تصنيفات الجاهزة:</p>
+<ul>
+  <li>إدارة الأعمال (يمكن إعادة تسميته)</li>
+  <li>التسويق الرقمي</li>
+  <li>نصائح ريادية</li>
+  <li>تطوير الذات</li>
+  <li>أفكار ملهمة</li>
+  <li>أحدث الأخبار</li>
+</ul>
+
+<div class="note">
+  📌 يمكنكِ <b>إعادة تسمية</b> أي تصنيف ليناسب مدونتكِ (مثلاً "إدارة الأعمال" → "تأويل الأحلام الشائعة"). كل المقالات الموسومة تنتقل معه تلقائياً.
+</div>
+
+<h3>إضافة تصنيف جديد</h3>
+<ol>
+  <li>🏷️ التصنيفات → <span class="kbd">+</span></li>
+  <li>اسم التصنيف</li>
+  <li>المعرّف (Slug): اضغطي Generate</li>
+  <li>وصف مختصر (اختياري)</li>
+  <li>Publish</li>
+</ol>
+
+<!-- ─────────── 6. Authors ─────────── -->
+<h2 id="authors">👤 ٦. الكتّاب</h2>
+
+<p>اختياري — للمدوّنات اللي فيها أكثر من كاتب.</p>
+
+<ol>
+  <li>👤 الكتّاب → <span class="kbd">+</span></li>
+  <li>الاسم + المعرّف + الصورة الشخصية + نبذة</li>
+  <li>Publish</li>
+</ol>
+
+<div class="tip">
+  💡 بعد إنشاء كاتب، تقدرين تربطين المقالات به من حقل "الكاتب" في صفحة المقال.
+</div>
+
+<!-- ─────────── 7. Submissions ─────────── -->
+<h2 id="submissions">📨 ٧. الرسائل الواردة</h2>
+
+<p>كل رسالة من الزوار تصلكِ بطريقتين:</p>
+<ol>
+  <li>📧 إيميل فوري على <code>Sahaarr299@gmail.com</code></li>
+  <li>📨 تُحفظ في هذا القسم في Studio (أرشيف دائم)</li>
+</ol>
+
+<h3>أنواع الرسائل</h3>
+<table>
+  <tr><th>النوع</th><th>من النموذج</th></tr>
+  <tr><td>رؤية عامة (آراء ومقترحات)</td><td>/forms/public-vision</td></tr>
+  <tr><td>رؤية خاصة (مشروع / نقاش)</td><td>/forms/private-vision</td></tr>
+  <tr><td>تساؤل واستعلام</td><td>/forms/inquiry</td></tr>
+</table>
+
+<h3>حقول كل رسالة</h3>
+<ul>
+  <li><b>الاسم، البريد، الجوال، الموضوع، الرسالة</b> (من الزائر)</li>
+  <li><b>وصلت في</b>: التاريخ والوقت (تلقائي)</li>
+  <li><b>الحالة:</b>
+    <ul>
+      <li>🔵 جديدة (افتراضياً)</li>
+      <li>🟡 قيد المراجعة</li>
+      <li>🟢 تم الرد</li>
+      <li>⚪ أُرشفت</li>
+    </ul>
+  </li>
+</ul>
+
+<div class="step">
+  <strong>سير عمل مقترح:</strong>
+  <ol>
+    <li>تصلكِ رسالة جديدة (إيميل + Studio)</li>
+    <li>تردّين عليها من Gmail (Reply يذهب للزائر مباشرة)</li>
+    <li>ادخلي Studio → افتحي الرسالة → غيّري الحالة إلى "تم الرد"</li>
+    <li>اضغطي Publish</li>
+  </ol>
+</div>
+
+<div class="note">
+  📌 الرسائل مرتبة من الأحدث للأقدم تلقائياً.
+</div>
+
+<!-- ─────────── 8. Tips ─────────── -->
+<h2 id="tips">💡 ٨. حيل ونصائح</h2>
+
+<h3>اختصارات لوحة المفاتيح</h3>
+<table>
+  <tr><th>الاختصار</th><th>الوظيفة</th></tr>
+  <tr><td><span class="kbd">Ctrl + S</span></td><td>حفظ سريع كمسودة</td></tr>
+  <tr><td><span class="kbd">Ctrl + Alt + P</span></td><td>نشر</td></tr>
+  <tr><td><span class="kbd">Esc</span></td><td>إغلاق النوافذ المنبثقة</td></tr>
+</table>
+
+<h3>التشكيل العربي</h3>
+<div class="card">
+  <p>كل حقول النصوص تدعم التشكيل بكفاءة: فَتْحة، كَسْرة، ضَمّة، سُكون، شَدّة، تنوين بأنواعه (ً ٌ ٍ).</p>
+  <p>طريقة الكتابة على الجوال: اضغطي مطوّلاً على الحرف يظهر اقتراحات التشكيل.</p>
+</div>
+
+<h3>إعادة استخدام النصوص</h3>
+<div class="tip">
+  💡 لكتابة اقتباس مشابه لاقتباس موجود: ⋮ بجوار الاقتباس → Duplicate → عدّليه.
+</div>
+
+<h3>الصور الكبيرة</h3>
+<div class="warn">
+  ⚠️ الصور الأكبر من 5MB قد تكون بطيئة. ضغطي الصور قبل الرفع — استخدمي:
+  <ul>
+    <li><code>tinypng.com</code> (ضغط مجاني)</li>
+    <li><code>squoosh.app</code> (من Google)</li>
+  </ul>
+</div>
+
+<h3>السحب من الكمبيوتر</h3>
+<div class="tip">
+  💡 لرفع صورة: اسحبيها من مجلد الكمبيوتر مباشرة إلى منطقة "صورة الغلاف" أو إلى داخل محرر النص.
+</div>
+
+<!-- ─────────── 9. Troubleshoot ─────────── -->
+<h2 id="troubleshoot">🛠️ ٩. حل المشاكل الشائعة</h2>
+
+<h3>❓ ضغطت Publish بس التحديث ما ظهر</h3>
+<div class="card">
+  <ul>
+    <li>انتظري 60 ثانية فعلياً — الموقع يحدث بتأخير قصير</li>
+    <li>افتحي الموقع وافعلي Hard Refresh:
+      <ul>
+        <li>📱 جوال: اقفلي tab وافتحي من جديد</li>
+        <li>💻 كمبيوتر: <span class="kbd">Ctrl+Shift+R</span></li>
+      </ul>
+    </li>
+  </ul>
+</div>
+
+<h3>❓ Studio لا يفتح / صفحة بيضاء</h3>
+<div class="card">
+  <ul>
+    <li>تأكدي من اتصال الإنترنت</li>
+    <li>جربي متصفحاً آخر</li>
+    <li>امسحي الكاش</li>
+    <li>تأكدي من تسجيل دخولكِ بالحساب الصحيح</li>
+  </ul>
+</div>
+
+<h3>❓ ضغطت Publish وظهرت رسالة "CORS error"</h3>
+<div class="danger">
+  ⚠️ هذا يعني أن إعداد CORS في Sanity ينقصه الرابط. الحل:
+  <ol>
+    <li>افتحي <code>sanity.io/manage</code></li>
+    <li>اختاري مشروع <code>oziuv7qc</code></li>
+    <li>API → CORS Origins → Add</li>
+    <li>أضيفي <code>https://sahaarr299.vercel.app</code> مع تفعيل Allow credentials</li>
+  </ol>
+</div>
+
+<h3>❓ نسيت كلمة سر حساب Sanity</h3>
+<div class="card">
+  لا حاجة لكلمة سر — Sanity يستخدم Google Sign-In. سجّلي خروج من Google ثم ادخلي بحسابكِ.
+</div>
+
+<h3>❓ مقال تم حذفه بالخطأ</h3>
+<div class="card">
+  <p>Sanity يحتفظ بنسخة محذوفة 24 ساعة. اتصلي بنا بأقصى سرعة لاسترجاعه.</p>
+</div>
+
+<!-- Footer -->
+<footer>
+  <p><b>حُرّر بعناية لمدونة علم تأويل الرؤى</b></p>
+  <p>أي تساؤل أو طلب: <code>jedoo.abdelhady@gmail.com</code></p>
+  <p>هذا الدليل آخر تحديث: ٢٠٢٦</p>
+</footer>
+
+</div>
+</body>
+</html>
