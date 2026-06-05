@@ -6,9 +6,9 @@ import { getAllPosts } from "@/sanity/lib/fetch";
 import { CATEGORIES } from "@/data/posts";
 
 export const metadata = {
-  title: "المدونة",
+  title: "ٱلْمَكْتَبَةُ",
   description:
-    "مواضيع ومقالات تهمك — إدارة الأعمال، التسويق الرقمي، تطوير الذات والمزيد.",
+    "مكتبة علم تأويل الرؤى — مقالات ودراسات في تفسير الأحلام والمعرفة.",
 };
 
 export const revalidate = 60;
@@ -35,11 +35,21 @@ export default async function BlogIndex({
       <TopWaves />
       <Header active="/blog" />
       <main>
-        <section className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12 pt-6 pb-2 text-center">
-          <h1 className="text-3xl sm:text-4xl font-bold text-pepper">
-            {activeLabel || "المدونة"}
+        <section className="mx-auto max-w-3xl px-5 sm:px-8 lg:px-12 pt-6 pb-4 text-center">
+          <h1 className="text-3xl sm:text-4xl font-bold text-pepper mb-5">
+            {activeLabel || "ٱلْمَكْتَبَةُ"}
           </h1>
-          <p className="mt-2 text-pepper/70">مواضيع ومقالات تهمك</p>
+          {!activeLabel && (
+            <blockquote
+              className="text-base sm:text-lg leading-loose font-semibold"
+              style={{ color: "#2d5a3d" }}
+            >
+              {"۞"}رَبِّ قَدۡ ءَاتَيۡتَنِي مِنَ ٱلۡمُلۡكِ وَعَلَّمۡتَنِي
+              مِن تَأۡوِيلِ ٱلۡأَحَادِيثِۚ فَاطِرَ ٱلسَّمَٰوَٰتِ وَٱلۡأَرۡضِ
+              أَنتَ وَلِيِّۦ فِي ٱلدُّنۡيَا وَٱلۡأٓخِرَةِۖ تَوَفَّنِي مُسۡلِمٗا
+              وَأَلۡحِقۡنِي بِٱلصَّٰلِحِينَ
+            </blockquote>
+          )}
         </section>
 
         <section className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12 pt-2 pb-4">
