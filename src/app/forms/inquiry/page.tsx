@@ -2,8 +2,8 @@ import ContactForm from "@/components/ContactForm";
 import FormPageShell from "@/components/FormPageShell";
 
 export const metadata = {
-  title: "تساؤل واستعلام",
-  description: "نحن هنا للإجابة على تساؤلاتكم واستفساراتكم.",
+  title: "بوابة تساؤل واستعلام",
+  description: "نافذة لاستقبال التساؤلات والاستعلامات المختلفة بخصوصية وأمانة.",
 };
 
 export default function InquiryPage() {

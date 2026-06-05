@@ -2,8 +2,8 @@ import ContactForm from "@/components/ContactForm";
 import FormPageShell from "@/components/FormPageShell";
 
 export const metadata = {
-  title: "الرؤى العامة — تقديم رؤيتي",
-  description: "نستقبل آرائك ومقترحاتك لتحسين خدماتنا.",
+  title: "بوابة الرؤى العامة",
+  description: "مساحة لتدوين الرؤى المتعلّقة بالأحداث العامّة وغير الشخصية.",
 };
 
 export default function PublicVisionPage() {

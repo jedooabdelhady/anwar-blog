@@ -1,25 +1,41 @@
 import Link from "next/link";
+import { Fragment } from "react";
 import PageShell from "@/components/PageShell";
 
-export const metadata = { title: "الخدمات" };
+export const metadata = { title: "خدماتنا" };
 
 const SERVICES = [
   {
     title: "محتوى متخصص",
     body:
-      "مقالات ودراسات في علم تأويل الرؤى، تطوير الذات، والأفكار الملهمة من مصادر موثوقة.",
+      "**مقالات ودراسات** في علم تأويل الرؤى وما يتّصل به من معارف، مُستقاة من مصادر موثوقة.",
   },
   {
     title: "استشارات ورؤى",
     body:
-      "ناقش رؤياك أو سؤالك الخاص معنا — نستقبل الرؤى الخاصة ونرد عليها بسرّية تامة.",
+      "ناقش رؤياك أو سؤالك الخاص معنا — **نستقبل الرؤى الخاصة** ونرد عليها بسرّية تامة.",
   },
   {
     title: "إجابة الاستفسارات",
     body:
-      "اطرح سؤالك في أي مجال يخص محتوى الموقع وسنرد بأسرع وقت ممكن.",
+      "**اطرح سؤالك** في أي مجال يخص محتوى الموقع وسنرد عليك بأقرب وقت ممكن.",
   },
 ];
+
+/** Bold phrases inside **double asterisks** — same convention as home. */
+function renderRich(text: string): React.ReactNode {
+  const parts = text.split(/(\*\*[^*]+\*\*)/g);
+  return parts.map((p, i) => {
+    if (p.startsWith("**") && p.endsWith("**")) {
+      return (
+        <strong key={i} className="font-bold text-pepper">
+          {p.slice(2, -2)}
+        </strong>
+      );
+    }
+    return <Fragment key={i}>{p}</Fragment>;
+  });
+}
 
 /** Slim Najdi-band strip used as a decorative top/bottom flourish on
  *  each card. References the same SVG used on the hero carousel. */
@@ -62,15 +78,12 @@ export default function ServicesPage() {
               <NajdiStrip position="top" />
               <NajdiStrip position="bottom" />
 
-              <h2 className="text-xl font-bold text-pepper mb-3 flex items-center justify-center gap-2">
+              <h2 className="text-xl font-bold text-pepper mb-4 flex items-center justify-center gap-2">
                 <span aria-hidden style={{ color: "#b03a2e" }}>◌</span>
                 <span>{s.title}</span>
               </h2>
               <p className="text-pepper/85 leading-relaxed">
-                <strong className="font-bold text-pepper">
-                  {s.body.split(" ")[0]}
-                </strong>
-                {" " + s.body.split(" ").slice(1).join(" ")}
+                {renderRich(s.body)}
               </p>
             </div>
           ))}

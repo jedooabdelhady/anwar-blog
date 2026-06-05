@@ -2,8 +2,8 @@ import ContactForm from "@/components/ContactForm";
 import FormPageShell from "@/components/FormPageShell";
 
 export const metadata = {
-  title: "الرؤى الخاصة — تقديم رؤيتي",
-  description: "شاركنا رؤيتك الخاصة أو مشروعك لنناقشه معك.",
+  title: "بوابة الرؤى الشخصية",
+  description: "مساحة آمنة لطلب تعبير الرؤى الخاصّة. خصوصيتكم محفوظة بعناية.",
 };
 
 export default function PrivateVisionPage() {
