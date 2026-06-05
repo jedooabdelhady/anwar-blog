@@ -28,7 +28,9 @@ export default function FormPageShell({
             </div>
             <h1 className="text-3xl sm:text-4xl font-bold text-pepper">{title}</h1>
             {subtitle && (
-              <p className="mt-3 text-pepper/75 max-w-xl mx-auto">{subtitle}</p>
+              <p className="mt-4 text-pepper/80 max-w-2xl mx-auto leading-loose text-[15px] sm:text-base text-right">
+                {subtitle}
+              </p>
             )}
           </header>
           {children}

@@ -95,18 +95,18 @@ export default function ContactForm({
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <Field name="name" label="الاسم" required maxLength={120} autoComplete="name" />
-        <Field name="email" label="البريد الإلكتروني" type="email" autoComplete="email" />
+        <Field name="name"  label="• الاسم (اللقب)"        required maxLength={120} autoComplete="name" />
+        <Field name="email" label="• البريد الإلكتروني"    type="email" autoComplete="email" />
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <Field name="phone" label="رقم الجوال (اختياري)" type="tel" autoComplete="tel" dir="ltr" />
-        {showSubject && <Field name="subject" label="الموضوع (اختياري)" />}
+        <Field name="phone" label="• رقم الجوال (اختياري)" type="tel" autoComplete="tel" dir="ltr" />
+        {showSubject && <Field name="subject" label="• الموضوع (اختياري)" />}
       </div>
 
       <div>
         <label className="block text-sm font-medium text-pepper mb-1.5">
-          الرسالة <span className="text-sienna">*</span>
+          • الرسالة <span className="text-sienna">*</span>
         </label>
         <textarea
           name="message"
