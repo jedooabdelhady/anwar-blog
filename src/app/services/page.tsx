@@ -27,17 +27,21 @@ export default function ServicesPage() {
             borderRadius: "50% 50% 22px 22px / 110px 110px 22px 22px",
           }}
         >
-          {/* ts.jpeg in place of the figure logo used on the home cards. */}
+          {/* ts.jpeg in place of the figure logo used on the home cards.
+              Same mihrab arch as the card itself, just a touch gentler. */}
           <div className="mb-7 sm:mb-9 w-full sm:w-[112%] sm:-mx-[6%]">
             <Image
               src="/logos/ts.jpeg"
               alt=""
-              width={720}
-              height={600}
+              width={540}
+              height={960}
               priority
               sizes="(max-width: 640px) 92vw, 400px"
-              className="rounded-2xl border border-line w-full h-auto"
-              style={{ background: "#fffaf2" }}
+              className="border border-line w-full h-auto"
+              style={{
+                background: "#fffaf2",
+                borderRadius: "50% 50% 18px 18px / 90px 90px 18px 18px",
+              }}
             />
           </div>
 
