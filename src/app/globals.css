@@ -48,38 +48,37 @@
                "Noto Naskh Arabic", Georgia, serif;
 }
 
-html, body {
+html {
   background: var(--bg);
+  color: var(--ink);
+}
+body {
+  /* transparent so the fixed wallpaper layer (body::before) shows through */
+  background: transparent;
   color: var(--ink);
 }
 
 /* Engraved Thamudic-style backdrop — client-supplied wallpaper.jpeg
-   tiled gently across the page. Sized so the carved figures stay
-   readable on phones (one column) and crisp on desktops (multi-column
-   masonry feel), then drifted sideways so it never feels static. */
+   pinned to the viewport so it never scrolls with the page. We render
+   it on a fixed ::before pseudo-element instead of `background-attachment:
+   fixed` because iOS Safari ignores the latter and would scale the tile
+   to the full document height. */
 :root {
   --bg-tile: 100vw;  /* mobile: ~one full-width tile per row */
-  --bg-drift: 180s;
 }
 @media (min-width: 640px)  { :root { --bg-tile: 320px; } }
 @media (min-width: 1280px) { :root { --bg-tile: 380px; } }
 
-body {
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
   background-image: url("/logos/wallpaper.jpeg");
   background-repeat: repeat;
   background-size: var(--bg-tile) auto;
   background-position: center top;
-  animation: thamudic-drift var(--bg-drift) linear infinite;
-}
-
-@keyframes thamudic-drift {
-  from { background-position: 0 0; }
-  to   { background-position: var(--bg-tile) 0; }
-}
-
-/* Honour the visitor's "reduce motion" preference. */
-@media (prefers-reduced-motion: reduce) {
-  body { animation: none; background-attachment: fixed; }
+  pointer-events: none;
 }
 
 /* Smooth Arabic text rendering */
