@@ -94,7 +94,7 @@ export default async function ArticlePage({
           <nav className="mb-6 text-sm text-pepper/70 flex items-center gap-2 flex-wrap">
             <Link href="/" className="hover:text-sienna">الرئيسية</Link>
             <span>/</span>
-            <Link href="/blog" className="hover:text-sienna">المدونة</Link>
+            <Link href="/blog" className="hover:text-sienna">المكتبة</Link>
             <span>/</span>
             <span className="text-pepper">{post.title}</span>
           </nav>

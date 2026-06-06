@@ -44,10 +44,12 @@ export default async function BlogIndex({
               className="text-base sm:text-lg leading-loose font-semibold"
               style={{ color: "#2d5a3d" }}
             >
+              <span style={{ fontSize: "1.25em", margin: "0 0.15em" }}>﴾</span>
               {"۞"}رَبِّ قَدۡ ءَاتَيۡتَنِي مِنَ ٱلۡمُلۡكِ وَعَلَّمۡتَنِي
               مِن تَأۡوِيلِ ٱلۡأَحَادِيثِۚ فَاطِرَ ٱلسَّمَٰوَٰتِ وَٱلۡأَرۡضِ
               أَنتَ وَلِيِّۦ فِي ٱلدُّنۡيَا وَٱلۡأٓخِرَةِۖ تَوَفَّنِي مُسۡلِمٗا
               وَأَلۡحِقۡنِي بِٱلصَّٰلِحِينَ
+              <span style={{ fontSize: "1.25em", margin: "0 0.15em" }}>﴿</span>
             </blockquote>
           )}
         </section>
