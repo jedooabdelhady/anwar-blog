@@ -28,7 +28,7 @@ export default function ServicesPage() {
           }}
         >
           {/* ts.jpeg in place of the figure logo used on the home cards. */}
-          <div className="mb-7 sm:mb-9 w-[112%] -mx-[6%]">
+          <div className="mb-7 sm:mb-9 w-full sm:w-[112%] sm:-mx-[6%]">
             <Image
               src="/logos/ts.jpeg"
               alt=""
