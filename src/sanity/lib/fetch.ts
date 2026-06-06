@@ -8,8 +8,11 @@ import {
   ALL_POSTS_QUERY,
   POST_BY_SLUG_QUERY,
   ALL_SLUGS_QUERY,
+  ALL_CATEGORIES_QUERY,
 } from "./queries";
 import { POSTS, CATEGORIES, type Post as SeedPost } from "@/data/posts";
+
+export type PublicCategory = { slug: string; label: string };
 
 export type PublicPost = {
   slug: string;
@@ -70,6 +73,25 @@ export async function getPostBySlug(slug: string): Promise<PublicPost | null> {
     console.warn("[sanity] getPostBySlug failed, using seed:", err);
     const p = POSTS.find((x) => x.slug === slug);
     return p ? seedToPublic(p) : null;
+  }
+}
+
+export async function getAllCategories(): Promise<PublicCategory[]> {
+  const seed: PublicCategory[] = Object.values(CATEGORIES).map((c) => ({
+    slug: c.slug,
+    label: c.label,
+  }));
+  if (!sanityConfigured) return seed;
+  try {
+    const cats = await client.fetch<PublicCategory[]>(
+      ALL_CATEGORIES_QUERY,
+      {},
+      { next: { revalidate: 60, tags: ["categories"] } }
+    );
+    return cats?.length ? cats : seed;
+  } catch (err) {
+    console.warn("[sanity] getAllCategories failed, using seed:", err);
+    return seed;
   }
 }
 

@@ -28,14 +28,15 @@ export default function ServicesPage() {
           }}
         >
           {/* ts.jpeg in place of the figure logo used on the home cards. */}
-          <div className="mb-7 sm:mb-9">
+          <div className="mb-7 sm:mb-9 w-[112%] -mx-[6%]">
             <Image
               src="/logos/ts.jpeg"
               alt=""
-              width={140}
-              height={140}
+              width={720}
+              height={600}
               priority
-              className="rounded-2xl border border-line"
+              sizes="(max-width: 640px) 92vw, 400px"
+              className="rounded-2xl border border-line w-full h-auto"
               style={{ background: "#fffaf2" }}
             />
           </div>

@@ -2,8 +2,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import BlogGrid from "@/components/BlogGrid";
 import { TopWaves, BottomWaves } from "@/components/DecorativeWaves";
-import { getAllPosts } from "@/sanity/lib/fetch";
-import { CATEGORIES } from "@/data/posts";
+import { getAllPosts, getAllCategories } from "@/sanity/lib/fetch";
 
 export const metadata = {
   title: "ٱلْمَكْتَبَةُ",
@@ -21,14 +20,17 @@ export default async function BlogIndex({
   searchParams: Promise<Search>;
 }) {
   const { category } = await searchParams;
-  const posts = await getAllPosts();
+  const [posts, categories] = await Promise.all([
+    getAllPosts(),
+    getAllCategories(),
+  ]);
 
   const filtered = category
     ? posts.filter((p) => p.category?.slug === category)
     : posts;
 
   const activeLabel =
-    category && Object.values(CATEGORIES).find((c) => c.slug === category)?.label;
+    category && categories.find((c) => c.slug === category)?.label;
 
   return (
     <div className="relative flex-1 w-full">
@@ -44,12 +46,12 @@ export default async function BlogIndex({
               className="text-base sm:text-lg leading-loose font-semibold"
               style={{ color: "#2d5a3d" }}
             >
-              <span style={{ fontSize: "1.25em", margin: "0 0.15em" }}>﴾</span>
+              <span style={{ fontSize: "1.25em", margin: "0 0.15em" }}>﴿</span>
               {"۞"}رَبِّ قَدۡ ءَاتَيۡتَنِي مِنَ ٱلۡمُلۡكِ وَعَلَّمۡتَنِي
               مِن تَأۡوِيلِ ٱلۡأَحَادِيثِۚ فَاطِرَ ٱلسَّمَٰوَٰتِ وَٱلۡأَرۡضِ
               أَنتَ وَلِيِّۦ فِي ٱلدُّنۡيَا وَٱلۡأٓخِرَةِۖ تَوَفَّنِي مُسۡلِمٗا
               وَأَلۡحِقۡنِي بِٱلصَّٰلِحِينَ
-              <span style={{ fontSize: "1.25em", margin: "0 0.15em" }}>﴿</span>
+              <span style={{ fontSize: "1.25em", margin: "0 0.15em" }}>﴾</span>
             </blockquote>
           )}
         </section>
@@ -68,7 +70,7 @@ export default async function BlogIndex({
                 الكل
               </a>
             </li>
-            {Object.values(CATEGORIES).map((c) => (
+            {categories.map((c) => (
               <li key={c.slug}>
                 <a
                   href={`/blog?category=${c.slug}`}
