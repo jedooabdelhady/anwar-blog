@@ -115,13 +115,19 @@ export async function POST(req: NextRequest) {
           <p style="margin-top:24px;color:#8c7d72;font-size:13px">وصلت في: ${new Date().toLocaleString("ar-EG")}</p>
         </div>
       `;
-      await resend.emails.send({
+      const result = await resend.emails.send({
         from,
         to,
         replyTo: data.email || undefined,
         subject: `[${KIND_LABEL[kind]}] رسالة جديدة من ${data.name}`,
         html,
       });
+      // Resend returns response-level errors via { error }, not by throwing.
+      if (result.error) {
+        console.error("[submission] Resend rejected notification:", result.error);
+      } else {
+        console.info("[submission] Resend accepted notification id=", result.data?.id);
+      }
     } catch (err) {
       console.error("[submission] Resend email failed:", err);
     }

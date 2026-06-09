@@ -140,9 +140,14 @@ export async function POST(req: NextRequest) {
     </div>
   `;
 
+  // Resend SDK returns { data, error } on response failures (e.g. domain
+  // not verified, recipient not allowed in onboarding mode) instead of
+  // throwing — we MUST inspect `error` or those failures silently look
+  // like a successful send.
+  let sendError: string | null = null;
   try {
     const resend = new Resend(resendKey);
-    await resend.emails.send({
+    const result = await resend.emails.send({
       from,
       to: doc.email,
       bcc: adminCopy || undefined,
@@ -150,18 +155,30 @@ export async function POST(req: NextRequest) {
       subject: subjectLine,
       html,
     });
+    if (result.error) {
+      sendError =
+        `${result.error.name || "ResendError"}: ${result.error.message || JSON.stringify(result.error)}`;
+    } else {
+      console.info(
+        "[sanity-webhook] Resend accepted email id=",
+        result.data?.id
+      );
+    }
   } catch (err) {
-    const msg = err instanceof Error ? err.message : String(err);
-    console.error("[sanity-webhook] Resend send failed:", msg);
+    sendError = err instanceof Error ? err.message : String(err);
+  }
+
+  if (sendError) {
+    console.error("[sanity-webhook] Resend send failed:", sendError);
     if (realId) {
       await writeClient
         .patch(realId)
-        .set({ replyError: msg.slice(0, 500) })
+        .set({ replyError: sendError.slice(0, 500) })
         .commit()
         .catch(() => {});
     }
     return NextResponse.json(
-      { ok: false, error: "Email send failed" },
+      { ok: false, error: sendError },
       { status: 500 }
     );
   }
