@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import crypto from "node:crypto";
 import { Resend } from "resend";
 import { writeClient } from "@/sanity/lib/client";
 import { sanityConfigured, writeToken } from "@/sanity/env";
@@ -68,6 +69,9 @@ export async function POST(req: NextRequest) {
   };
 
   // 1) Persist to Sanity (if configured)
+  // accessToken lets the visitor view this conversation (and the admin's
+  // reply) at /inquiry/{token} without an account.
+  const accessToken = crypto.randomUUID();
   let savedId: string | undefined;
   if (sanityConfigured && writeToken) {
     try {
@@ -76,6 +80,7 @@ export async function POST(req: NextRequest) {
         ...data,
         createdAt: new Date().toISOString(),
         status: "new",
+        accessToken,
       });
       savedId = created._id;
     } catch (err) {
@@ -137,7 +142,7 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  return NextResponse.json({ ok: true, id: savedId });
+  return NextResponse.json({ ok: true, id: savedId, accessToken });
 }
 
 function esc(s: string) {

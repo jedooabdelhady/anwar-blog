@@ -3,6 +3,10 @@ import crypto from "node:crypto";
 import { Resend } from "resend";
 import { writeClient } from "@/sanity/lib/client";
 
+const SITE_URL = (
+  process.env.NEXT_PUBLIC_SITE_URL || "https://sahaarr299.com"
+).replace(/\/$/, "");
+
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
@@ -22,6 +26,7 @@ type SubmissionPayload = {
   message?: string;
   replyMessage?: string;
   replySentAt?: string;
+  accessToken?: string;
 };
 
 /** Verify a Sanity webhook signature header.
@@ -126,11 +131,33 @@ export async function POST(req: NextRequest) {
     ? `ردّ: ${doc.subject}`
     : `ردّ على رسالتك — ${KIND_LABEL[doc.kind || ""] || "علم تأويل الرؤى"}`;
 
+  // Backfill an accessToken if the submission was created before this feature
+  // shipped, so old conversations also get a public viewer link.
+  let accessToken = doc.accessToken;
+  if (!accessToken && realId) {
+    accessToken = crypto.randomUUID();
+    await writeClient
+      .patch(realId)
+      .set({ accessToken })
+      .commit()
+      .catch((err) => {
+        console.warn("[sanity-webhook] accessToken backfill failed:", err);
+        accessToken = undefined;
+      });
+  }
+  const conversationUrl = accessToken
+    ? `${SITE_URL}/inquiry/${accessToken}`
+    : null;
+
   const html = `
     <div style="font-family: -apple-system, Tahoma, Arial, sans-serif; direction: rtl; text-align: right; max-width: 600px; margin: 0 auto;">
       <p style="color:#2b1d15;font-size:15px">السلام عليكم ${esc(doc.name || "")},</p>
       <p style="color:#2b1d15;font-size:15px;line-height:1.8">شكرًا لتواصلك مع <strong>علم تأويل الرؤى</strong>. تجدون أدناه الرد على رسالتكم:</p>
       <div style="background:#f7f1ea;border:1px solid #d9cdbe;border-radius:12px;padding:16px;white-space:pre-wrap;line-height:1.9;color:#2b1d15;margin:16px 0">${esc(doc.replyMessage.trim())}</div>
+      ${conversationUrl ? `
+      <p style="text-align:center;margin:24px 0">
+        <a href="${conversationUrl}" style="display:inline-block;background:#6B3F23;color:#fff;padding:12px 28px;border-radius:999px;text-decoration:none;font-weight:bold">عرض المحادثة على الموقع</a>
+      </p>` : ""}
       ${doc.message ? `
       <details style="margin-top:24px;color:#6b5b50;font-size:13px">
         <summary style="cursor:pointer;color:#8c7d72">رسالتك الأصلية</summary>

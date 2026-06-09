@@ -76,6 +76,14 @@ export default defineType({
       readOnly: true,
       hidden: ({ document }) => !document?.replyError,
     }),
+    defineField({
+      name: "accessToken",
+      title: "رابط العميل (Access Token)",
+      type: "string",
+      readOnly: true,
+      description:
+        "معرّف فريد لرابط المحادثة العامة. للوصول: https://sahaarr299.com/inquiry/{accessToken}",
+    }),
   ],
   orderings: [
     {
