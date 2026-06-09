@@ -2,7 +2,7 @@
  * Sanity fetch helpers — gracefully fall back to the seed `POSTS` data when
  * Sanity isn't configured yet, so the site keeps working out of the box.
  */
-import { client } from "./client";
+import { client, writeClient } from "./client";
 import { sanityConfigured } from "../env";
 import {
   ALL_POSTS_QUERY,
@@ -115,18 +115,16 @@ export async function getSubmissionByToken(
   if (!/^[a-f0-9-]{20,60}$/i.test(token)) return null;
   try {
     // Sanity v7's typed fetch overloads reject ad-hoc params unless the
-    // query is a tagged `groq` literal; we cast at the boundary so the
-    // raw groq string keeps working like POST_BY_SLUG_QUERY does at runtime.
-    const fetchByToken = client.fetch as (
+    // query is a tagged `groq` literal; cast + bind at the boundary so
+    // the raw groq string keeps working like POST_BY_SLUG_QUERY does at
+    // runtime AND `this` stays attached for the private #httpRequest.
+    // Use writeClient (no CDN) so a just-submitted inquiry shows up
+    // immediately — the public CDN can lag a few seconds.
+    const fetchByToken = writeClient.fetch.bind(writeClient) as (
       query: string,
-      params: Record<string, string>,
-      options?: { next?: { revalidate?: number; tags?: string[] } }
+      params: Record<string, string>
     ) => Promise<PublicSubmission | null>;
-    const sub = await fetchByToken(
-      SUBMISSION_BY_TOKEN_QUERY,
-      { token },
-      { next: { revalidate: 60, tags: [`inquiry:${token}`] } }
-    );
+    const sub = await fetchByToken(SUBMISSION_BY_TOKEN_QUERY, { token });
     return sub ?? null;
   } catch (err) {
     console.warn("[sanity] getSubmissionByToken failed:", err);
