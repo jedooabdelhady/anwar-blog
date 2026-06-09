@@ -9,6 +9,7 @@ import {
   POST_BY_SLUG_QUERY,
   ALL_SLUGS_QUERY,
   ALL_CATEGORIES_QUERY,
+  SUBMISSION_BY_TOKEN_QUERY,
 } from "./queries";
 import { POSTS, CATEGORIES, type Post as SeedPost } from "@/data/posts";
 
@@ -92,6 +93,44 @@ export async function getAllCategories(): Promise<PublicCategory[]> {
   } catch (err) {
     console.warn("[sanity] getAllCategories failed, using seed:", err);
     return seed;
+  }
+}
+
+export type PublicSubmission = {
+  _id: string;
+  name?: string;
+  kind?: string;
+  subject?: string;
+  message?: string;
+  createdAt?: string;
+  replyMessage?: string;
+  replySentAt?: string;
+  status?: string;
+};
+
+export async function getSubmissionByToken(
+  token: string
+): Promise<PublicSubmission | null> {
+  if (!sanityConfigured) return null;
+  if (!/^[a-f0-9-]{20,60}$/i.test(token)) return null;
+  try {
+    // Sanity v7's typed fetch overloads reject ad-hoc params unless the
+    // query is a tagged `groq` literal; we cast at the boundary so the
+    // raw groq string keeps working like POST_BY_SLUG_QUERY does at runtime.
+    const fetchByToken = client.fetch as (
+      query: string,
+      params: Record<string, string>,
+      options?: { next?: { revalidate?: number; tags?: string[] } }
+    ) => Promise<PublicSubmission | null>;
+    const sub = await fetchByToken(
+      SUBMISSION_BY_TOKEN_QUERY,
+      { token },
+      { next: { revalidate: 60, tags: [`inquiry:${token}`] } }
+    );
+    return sub ?? null;
+  } catch (err) {
+    console.warn("[sanity] getSubmissionByToken failed:", err);
+    return null;
   }
 }
 

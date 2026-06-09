@@ -36,3 +36,10 @@ export const ALL_SLUGS_QUERY = /* groq */ `
 export const ALL_CATEGORIES_QUERY = /* groq */ `
 *[_type == "category"] | order(title asc) { "slug": slug.current, "label": title }
 `;
+
+export const SUBMISSION_BY_TOKEN_QUERY = /* groq */ `
+*[_type == "submission" && accessToken == $token][0]{
+  _id, name, kind, subject, message, createdAt,
+  replyMessage, replySentAt, status
+}
+`;

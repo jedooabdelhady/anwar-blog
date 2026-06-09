@@ -3,8 +3,7 @@ import { CheckCircle2, Clock, MessageSquare } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { TopWaves, BottomWaves } from "@/components/DecorativeWaves";
-import { writeClient } from "@/sanity/lib/client";
-import { sanityConfigured } from "@/sanity/env";
+import { getSubmissionByToken, type PublicSubmission } from "@/sanity/lib/fetch";
 
 export const metadata = {
   title: "محادثتك",
@@ -14,43 +13,13 @@ export const metadata = {
 
 export const revalidate = 0;
 
-type Sub = {
-  _id: string;
-  name?: string;
-  kind?: string;
-  subject?: string;
-  message?: string;
-  createdAt?: string;
-  replyMessage?: string;
-  replySentAt?: string;
-  status?: string;
-};
+type Sub = PublicSubmission;
 
 const KIND_LABEL: Record<string, string> = {
   "public-vision":  "رؤية عامة",
   "private-vision": "رؤية خاصة",
   "inquiry":        "تساؤل واستعلام",
 };
-
-async function getSubmissionByToken(token: string): Promise<Sub | null> {
-  if (!sanityConfigured) return null;
-  // accessToken is a UUID v4 — reject anything that isn't shaped like one
-  // so we never hit Sanity with garbage paths.
-  if (!/^[a-f0-9-]{20,60}$/i.test(token)) return null;
-  try {
-    return await writeClient.fetch<Sub | null>(
-      `*[_type == "submission" && accessToken == $token][0]{
-        _id, name, kind, subject, message, createdAt,
-        replyMessage, replySentAt, status
-      }`,
-      { token },
-      { next: { revalidate: 0 } }
-    );
-  } catch (err) {
-    console.warn("[inquiry] fetch failed:", err);
-    return null;
-  }
-}
 
 function formatDate(iso?: string) {
   if (!iso) return "";
