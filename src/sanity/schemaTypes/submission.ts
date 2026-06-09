@@ -53,6 +53,29 @@ export default defineType({
       },
       initialValue: "new",
     }),
+    defineField({
+      name: "replyMessage",
+      title: "ردّ المسؤول",
+      type: "text",
+      rows: 8,
+      description:
+        "اكتب الرد هنا ثم انشر المستند — سيُرسَل تلقائيًا للعميل عبر البريد. يتطلب وجود بريد العميل بالأعلى.",
+    }),
+    defineField({
+      name: "replySentAt",
+      title: "أُرسل الرد في",
+      type: "datetime",
+      readOnly: true,
+      description:
+        "يُحدَّث تلقائيًا بعد إرسال الرد. لو فاضي معناه أن الرد لم يُرسَل بعد.",
+    }),
+    defineField({
+      name: "replyError",
+      title: "خطأ في إرسال الرد",
+      type: "string",
+      readOnly: true,
+      hidden: ({ document }) => !document?.replyError,
+    }),
   ],
   orderings: [
     {
