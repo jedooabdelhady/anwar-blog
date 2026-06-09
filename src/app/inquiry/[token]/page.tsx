@@ -42,9 +42,13 @@ export default async function InquiryPage({
   const sub = await getSubmissionByToken(token);
   if (!sub) notFound();
 
-  const sentDate   = formatDate(sub.createdAt);
+  const sentDate    = formatDate(sub.createdAt);
   const repliedDate = formatDate(sub.replySentAt);
-  const hasReply = Boolean(sub.replyMessage && sub.replySentAt);
+  // Show the reply as soon as the admin types it in Studio, even before
+  // the webhook has confirmed the email went out. The "أُرسل في" line
+  // only appears when replySentAt is filled, so the visitor can tell
+  // whether email delivery has completed.
+  const hasReply = Boolean(sub.replyMessage);
 
   return (
     <div className="relative flex-1 w-full">
@@ -94,9 +98,11 @@ export default async function InquiryPage({
             <div className="text-pepper leading-loose whitespace-pre-wrap mb-5">
               {sub.replyMessage}
             </div>
-            <div className="text-xs text-pepper/50 border-t border-line pt-3">
-              أُرسل في {repliedDate}
-            </div>
+            {repliedDate && (
+              <div className="text-xs text-pepper/50 border-t border-line pt-3">
+                أُرسل في {repliedDate}
+              </div>
+            )}
           </section>
         ) : (
           <section className="rounded-3xl border border-line bg-card p-6 sm:p-8 text-center">
