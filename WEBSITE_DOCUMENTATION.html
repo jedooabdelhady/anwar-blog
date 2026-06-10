@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>توثيق موقع علم تأويل الرؤى — sahaarr299.com</title>
+<title>دليل موقع علم تأويل الرؤى — sahaarr299.com</title>
 <style>
   :root {
     --sienna: #6b3f23;
@@ -32,11 +32,7 @@
     line-height: 1.85;
   }
   body { padding: 0; }
-  .page {
-    max-width: 920px;
-    margin: 0 auto;
-    padding: 48px 32px 80px;
-  }
+  .page { max-width: 920px; margin: 0 auto; padding: 48px 32px 80px; }
   header.hero {
     border-bottom: 2px solid var(--sienna);
     padding-bottom: 24px;
@@ -47,20 +43,10 @@
     font-size: 13px;
     letter-spacing: 0.05em;
     font-weight: bold;
-    text-transform: uppercase;
     margin-bottom: 8px;
   }
-  h1 {
-    color: var(--pepper);
-    margin: 0 0 8px;
-    font-size: 30px;
-    font-weight: bold;
-  }
-  .subtitle {
-    color: var(--muted);
-    margin: 0;
-    font-size: 15px;
-  }
+  h1 { color: var(--pepper); margin: 0 0 8px; font-size: 30px; font-weight: bold; }
+  .subtitle { color: var(--muted); margin: 0; font-size: 15px; }
   h2 {
     color: var(--pepper);
     border-right: 4px solid var(--sienna);
@@ -69,21 +55,11 @@
     margin-bottom: 16px;
     font-size: 22px;
   }
-  h3 {
-    color: var(--sienna);
-    margin-top: 28px;
-    margin-bottom: 10px;
-    font-size: 17px;
-  }
-  h4 {
-    color: var(--pepper);
-    margin-top: 20px;
-    margin-bottom: 6px;
-    font-size: 15px;
-  }
+  h3 { color: var(--sienna); margin-top: 28px; margin-bottom: 10px; font-size: 17px; }
+  h4 { color: var(--pepper); margin-top: 20px; margin-bottom: 6px; font-size: 15px; }
   p { margin: 0 0 12px; }
   ul, ol { padding-right: 22px; margin: 0 0 14px; }
-  li { margin-bottom: 4px; }
+  li { margin-bottom: 6px; }
   a { color: var(--sienna); text-decoration: none; border-bottom: 1px dashed var(--oak); }
   a:hover { color: var(--pepper); border-bottom-style: solid; }
   code {
@@ -127,12 +103,7 @@
     border-bottom: 1px solid var(--line);
     vertical-align: top;
   }
-  th {
-    background: var(--clay);
-    color: var(--pepper);
-    font-weight: bold;
-    font-size: 13px;
-  }
+  th { background: var(--clay); color: var(--pepper); font-weight: bold; font-size: 13px; }
   td:first-child { font-weight: bold; }
   tr:last-child td { border-bottom: none; }
   .toc {
@@ -142,14 +113,17 @@
     padding: 20px 28px;
     margin-bottom: 36px;
   }
-  .toc h3 {
-    margin: 0 0 12px;
-    color: var(--pepper);
-    font-size: 15px;
-  }
+  .toc h3 { margin: 0 0 12px; color: var(--pepper); font-size: 15px; }
   .toc ol { margin: 0; padding-right: 24px; }
   .toc li { margin-bottom: 6px; }
   .toc a { border: none; }
+  .toc .group-title {
+    color: var(--sienna);
+    font-weight: bold;
+    margin: 12px 0 4px;
+    font-size: 13px;
+    letter-spacing: 0.04em;
+  }
   .callout {
     border-right: 4px solid var(--sienna);
     background: var(--card);
@@ -157,40 +131,9 @@
     margin: 14px 0;
     border-radius: 4px;
   }
-  .callout.warn {
-    border-right-color: var(--red);
-    background: #f7e9e5;
-  }
-  .callout.tip {
-    border-right-color: var(--green);
-    background: #ecf3e6;
-  }
+  .callout.warn { border-right-color: var(--red); background: #f7e9e5; }
+  .callout.tip  { border-right-color: var(--green); background: #ecf3e6; }
   .callout strong { color: var(--pepper); }
-  .commit {
-    background: var(--card);
-    border: 1px solid var(--line);
-    border-radius: 8px;
-    padding: 14px 18px;
-    margin: 10px 0;
-  }
-  .commit-hash {
-    display: inline-block;
-    background: var(--pepper);
-    color: var(--clay);
-    font-family: "Consolas", monospace;
-    font-size: 12px;
-    padding: 3px 8px;
-    border-radius: 4px;
-    margin-left: 8px;
-    direction: ltr;
-  }
-  .commit-title {
-    font-weight: bold;
-    color: var(--pepper);
-    margin-bottom: 4px;
-    display: inline-block;
-  }
-  .commit-body { color: var(--muted); font-size: 14px; margin-top: 6px; }
   .pill {
     display: inline-block;
     background: var(--clay);
@@ -202,8 +145,19 @@
     border: 1px solid var(--line);
   }
   .pill.green { background: #ecf3e6; color: var(--green); border-color: #c5d8b9; }
-  .pill.red { background: #f7e9e5; color: var(--red); border-color: #e5c4bc; }
-  hr { border: none; border-top: 1px solid var(--line); margin: 32px 0; }
+  .section-divider {
+    text-align: center;
+    margin: 56px 0 8px;
+    color: var(--oak);
+    font-size: 13px;
+    letter-spacing: 0.2em;
+  }
+  .section-divider::before,
+  .section-divider::after {
+    content: "─ ─ ─";
+    margin: 0 12px;
+    color: var(--line);
+  }
   footer {
     margin-top: 48px;
     padding-top: 18px;
@@ -212,11 +166,33 @@
     font-size: 13px;
     text-align: center;
   }
+  .step-num {
+    display: inline-block;
+    background: var(--sienna);
+    color: #fff;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 24px;
+    font-weight: bold;
+    font-size: 13px;
+    margin-left: 8px;
+  }
+  kbd {
+    background: var(--clay);
+    border: 1px solid var(--line);
+    border-bottom-width: 2px;
+    border-radius: 4px;
+    padding: 1px 6px;
+    font-size: 12px;
+    font-family: "Consolas", "Courier New", monospace;
+  }
   @media print {
     body { background: white; font-size: 12pt; }
     .page { padding: 0; max-width: 100%; }
     h2 { page-break-after: avoid; }
-    pre, table, .commit, .callout { page-break-inside: avoid; }
+    pre, table, .callout { page-break-inside: avoid; }
     a { color: var(--ink); border-bottom: none; }
     .toc { page-break-after: always; }
   }
@@ -226,670 +202,503 @@
 <div class="page">
 
 <header class="hero">
-  <div class="brand">توثيق فني • لوحة علم تأويل الرؤى</div>
-  <h1>موقع علم تأويل الرؤى — sahaarr299.com</h1>
-  <p class="subtitle">دليل شامل بكل التعديلات، الإعدادات، وتدفّقات العمل في الموقع.</p>
-  <p class="subtitle" style="margin-top:6px;font-size:13px">آخر تحديث للوثيقة: 2026-06-10</p>
+  <div class="brand">دليل موقع علم تأويل الرؤى</div>
+  <h1>sahaarr299.com</h1>
+  <p class="subtitle">دليل شامل لاستعمال الموقع وإدارته — مع جميع المزايا الجديدة.</p>
+  <p class="subtitle" style="margin-top:6px;font-size:13px">آخر تحديث: 2026-06-10</p>
 </header>
 
 <nav class="toc">
   <h3>المحتويات</h3>
+  <div class="group-title">القسم الأول — للعميل (الاستعمال اليومي)</div>
   <ol>
-    <li><a href="#overview">نظرة عامة على المشروع</a></li>
-    <li><a href="#stack">البنية التقنية (Tech Stack)</a></li>
-    <li><a href="#structure">هيكل المشروع وملفاته</a></li>
+    <li><a href="#overview">نظرة عامة على الموقع</a></li>
+    <li><a href="#using-studio">طريقة استعمال لوحة التحكم (Studio)</a></li>
+    <li><a href="#managing-posts">إدارة المقالات والتصنيفات</a></li>
+    <li><a href="#replying">الردّ على رسائل الزوار</a></li>
+    <li><a href="#managing-members">إدارة الأعضاء المسجَّلين</a></li>
+    <li><a href="#site-settings">تعديل نصوص الموقع</a></li>
+  </ol>
+  <div class="group-title">القسم الثاني — كيف يستعمل الزائر الموقع</div>
+  <ol start="7">
+    <li><a href="#visitor-flow">تجربة الزائر — التصفّح والتسجيل</a></li>
+    <li><a href="#member-flow">تجربة العضو — إرسال الرسائل ومتابعة الردود</a></li>
+  </ol>
+  <div class="group-title">القسم الثالث — للمطوّر (الجانب التقني)</div>
+  <ol start="9">
+    <li><a href="#stack">البنية التقنية</a></li>
     <li><a href="#pages">الصفحات والمسارات</a></li>
-    <li><a href="#sanity">لوحة التحكم Sanity Studio</a></li>
-    <li><a href="#email-flow">تدفّق الرسائل والردود (Email Flow)</a></li>
-    <li><a href="#env">متغيّرات البيئة (Environment Variables)</a></li>
-    <li><a href="#resend-setup">إعداد Resend + Namecheap DNS</a></li>
-    <li><a href="#vercel-setup">إعداد Vercel ونشر الموقع</a></li>
-    <li><a href="#sanity-webhook">إعداد Sanity Webhook</a></li>
-    <li><a href="#commits">سجل التعديلات الكامل (Commits)</a></li>
-    <li><a href="#test">كيف تختبر النظام</a></li>
+    <li><a href="#env">متغيّرات البيئة</a></li>
+    <li><a href="#deployment">النشر على Vercel</a></li>
     <li><a href="#troubleshoot">استكشاف الأخطاء</a></li>
     <li><a href="#maintenance">الصيانة الدورية</a></li>
   </ol>
 </nav>
 
-<!-- ================ 1. OVERVIEW ================ -->
+<!-- =====================  القسم الأول  ====================== -->
+
 <section id="overview">
-<h2>1. نظرة عامة على المشروع</h2>
+<h2>1. نظرة عامة على الموقع</h2>
 
 <p>
-  <strong>علم تأويل الرؤى</strong> (sahaarr299.com) هو موقع/مدوّنة عربية تتعامل مع تأويل
-  الأحلام والرؤى ضمن طابع فنّي ثمودي/نجدي. الموقع يدمج بين:
+  موقع <strong>علم تأويل الرؤى</strong> منصة عربية متكاملة تجمع بين:
 </p>
 <ul>
-  <li>صفحات تعريفية ومحتوى مدوّنة (مقالات، تصنيفات).</li>
-  <li>بوّابات تفاعلية لإرسال رسائل واستفسارات من الزوّار.</li>
-  <li>لوحة تحكم Sanity Studio مدمجة في نفس الدومين <code>/studio</code>.</li>
-  <li>نظام رد آلي من Studio يُرسل البريد الإلكتروني للعميل عبر Resend.</li>
-  <li>صفحة محادثة خاصّة بكل عميل عبر رابط فريد <code>/inquiry/{token}</code>.</li>
+  <li><strong>مدوّنة</strong> — مقالات ودراسات في تأويل الرؤى، مرتّبة بحسب التصنيفات.</li>
+  <li><strong>بوّابات تواصل</strong> — ثلاث نوافذ يستطيع الزوار من خلالها إرسال رؤاهم وتساؤلاتهم: الرؤى العامة، الرؤى الشخصية، والتساؤل والاستعلام.</li>
+  <li><strong>نظام أعضاء</strong> — تسجيل وتسجيل دخول لحفظ رسائل الزائر وردودها في مكان واحد.</li>
+  <li><strong>لوحة تحكم</strong> — تتيح للإدارة كتابة المقالات والرد على الرسائل ومراجعة الأعضاء، عبر <code>sahaarr299.com/studio</code>.</li>
+  <li><strong>رد آلي بالبريد</strong> — حين يُكتب الرد في اللوحة، يصل تلقائيًا لبريد العضو.</li>
 </ul>
 
-<h3>روابط أساسية</h3>
+<h3>الروابط الأساسية</h3>
 <table>
   <tr><th>الوصف</th><th>الرابط</th></tr>
-  <tr><td>الموقع الإنتاجي</td><td><a href="https://sahaarr299.com">https://sahaarr299.com</a></td></tr>
-  <tr><td>لوحة التحكم (Studio)</td><td><a href="https://sahaarr299.com/studio">https://sahaarr299.com/studio</a></td></tr>
-  <tr><td>المستودع (GitHub)</td><td>github.com/jedooabdelhady/anwar-blog</td></tr>
-  <tr><td>دومين النشر القديم (Alias)</td><td>sahaarr299.vercel.app</td></tr>
+  <tr><td>الموقع</td><td><a href="https://sahaarr299.com">sahaarr299.com</a></td></tr>
+  <tr><td>لوحة التحكم</td><td><a href="https://sahaarr299.com/studio">sahaarr299.com/studio</a></td></tr>
+  <tr><td>دخول الإدارة للوحة</td><td>عبر حساب Google أو GitHub المرتبط بالمشروع</td></tr>
 </table>
+
+<div class="callout tip">
+  <strong>التكلفة الشهرية للموقع: 0 ريال</strong> — يعمل على خطط مجانية في كل الخدمات (Vercel + Sanity + Resend + GitHub)،
+  وتكفي حتى وصول التفاعل لأعداد كبيرة (3000 رسالة بريد شهريًا، آلاف المقالات، عدد غير محدود من الزوار).
+</div>
 </section>
 
-<!-- ================ 2. STACK ================ -->
-<section id="stack">
-<h2>2. البنية التقنية</h2>
+<section id="using-studio">
+<h2>2. طريقة استعمال لوحة التحكم (Studio)</h2>
 
-<table>
-  <tr><th>الطبقة</th><th>التقنية</th><th>الملاحظات</th></tr>
-  <tr><td>الإطار (Framework)</td><td>Next.js 16.2.7 + React 19</td><td>App Router + Turbopack</td></tr>
-  <tr><td>التنسيق</td><td>Tailwind CSS 4</td><td>palette مخصصة (sienna/oak/pepper)</td></tr>
-  <tr><td>CMS</td><td>Sanity v5 + @sanity/client v7</td><td>مدمج عبر next-sanity 13</td></tr>
-  <tr><td>البريد</td><td>Resend</td><td>عبر `resend` npm package</td></tr>
-  <tr><td>الاستضافة</td><td>Vercel</td><td>Production deployment تلقائي عند push</td></tr>
-  <tr><td>الدومين</td><td>Namecheap (sahaarr299.com)</td><td>DNS مُدار من Namecheap</td></tr>
-  <tr><td>اللغة</td><td>TypeScript 5</td><td>strict mode</td></tr>
-  <tr><td>الخطوط</td><td>Times New Roman + Naskh fallbacks</td><td>لتناسب نسق الكلاسيكي العربي</td></tr>
-  <tr><td>الأيقونات</td><td>lucide-react</td><td></td></tr>
-</table>
-</section>
-
-<!-- ================ 3. STRUCTURE ================ -->
-<section id="structure">
-<h2>3. هيكل المشروع وملفاته</h2>
-
-<pre>anwar-blog/
-├── public/
-│   ├── logos/
-│   │   ├── full.png          ← الشعار الكامل
-│   │   ├── figure.png         ← شعار الرجل
-│   │   ├── ts.jpeg            ← صورة الحجر (services page)
-│   │   └── wallpaper.jpeg     ← خلفية الموقع (thamudic engraved)
-│   ├── categories/            ← أيقونات التصنيفات
-│   └── thamudic-bg.svg        ← خلفية قديمة (استبدلت)
-│
-├── src/
-│   ├── app/
-│   │   ├── layout.tsx                 ← الـ layout الأساسي + خط RTL
-│   │   ├── page.tsx                   ← الصفحة الرئيسية
-│   │   ├── globals.css                ← الـ palette + خلفية wallpaper الثابتة
-│   │   ├── about/                     ← صفحة "حَوْل المنصة"
-│   │   ├── blog/                      ← المكتبة (المقالات)
-│   │   │   ├── page.tsx               ← قائمة المقالات + تصنيفات Sanity
-│   │   │   └── [slug]/page.tsx        ← صفحة المقال الفردي
-│   │   ├── services/                  ← الاستفسار والتساؤل (الكارت الرئيسي)
-│   │   ├── forms/
-│   │   │   ├── inquiry/page.tsx       ← فورم التساؤلات
-│   │   │   ├── public-vision/page.tsx
-│   │   │   └── private-vision/page.tsx
-│   │   ├── inquiry/[token]/page.tsx   ← صفحة المحادثة للعميل (جديد)
-│   │   ├── contact/                   ← صفحة التواصل
-│   │   ├── privacy/, terms/           ← الشروط والخصوصية
-│   │   ├── studio/[[...tool]]/        ← Sanity Studio المدمج
-│   │   └── api/
-│   │       ├── submissions/route.ts   ← استقبال الفورم + توليد accessToken
-│   │       └── sanity-webhook/route.ts ← يستقبل Sanity webhook ويرسل الرد
-│   │
-│   ├── components/
-│   │   ├── Header.tsx, Footer.tsx
-│   │   ├── Hero.tsx, ThreeCards.tsx
-│   │   ├── BlogCard.tsx, BlogGrid.tsx
-│   │   ├── ContactForm.tsx            ← فورم التواصل + زر "فتح صفحة المحادثة"
-│   │   ├── FormPageShell.tsx
-│   │   ├── DecorativeWaves.tsx
-│   │   ├── PageShell.tsx
-│   │   ├── Logo.tsx
-│   │   └── ShareButtons.tsx
-│   │
-│   ├── data/
-│   │   └── posts.ts                   ← seed data + CATEGORIES fallback
-│   │
-│   ├── lib/                           ← مكتبات مساعدة
-│   │
-│   └── sanity/
-│       ├── env.ts                     ← متغيرات Sanity + sanityConfigured flag
-│       ├── theme.ts                   ← thème لـ Studio
-│       ├── StudioLogo.tsx
-│       ├── lib/
-│       │   ├── client.ts              ← client (CDN) + writeClient
-│       │   ├── queries.ts             ← GROQ queries مركزية
-│       │   ├── fetch.ts               ← getAllPosts, getAllCategories, getSubmissionByToken
-│       │   ├── image.ts               ← image url builder
-│       │   └── settings.ts            ← قراءة siteSettings
-│       └── schemaTypes/
-│           ├── index.ts               ← مصفوفة الـ schemas
-│           ├── post.ts                ← المقال
-│           ├── category.ts            ← التصنيف
-│           ├── author.ts              ← الكاتب
-│           ├── siteSettings.ts        ← إعدادات الموقع
-│           └── submission.ts          ← الرسائل + replyMessage + accessToken
-│
-├── scripts/                            ← scripts صيانة Sanity
-├── docs/                               ← توثيق داخلي
-├── sanity.config.ts                    ← إعداد Studio
-├── next.config.ts
-├── tsconfig.json
-└── package.json
-</pre>
-</section>
-
-<!-- ================ 4. PAGES ================ -->
-<section id="pages">
-<h2>4. الصفحات والمسارات</h2>
-
-<table>
-  <tr><th>المسار</th><th>الوصف</th><th>النوع</th></tr>
-  <tr><td>/</td><td>الصفحة الرئيسية (Hero + ثلاث بوّابات)</td><td>Static</td></tr>
-  <tr><td>/about</td><td>حَوْل المنصة</td><td>Static</td></tr>
-  <tr><td>/blog</td><td>المكتبة — قائمة المقالات + chips للتصنيفات</td><td>Dynamic (revalidate 60s)</td></tr>
-  <tr><td>/blog/[slug]</td><td>صفحة المقال الفردي</td><td>SSG + ISR</td></tr>
-  <tr><td>/services</td><td>الاستفسار والتساؤل — كارت بوّابة مع صورة الحجر</td><td>Static</td></tr>
-  <tr><td>/forms/inquiry</td><td>بوّابة تساؤل واستعلام</td><td>Static</td></tr>
-  <tr><td>/forms/public-vision</td><td>رؤية عامة (آراء ومقترحات)</td><td>Static</td></tr>
-  <tr><td>/forms/private-vision</td><td>رؤية خاصة (مشروع/نقاش)</td><td>Static</td></tr>
-  <tr><td>/inquiry/[token]</td><td><strong>صفحة المحادثة الخاصة بالعميل</strong> — تعرض رسالته والرد</td><td>SSR (no cache)</td></tr>
-  <tr><td>/contact</td><td>صفحة التواصل العامة</td><td>Static</td></tr>
-  <tr><td>/privacy</td><td>سياسة الخصوصية</td><td>Static</td></tr>
-  <tr><td>/terms</td><td>الشروط والأحكام</td><td>Static</td></tr>
-  <tr><td>/studio</td><td>Sanity Studio (لوحة الإدارة)</td><td>Dynamic</td></tr>
-  <tr><td>/api/submissions</td><td>POST — استقبال نماذج الفورم</td><td>API Route</td></tr>
-  <tr><td>/api/sanity-webhook</td><td>POST — يستقبل Sanity ويرسل ردّ الإيميل</td><td>API Route</td></tr>
-</table>
-</section>
-
-<!-- ================ 5. SANITY ================ -->
-<section id="sanity">
-<h2>5. لوحة التحكم Sanity Studio</h2>
-
-<p>تُتاح اللوحة على <code>/studio</code> داخل نفس الدومين. يمكن للإدارة:</p>
-<ul>
-  <li>إنشاء/تعديل المقالات، التصنيفات، الكتّاب، الإعدادات.</li>
-  <li>مراجعة الرسائل المُستلَمة من نماذج الموقع.</li>
-  <li>كتابة الردّ على الرسائل ونشره — يُرسَل تلقائيًا للعميل بالبريد.</li>
-</ul>
-
-<h3>أنواع المستندات (Schema Types)</h3>
-
-<h4>post — المقال</h4>
-<ul>
-  <li>title, slug, excerpt, body (Portable Text)</li>
-  <li>image + alt, author (مرجعي)، category (مرجعي)</li>
-  <li>publishedAt, seo</li>
-</ul>
-
-<h4>category — التصنيف</h4>
-<ul>
-  <li>title, slug, description</li>
-  <li>يُستخدم لتصفية المكتبة <code>/blog?category=...</code></li>
-</ul>
-
-<h4>author — الكاتب</h4>
-<ul>
-  <li>name, avatar, bio</li>
-</ul>
-
-<h4>siteSettings — إعدادات الموقع</h4>
-<ul>
-  <li>نصوص الصفحات المعروضة في الـ Hero والـ Footer</li>
-</ul>
-
-<h4>submission — الرسالة المُستقبَلة</h4>
-<table>
-  <tr><th>الحقل</th><th>النوع</th><th>الوصف</th></tr>
-  <tr><td>kind</td><td>string</td><td>نوع الرسالة (public-vision / private-vision / inquiry)</td></tr>
-  <tr><td>name</td><td>string</td><td>اسم العميل</td></tr>
-  <tr><td>email</td><td>email</td><td>بريد العميل (اختياري)</td></tr>
-  <tr><td>phone</td><td>string</td><td>جوال (اختياري)</td></tr>
-  <tr><td>subject</td><td>string</td><td>الموضوع (اختياري)</td></tr>
-  <tr><td>message</td><td>text</td><td>متن الرسالة</td></tr>
-  <tr><td>createdAt</td><td>datetime</td><td>وقت الاستلام (readonly)</td></tr>
-  <tr><td>status</td><td>string</td><td>جديدة / قيد المراجعة / تم الرد / أُرشفت</td></tr>
-  <tr><td><strong>replyMessage</strong></td><td>text</td><td>ردّ المسؤول — كتابته هنا ثم Publish تُرسل الإيميل</td></tr>
-  <tr><td>replySentAt</td><td>datetime</td><td>وقت إرسال الرد (readonly، يُحدَّث تلقائيًا)</td></tr>
-  <tr><td>replyError</td><td>string</td><td>رسالة الخطأ من Resend لو فشل الإرسال (readonly)</td></tr>
-  <tr><td><strong>accessToken</strong></td><td>string</td><td>UUID فريد للرابط العام للعميل (readonly)</td></tr>
-</table>
-</section>
-
-<!-- ================ 6. EMAIL FLOW ================ -->
-<section id="email-flow">
-<h2>6. تدفّق الرسائل والردود (Email Flow)</h2>
-
-<h3>1) العميل يُرسل رسالة من الموقع</h3>
+<h3>الدخول للوحة</h3>
 <ol>
-  <li>يملأ العميل الفورم في <code>/forms/inquiry</code> (أو public-vision/private-vision).</li>
-  <li>الفورم يُرسل POST إلى <code>/api/submissions</code> بصيغة JSON.</li>
-  <li>الـ API يُولِّد <code>accessToken</code> فريد (UUID v4).</li>
-  <li>يحفظ الـ submission في Sanity مع <code>accessToken</code> و <code>status: "new"</code>.</li>
-  <li>يُرسل إشعارًا لك (المسؤول) عبر Resend على <code>CONTACT_EMAIL_TO</code>.</li>
-  <li>يعيد للفورم <code>{ ok: true, id, accessToken }</code>.</li>
-  <li>الفورم يعرض رسالة نجاح + زر <strong>"فتح صفحة المحادثة"</strong> → <code>/inquiry/{accessToken}</code>.</li>
+  <li>افتحي <a href="https://sahaarr299.com/studio">sahaarr299.com/studio</a> في أي متصفّح.</li>
+  <li>ستظهر شاشة <em>"Choose login provider"</em> — اختاري الحساب نفسه الذي أُنشئ به مشروع Sanity (Google غالبًا).</li>
+  <li>عند الدخول الأول، قد يطلب صلاحيات — وافقي.</li>
 </ol>
 
-<h3>2) أنت تردّ من Studio</h3>
-<ol>
-  <li>تفتح Studio على <code>/studio</code> → "الرسائل الواردة".</li>
-  <li>تفتح الرسالة الجديدة → تكتب الردّ في حقل <strong>"ردّ المسؤول"</strong>.</li>
-  <li>(اختياري) تغيّر الحالة لـ "تم الرد".</li>
-  <li>تضغط <strong>Publish</strong>.</li>
-</ol>
+<h3>أقسام اللوحة (القائمة اليمنى)</h3>
+<table>
+  <tr><th>القسم</th><th>وظيفته</th></tr>
+  <tr><td>⚙️ إعدادات الموقع</td><td>نصوص البانر، البطاقات الثلاث، عنوان قسم المدوّنة.</td></tr>
+  <tr><td>📝 المقالات</td><td>إضافة وتعديل وحذف المقالات.</td></tr>
+  <tr><td>🏷️ التصنيفات</td><td>إدارة تصنيفات المقالات.</td></tr>
+  <tr><td>👤 الكتّاب</td><td>إضافة كتّاب جدد (اختياري).</td></tr>
+  <tr><td>📨 الرسائل الواردة</td><td>كل ما يصل من نماذج الموقع — مع كتابة الردود.</td></tr>
+  <tr><td>👥 الأعضاء</td><td>قائمة بكل من سجَّل حسابًا على الموقع.</td></tr>
+</table>
 
-<h3>3) Sanity Webhook يطلق تلقائيًا</h3>
+<h3>أساسيات الاستخدام</h3>
+<ul>
+  <li>أي تعديل في اللوحة لا يظهر على الموقع إلا بعد الضغط على زر <strong>Publish</strong> أسفل الصفحة.</li>
+  <li>المسوّدات (Drafts) تُحفظ تلقائيًا، لكنها لا تظهر للزوار حتى تُنشَر.</li>
+  <li>المتصفح في الجوال يعمل أيضًا، لكن الكمبيوتر أمريح للكتابة.</li>
+</ul>
+</section>
+
+<section id="managing-posts">
+<h2>3. إدارة المقالات والتصنيفات</h2>
+
+<h3>إضافة مقال جديد</h3>
 <ol>
-  <li>Sanity يكتشف التغيير ويستدعي webhook المُسجَّل على <code>/api/sanity-webhook</code>.</li>
-  <li>الـ API يتحقق من توقيع HMAC-SHA256 باستخدام <code>SANITY_WEBHOOK_SECRET</code>.</li>
-  <li>يقرأ الـ submission كاملًا (يجلب <code>accessToken</code> من Sanity مباشرة).</li>
-  <li>إذا كان <code>replyMessage</code> موجود و <code>replySentAt</code> فارغ:
+  <li>افتحي القائمة الجانبية ← اضغطي <strong>📝 المقالات</strong>.</li>
+  <li>اضغطي زر <kbd>+</kbd> أعلى القائمة لإنشاء مقال جديد.</li>
+  <li>عبّئي الحقول التالية:
     <ul>
-      <li>يُرسل البريد للعميل عبر Resend (HTML مع تنسيق RTL + زر للموقع).</li>
-      <li>BCC نسخة لك على <code>CONTACT_EMAIL_TO</code>.</li>
-      <li>يضع <code>replySentAt = الآن</code>، <code>status = "answered"</code>.</li>
+      <li><strong>العنوان</strong> — يظهر في صفحة المقال وقائمة المكتبة.</li>
+      <li><strong>الرابط (Slug)</strong> — يُولَّد تلقائيًا، يمكن تعديله. تجنّبي المسافات.</li>
+      <li><strong>الملخص (Excerpt)</strong> — جملة قصيرة تظهر في البطاقة وفي بحث Google.</li>
+      <li><strong>الصورة الرئيسية + النص البديل</strong> — يُفضَّل ≥1200×630.</li>
+      <li><strong>المحرّر الغني (Body)</strong> — متن المقال؛ يدعم العناوين، الاقتباسات، الصور، الروابط.</li>
+      <li><strong>التصنيف</strong> — اختاري من القائمة.</li>
+      <li><strong>تاريخ النشر</strong> — يمكن جدولته في المستقبل (لن يظهر حتى يحلّ التاريخ).</li>
     </ul>
   </li>
-  <li>إذا فشل Resend (مثل خطأ التحقق) → يكتب الخطأ في <code>replyError</code>.</li>
+  <li>اضغطي <strong>Publish</strong>.</li>
 </ol>
 
-<h3>4) العميل يستلم الرد</h3>
+<h3>تعديل أو حذف مقال</h3>
+<ol>
+  <li>افتحي 📝 المقالات ← اضغطي على المقال المطلوب.</li>
+  <li><strong>للتعديل:</strong> غيّري ما تشائين ثم <strong>Publish</strong>.</li>
+  <li><strong>للحذف:</strong> اضغطي القائمة العلوية <kbd>⋯</kbd> ← <em>Delete</em>.</li>
+</ol>
+
+<div class="callout warn">
+  <strong>تنبيه:</strong> الحذف نهائي — تأكّدي قبل التأكيد. لو تريدين إخفاء المقال مؤقتًا فقط، غيّري <strong>تاريخ النشر</strong> لتاريخ مستقبلي بدلًا من الحذف.
+</div>
+
+<h3>إضافة تصنيف جديد</h3>
+<ol>
+  <li>القائمة الجانبية ← <strong>🏷️ التصنيفات</strong> ← <kbd>+</kbd>.</li>
+  <li>عبّئي العنوان (مثل: <em>تأويل الأحلام النبوية</em>) والوصف الاختياري.</li>
+  <li><strong>Publish</strong>.</li>
+</ol>
+<p>التصنيف الجديد سيظهر تلقائيًا في صفحة المكتبة كزر تصفية في الأعلى.</p>
+</section>
+
+<section id="replying">
+<h2>4. الردّ على رسائل الزوار</h2>
+
+<p>كل ما يرسله زائر من بوّابات الموقع يُحفظ في <strong>📨 الرسائل الواردة</strong>. الرد يصل تلقائيًا لبريد المرسِل بمجرد نشر الرد.</p>
+
+<h3>خطوات الرد</h3>
+<ol>
+  <li>افتحي <strong>📨 الرسائل الواردة</strong> ← ستجدين كل الرسائل مرتّبة من الأحدث.</li>
+  <li>اضغطي على رسالة جديدة <span class="pill">new</span> لقراءتها.</li>
+  <li>راجعي الحقول:
+    <ul>
+      <li><strong>نوع النموذج</strong> — رؤية عامة / رؤية شخصية / تساؤل واستعلام.</li>
+      <li><strong>اسم المرسِل وبريده وجواله</strong> (الجوال اختياري قد يكون فارغًا).</li>
+      <li><strong>الموضوع والرسالة</strong> — متن ما كتبه الزائر.</li>
+      <li><strong>العضو المُرسِل</strong> — إذا كان مسجَّلاً، يربط الرسالة بحسابه (نقرة عليه تأخذك لصفحة العضو).</li>
+    </ul>
+  </li>
+  <li>انزلي لحقل <strong>"ردّ المسؤول"</strong> واكتبي الرد.</li>
+  <li>(اختياري) غيّري <strong>الحالة</strong> إلى <em>"تم الرد"</em>.</li>
+  <li>اضغطي <strong>Publish</strong>.</li>
+</ol>
+
+<h3>ماذا يحدث بعد النشر؟</h3>
 <ul>
-  <li>يصله إيميل من <code>no-reply@sahaarr299.com</code> فيه نصّ الرد + زر "عرض المحادثة على الموقع".</li>
-  <li>الزر يفتح صفحة <code>/inquiry/{accessToken}</code> ويرى الرسالة الأصلية + الرد.</li>
-  <li>يمكنه العودة للرابط في أي وقت (الصفحة بـ <code>robots: noindex</code> فلا تظهر في Google).</li>
+  <li><strong>خلال ثوانٍ:</strong> الإيميل يصل للزائر من <code>no-reply@sahaarr299.com</code>.</li>
+  <li>الإيميل يحتوي نص الرد + زر يفتح صفحة المحادثة على الموقع.</li>
+  <li>حقل <strong>"أُرسل الرد في"</strong> يُملأ تلقائيًا — هذه إشارة أن الإيميل فعلاً انطلق.</li>
+  <li>الزائر يستطيع رؤية الرد أيضًا في <code>/account/inquiries</code> داخل حسابه.</li>
 </ul>
 
 <div class="callout tip">
-  <strong>الـ Idempotency:</strong> الـ webhook لا يُعيد إرسال الإيميل لو
-  <code>replySentAt</code> متعبّى، حتى لو أعدت Publish.
+  <strong>الحماية من التكرار:</strong> النظام لا يُرسل الإيميل مرتين — لو أعدتِ النشر بعد إرسال الرد، لن يُرسَل من جديد.
+</div>
+
+<h3>إذا فشل الإرسال</h3>
+<p>إذا حدث خطأ في إرسال الإيميل (مثل بريد غير صالح)، يظهر حقل <strong>"خطأ في إرسال الرد"</strong> في رأس الصفحة بالرسالة التقنية. النص نفسه يظل ظاهرًا للزائر على الموقع حتى لو لم يصله الإيميل.</p>
+</section>
+
+<section id="managing-members">
+<h2>5. إدارة الأعضاء المسجَّلين</h2>
+
+<p>يستطيع زوار الموقع إنشاء حسابات بأنفسهم — وأنتِ تستطيعين مراجعتهم من قسم <strong>👥 الأعضاء</strong>.</p>
+
+<h3>عرض الأعضاء</h3>
+<ol>
+  <li>القائمة الجانبية ← <strong>👥 الأعضاء</strong>.</li>
+  <li>كل عضو يظهر باسم المستخدم، البريد، وحالة التفعيل.</li>
+</ol>
+
+<h3>ما تستطيعين رؤيته في صفحة العضو</h3>
+<ul>
+  <li>اسم المستخدم (الفريد).</li>
+  <li>البريد الإلكتروني وحالة تفعيله.</li>
+  <li>الاسم الظاهر — ما اختاره أن يظهر على رسائله.</li>
+  <li>رقم الجوال (إن كتبه).</li>
+  <li>الدور — <em>عضو</em> افتراضيًا، يمكن رفعه إلى <em>مسؤول</em>.</li>
+  <li>تاريخ التسجيل وآخر دخول.</li>
+</ul>
+
+<h3>حذف حساب مخالِف</h3>
+<ol>
+  <li>افتحي الحساب ← <kbd>⋯</kbd> ← <em>Delete</em>.</li>
+  <li>الحساب يُحذف نهائيًا، لكن رسائله السابقة تبقى في "الرسائل الواردة" (لكنها تفقد الربط بالعضو).</li>
+</ol>
+
+<div class="callout">
+  <strong>للوصول السريع:</strong> من أي رسالة في "الرسائل الواردة"، اضغطي على حقل <em>"العضو المُرسِل"</em> لتفتح صفحة العضو وترين رسائله الأخرى.
 </div>
 </section>
 
-<!-- ================ 7. ENV VARS ================ -->
-<section id="env">
-<h2>7. متغيّرات البيئة (Environment Variables)</h2>
+<section id="site-settings">
+<h2>6. تعديل نصوص الموقع</h2>
 
-<p>تُحدَّد في Vercel → Project → Settings → Environment Variables (Production + Preview + Development):</p>
+<p>أكثر النصوص في الصفحة الرئيسية قابلة للتعديل دون لمس الكود، عبر <strong>⚙️ إعدادات الموقع</strong>.</p>
+
+<h3>ما يمكن تعديله</h3>
+<ul>
+  <li><strong>اسم الموقع والوصف العام</strong> — يظهران في نتائج Google ومشاركات وسائل التواصل.</li>
+  <li><strong>شرائح البانر</strong> — الاقتباسات المتحركة في الصفحة الرئيسية.
+    <ul>
+      <li>يمكن إضافة/حذف شرائح.</li>
+      <li>لكل شريحة لون من خمسة (sienna/oak/pepper/gum/smoke).</li>
+      <li>لتغميق كلمة معيّنة داخل النص، احيطيها بنجمتين: <code>**كلمة**</code>.</li>
+    </ul>
+  </li>
+  <li><strong>البطاقات الثلاث (البوّابات)</strong> — العنوان والنص وزرّ كل بطاقة.</li>
+  <li><strong>قسم المدوّنة</strong> — العنوان والنص الفرعي.</li>
+</ul>
+
+<h3>الخطوات</h3>
+<ol>
+  <li>افتحي <strong>⚙️ إعدادات الموقع</strong>.</li>
+  <li>عدّلي ما تشائين.</li>
+  <li>اضغطي <strong>Publish</strong> — التعديل يظهر على الموقع خلال 60 ثانية أو أقل.</li>
+</ol>
+</section>
+
+<div class="section-divider">القسم الثاني — تجربة الزائر</div>
+
+<section id="visitor-flow">
+<h2>7. تجربة الزائر — التصفّح والتسجيل</h2>
+
+<p>الزائر يستطيع تصفّح الموقع بدون أي تسجيل. التسجيل مطلوب فقط حين يريد إرسال رسالة.</p>
+
+<h3>التصفّح الحر (بدون تسجيل)</h3>
+<ul>
+  <li>الصفحة الرئيسية، المدوّنة وأي مقال.</li>
+  <li>صفحة "حول المنصة"، "بوّابة التساؤل" التعريفية.</li>
+  <li>الشروط والأحكام، سياسة الخصوصية.</li>
+</ul>
+
+<h3>التسجيل لإرسال رسالة</h3>
+<ol>
+  <li><span class="step-num">1</span> الزائر يضغط على أي بوّابة من الصفحة الرئيسية.</li>
+  <li><span class="step-num">2</span> يُحوَّل تلقائيًا إلى صفحة تسجيل الدخول.</li>
+  <li><span class="step-num">3</span> يضغط "أنشئ حساباً" ← يعبّئ:
+    <ul>
+      <li>اسم مستخدم (3-32 حرفًا إنجليزيًا أو أرقامًا).</li>
+      <li>الاسم الظاهر (اختياري).</li>
+      <li>البريد الإلكتروني.</li>
+      <li>رقم الجوال (اختياري).</li>
+      <li>كلمة المرور (8 أحرف على الأقل).</li>
+    </ul>
+  </li>
+  <li><span class="step-num">4</span> فور إنشاء الحساب، يُسجَّل دخوله تلقائيًا وتصله رسالة تفعيل البريد.</li>
+  <li><span class="step-num">5</span> يفتح الرسالة في بريده ← يضغط زر التفعيل ← يُحوَّل لصفحة "تم تفعيل بريدك".</li>
+</ol>
+
+<h3>تسجيل الدخول والاسترداد</h3>
+<ul>
+  <li>يستطيع الدخول لاحقًا بـ <strong>اسم المستخدم أو البريد</strong> + كلمة المرور.</li>
+  <li>إذا نسي كلمة المرور: "نسيت كلمة المرور؟" ← يدخل بريده ← يصله رابط استرداد صالح لمدة 30 دقيقة.</li>
+</ul>
+</section>
+
+<section id="member-flow">
+<h2>8. تجربة العضو — إرسال الرسائل ومتابعة الردود</h2>
+
+<h3>إرسال رسالة</h3>
+<ol>
+  <li>بعد تسجيل الدخول، يفتح أي بوّابة من القائمة.</li>
+  <li>يجد اسمه وبريده مُعبّأين تلقائيًا.</li>
+  <li>يكتب الموضوع والرسالة ← يضغط زر الإرسال.</li>
+  <li>تظهر له صفحة نجاح فيها زر "عرض رسائلي".</li>
+</ol>
+
+<h3>متابعة الردود</h3>
+<ol>
+  <li>من القائمة العلوية، يضغط على اسمه ← <strong>رسائلي ورؤاي</strong>.</li>
+  <li>يجد كل ما أرسله مع حالة كل رسالة:
+    <ul>
+      <li><span class="pill">بانتظار الرد</span> — لم تُرَدّ بعد.</li>
+      <li><span class="pill green">تم الرد</span> — يستطيع فتحها لقراءة الرد.</li>
+    </ul>
+  </li>
+  <li>يستطيع كذلك فتح صفحة الرد عبر الزر الذي وصله في الإيميل.</li>
+</ol>
+
+<h3>إدارة الحساب</h3>
+<ul>
+  <li><strong>الإعدادات</strong> — تعديل الاسم الظاهر، الجوال، تغيير كلمة المرور.</li>
+  <li><strong>تسجيل الخروج</strong> — من قائمة الحساب أو من صفحة الإعدادات.</li>
+</ul>
+</section>
+
+<div class="section-divider">القسم الثالث — للمطوّر</div>
+
+<!-- =====================  القسم الثالث  ====================== -->
+
+<section id="stack">
+<h2>9. البنية التقنية</h2>
 
 <table>
-  <tr><th>المفتاح</th><th>القيمة المتوقعة</th><th>الاستخدام</th></tr>
-  <tr>
-    <td>NEXT_PUBLIC_SANITY_PROJECT_ID</td>
-    <td>معرّف مشروع Sanity</td>
-    <td>يُستخدم لقراءة المحتوى من CDN</td>
-  </tr>
-  <tr>
-    <td>NEXT_PUBLIC_SANITY_DATASET</td>
-    <td><code>production</code></td>
-    <td>اسم الـ dataset</td>
-  </tr>
-  <tr>
-    <td>NEXT_PUBLIC_SANITY_API_VERSION</td>
-    <td><code>2025-01-01</code></td>
-    <td>(اختياري) — يُستخدم default لو غير موجود</td>
-  </tr>
-  <tr>
-    <td>SANITY_WRITE_TOKEN</td>
-    <td>token من Sanity (مع Write access)</td>
-    <td>حفظ الرسائل + تحديث replySentAt و accessToken</td>
-  </tr>
-  <tr>
-    <td>SANITY_WEBHOOK_SECRET</td>
-    <td>سلسلة عشوائية ≥32 حرف</td>
-    <td>للتحقق من توقيع webhook من Sanity</td>
-  </tr>
-  <tr>
-    <td>RESEND_API_KEY</td>
-    <td><code>re_…</code></td>
-    <td>مفتاح Resend لإرسال البريد</td>
-  </tr>
-  <tr>
-    <td>CONTACT_EMAIL_TO</td>
-    <td>إيميلك الشخصي (Gmail مثلًا)</td>
-    <td>تصلك إشعارات الرسائل الجديدة + BCC من الردود</td>
-  </tr>
-  <tr>
-    <td>CONTACT_EMAIL_FROM</td>
-    <td><code>علم تأويل الرؤى &lt;no-reply@sahaarr299.com&gt;</code></td>
-    <td>المُرسِل اللي العميل يشوفه — لازم domain متحقّق منه في Resend</td>
-  </tr>
-  <tr>
-    <td>NEXT_PUBLIC_SITE_URL</td>
-    <td><code>https://sahaarr299.com</code></td>
-    <td>يُستخدم لبناء روابط <code>/inquiry/{token}</code> في إيميل الرد</td>
-  </tr>
+  <tr><th>الطبقة</th><th>التقنية</th></tr>
+  <tr><td>الإطار</td><td>Next.js 16 (App Router) + React 19 + Turbopack</td></tr>
+  <tr><td>التنسيق</td><td>Tailwind CSS 4</td></tr>
+  <tr><td>CMS</td><td>Sanity v5 (مدمج عبر next-sanity 13)</td></tr>
+  <tr><td>قاعدة بيانات الأعضاء</td><td>Sanity (نوع <code>user</code>)</td></tr>
+  <tr><td>المصادقة</td><td>iron-session (كوكي مشفّر) + bcryptjs (كلمات المرور)</td></tr>
+  <tr><td>البريد</td><td>Resend</td></tr>
+  <tr><td>الاستضافة</td><td>Vercel — نشر تلقائي عند كل push على main</td></tr>
+  <tr><td>الدومين</td><td>sahaarr299.com (Namecheap DNS)</td></tr>
+  <tr><td>اللغة</td><td>TypeScript 5</td></tr>
+  <tr><td>المستودع</td><td>github.com/jedooabdelhady/anwar-blog</td></tr>
+</table>
+</section>
+
+<section id="pages">
+<h2>10. الصفحات والمسارات</h2>
+
+<h3>الصفحات العامة (بدون تسجيل)</h3>
+<table>
+  <tr><th>المسار</th><th>الوصف</th></tr>
+  <tr><td>/</td><td>الرئيسية</td></tr>
+  <tr><td>/about</td><td>حَوْلَ المنصة</td></tr>
+  <tr><td>/blog</td><td>المكتبة — قائمة المقالات</td></tr>
+  <tr><td>/blog/[slug]</td><td>صفحة مقال</td></tr>
+  <tr><td>/services</td><td>بوّابة التساؤل (تعريفية)</td></tr>
+  <tr><td>/contact</td><td>تواصل</td></tr>
+  <tr><td>/privacy /terms</td><td>الخصوصية والشروط</td></tr>
+</table>
+
+<h3>صفحات المصادقة</h3>
+<table>
+  <tr><td>/auth/register</td><td>إنشاء حساب</td></tr>
+  <tr><td>/auth/login</td><td>تسجيل الدخول</td></tr>
+  <tr><td>/auth/forgot</td><td>طلب استرداد كلمة المرور</td></tr>
+  <tr><td>/auth/reset/[token]</td><td>تعيين كلمة مرور جديدة</td></tr>
+  <tr><td>/auth/verify/[token]</td><td>تفعيل البريد الإلكتروني</td></tr>
+</table>
+
+<h3>الصفحات المحميّة (تتطلب تسجيل دخول)</h3>
+<table>
+  <tr><td>/account</td><td>لوحة العضو</td></tr>
+  <tr><td>/account/inquiries</td><td>كل رسائل العضو</td></tr>
+  <tr><td>/account/settings</td><td>إعدادات الحساب</td></tr>
+  <tr><td>/forms/inquiry</td><td>نموذج تساؤل واستعلام</td></tr>
+  <tr><td>/forms/public-vision</td><td>نموذج رؤى عامة</td></tr>
+  <tr><td>/forms/private-vision</td><td>نموذج رؤى شخصية</td></tr>
+</table>
+
+<h3>صفحات خاصّة</h3>
+<table>
+  <tr><td>/inquiry/[token]</td><td>صفحة محادثة عامّة عبر رابط فريد (noindex)</td></tr>
+  <tr><td>/studio</td><td>لوحة Sanity</td></tr>
+</table>
+
+<h3>API Routes</h3>
+<table>
+  <tr><th>المسار</th><th>الوظيفة</th></tr>
+  <tr><td>POST /api/auth/register</td><td>إنشاء عضو جديد</td></tr>
+  <tr><td>POST /api/auth/login</td><td>تسجيل الدخول</td></tr>
+  <tr><td>POST /api/auth/logout</td><td>تسجيل الخروج</td></tr>
+  <tr><td>GET /api/auth/me</td><td>قراءة الجلسة الحالية</td></tr>
+  <tr><td>POST /api/auth/forgot</td><td>طلب رابط استرداد</td></tr>
+  <tr><td>POST /api/auth/reset</td><td>تعيين كلمة مرور جديدة</td></tr>
+  <tr><td>POST /api/auth/verify</td><td>تفعيل البريد</td></tr>
+  <tr><td>POST /api/auth/resend-verify</td><td>إعادة إرسال رسالة التفعيل</td></tr>
+  <tr><td>POST /api/account/update</td><td>تعديل البيانات وكلمة المرور</td></tr>
+  <tr><td>POST /api/submissions</td><td>استقبال نماذج الموقع (تتطلب جلسة)</td></tr>
+  <tr><td>POST /api/sanity-webhook</td><td>إرسال إيميل الرد عند نشره في Studio</td></tr>
+</table>
+</section>
+
+<section id="env">
+<h2>11. متغيّرات البيئة</h2>
+
+<p>تُضبط في Vercel ← Settings ← Environment Variables (Production + Preview + Development). القيم لا تُذكر هنا لأسباب أمنية.</p>
+
+<table>
+  <tr><th>المفتاح</th><th>الوظيفة</th></tr>
+  <tr><td>NEXT_PUBLIC_SANITY_PROJECT_ID</td><td>معرّف مشروع Sanity (عام)</td></tr>
+  <tr><td>NEXT_PUBLIC_SANITY_DATASET</td><td><code>production</code></td></tr>
+  <tr><td>NEXT_PUBLIC_SANITY_API_VERSION</td><td><code>2025-01-01</code></td></tr>
+  <tr><td>SANITY_WRITE_TOKEN</td><td>توكن Sanity للكتابة (Editor permissions). <strong>سرّي.</strong></td></tr>
+  <tr><td>SANITY_WEBHOOK_SECRET</td><td>توقيع الـ webhook المرسَل من Sanity. <strong>سرّي.</strong></td></tr>
+  <tr><td>SESSION_PASSWORD</td><td>مفتاح تشفير جلسات الأعضاء (≥ 32 حرفًا). <strong>سرّي.</strong></td></tr>
+  <tr><td>RESEND_API_KEY</td><td>مفتاح Resend لإرسال البريد. <strong>سرّي.</strong></td></tr>
+  <tr><td>CONTACT_EMAIL_TO</td><td>بريد الإدارة لاستقبال إشعارات الرسائل الجديدة.</td></tr>
+  <tr><td>CONTACT_EMAIL_FROM</td><td>بريد المُرسِل المعروض للزوار (يجب أن يكون من domain متحقّق منه في Resend).</td></tr>
+  <tr><td>NEXT_PUBLIC_SITE_URL</td><td><code>https://sahaarr299.com</code> — يُستخدم في روابط الإيميل.</td></tr>
 </table>
 
 <div class="callout warn">
-  <strong>تنبيه:</strong> لا تستخدم <code>onboarding@resend.dev</code> كقيمة لـ
-  <code>CONTACT_EMAIL_FROM</code> لأن Resend لن يُسلِّم الإيميل إلا لإيميل صاحب الحساب.
-  لازم domain متحقَّق منه.
+  <strong>أمن المفاتيح:</strong> أي مفتاح مكتوب <em>سرّي</em> أعلاه يجب ألا يُشارَك ولا يُكتب في كود يدخل GitHub. لو تسرّبت قيمة سرّية، تُلغى فورًا من لوحة الخدمة (Resend/Sanity/...) وتُولَّد قيمة جديدة وتُحدَّث في Vercel.
 </div>
+
+<h3>توليد SESSION_PASSWORD</h3>
+<pre>node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"</pre>
+<p>الناتج: 64 حرفًا hex — انسخه وضعه في Vercel.</p>
 </section>
 
-<!-- ================ 8. RESEND SETUP ================ -->
-<section id="resend-setup">
-<h2>8. إعداد Resend + Namecheap DNS</h2>
+<section id="deployment">
+<h2>12. النشر على Vercel</h2>
 
-<p>الخطوات اللي تمّت مرة واحدة عند إنشاء الـ domain:</p>
+<h3>النشر التلقائي</h3>
+<p>المشروع مربوط بفرع <code>main</code> من GitHub. كل <code>git push</code> يُطلق deployment تلقائي خلال 1-2 دقيقة.</p>
 
-<h3>الخطوة 1: شراء الـ domain</h3>
-<p>تم شراء <code>sahaarr299.com</code> من Namecheap.</p>
-
-<h3>الخطوة 2: إضافة الـ domain في Resend</h3>
+<h3>بعد تعديل متغيّر بيئة</h3>
 <ol>
-  <li>الدخول إلى <a href="https://resend.com/domains">resend.com/domains</a> → Add Domain.</li>
-  <li>كتابة <code>sahaarr299.com</code> واختيار region: <code>Ireland (eu-west-1)</code>.</li>
-  <li>Resend يعرض 3-4 records مطلوب إضافتها.</li>
+  <li>افتح Deployments ← آخر deployment أخضر ← <kbd>⋯</kbd> ← <strong>Redeploy</strong>.</li>
+  <li><strong>ألغِ علامة</strong> "Use existing Build Cache" — وإلا لن يلتقط القيمة الجديدة.</li>
 </ol>
 
-<h3>الخطوة 3: ضبط Namecheap DNS</h3>
-<p>في Namecheap → Domain List → Manage → Advanced DNS:</p>
-<ol>
-  <li>تغيير <strong>MAIL SETTINGS</strong> من "Email Forwarding" إلى <strong>"Custom MX"</strong> (لكشف خيار MX).</li>
-  <li>إضافة الـ records التالية:</li>
-</ol>
+<h3>الدومين</h3>
+<p>الدومين الأساسي: <code>sahaarr299.com</code>. الـ DNS مُدار من Namecheap (سجلات A و CNAME تشير لـ Vercel). شهادة SSL تُجدَّد تلقائيًا.</p>
 
-<table>
-  <tr><th>Type</th><th>Host</th><th>Value</th><th>Priority</th></tr>
-  <tr><td>TXT (SPF)</td><td><code>send</code></td><td><code>v=spf1 include:amazonses.com ~all</code></td><td>—</td></tr>
-  <tr><td>TXT (DKIM)</td><td><code>resend._domainkey</code></td><td>المفتاح الطويل من Resend (<code>p=MIGfMA...</code>)</td><td>—</td></tr>
-  <tr><td>MX</td><td><code>send</code></td><td><code>feedback-smtp.eu-west-1.amazonses.com</code></td><td>10</td></tr>
-  <tr><td>TXT (DMARC)</td><td><code>_dmarc</code></td><td><code>v=DMARC1; p=none;</code></td><td>—</td></tr>
-</table>
+<h3>الإيميل (Resend + Namecheap DNS)</h3>
+<p>الـ domain <code>sahaarr299.com</code> متحقّق في Resend عبر سجلات: <strong>SPF, DKIM, MX, DMARC</strong> مضافة في Advanced DNS بـ Namecheap. لا تغيير مطلوب ما لم يتم نقل الدومين.</p>
 
-<div class="callout">
-  <strong>قاعدة Namecheap المهمة:</strong> في خانة <code>Host</code> اكتب الـ subdomain فقط بدون الـ domain.
-  مثلًا <code>send.sahaarr299.com</code> تكتب في الخانة <code>send</code> فقط — Namecheap يُكمل تلقائيًا.
-</div>
-
-<h3>الخطوة 4: تأكيد التحقّق</h3>
-<p>في Resend → الـ domain → اضغط <strong>"I've already added the records"</strong>. الانتظار 5-30 دقيقة حتى تظهر جميع الـ records خضراء ✅.</p>
+<h3>Sanity Webhook</h3>
+<p>مُسجَّل في sanity.io/manage يستدعي <code>/api/sanity-webhook</code> عند نشر أي <code>submission</code> فيه <code>replyMessage</code> ولا يحوي <code>replySentAt</code>. يتحقق من توقيع HMAC قبل إرسال الإيميل.</p>
 </section>
 
-<!-- ================ 9. VERCEL ================ -->
-<section id="vercel-setup">
-<h2>9. إعداد Vercel ونشر الموقع</h2>
-
-<h3>ربط GitHub</h3>
-<p>الـ project مربوط على فرع <code>main</code> من <code>jedooabdelhady/anwar-blog</code>.
-كل push على <code>main</code> يُطلق deployment تلقائي.</p>
-
-<h3>ربط الـ Custom Domain</h3>
-<ol>
-  <li>Vercel → Project → Settings → Domains → Add → <code>sahaarr299.com</code>.</li>
-  <li>Vercel يطلب إضافة A record:
-    <ul><li><code>Type: A</code>، <code>Name: @</code>، <code>Value: 216.198.79.1</code></li></ul>
-  </li>
-  <li>وCNAME للـ www: <code>Name: www</code>، <code>Value: cname.vercel-dns.com.</code></li>
-  <li>إضافتها في Namecheap → Advanced DNS بنفس الأسلوب السابق.</li>
-  <li>حذف <code>CNAME www → parkingpage</code> و<code>URL Redirect @ → http://www.sahaarr299.com</code> من Namecheap (records افتراضية).</li>
-  <li>الانتظار حتى Vercel يعرض <strong>Valid Configuration</strong> ويصدر SSL تلقائيًا.</li>
-  <li>تحديد <code>sahaarr299.com</code> كـ <strong>Primary Domain</strong>.</li>
-</ol>
-
-<h3>متغيّرات البيئة في Vercel</h3>
-<p>أضفها من Settings → Environment Variables (راجع <a href="#env">قسم 7</a>).</p>
-
-<h3>إعادة النشر بعد تعديل env</h3>
-<p>أي تعديل على متغيّر بيئة يستلزم Redeploy:</p>
-<ol>
-  <li>Deployments → آخر deployment أخضر → ⋯ → <strong>Redeploy</strong>.</li>
-  <li>إلغاء علامة "Use existing Build Cache" لضمان قراءة المتغيّرات الجديدة.</li>
-</ol>
-</section>
-
-<!-- ================ 10. SANITY WEBHOOK ================ -->
-<section id="sanity-webhook">
-<h2>10. إعداد Sanity Webhook</h2>
-
-<p>هذا الـ webhook هو ما يجعل النظام يُرسل البريد تلقائيًا عند الردّ في Studio.</p>
-
-<h3>الإعداد لمرة واحدة</h3>
-<ol>
-  <li>الذهاب إلى <a href="https://sanity.io/manage">sanity.io/manage</a> → اختيار المشروع → API → Webhooks → Create webhook.</li>
-  <li>ملء الحقول:</li>
-</ol>
-
-<table>
-  <tr><th>الحقل</th><th>القيمة</th></tr>
-  <tr><td>Name</td><td>Send reply on save</td></tr>
-  <tr><td>URL</td><td><code>https://sahaarr299.com/api/sanity-webhook</code></td></tr>
-  <tr><td>Dataset</td><td><code>production</code></td></tr>
-  <tr><td>Trigger on</td><td>Create + Update (دون Delete)</td></tr>
-  <tr><td>Filter</td><td><code>_type == "submission" && defined(replyMessage) && !defined(replySentAt) && !(_id in path("drafts.**"))</code></td></tr>
-  <tr><td>Projection</td><td><code>{ _id, _type, email, name, kind, subject, message, replyMessage, replySentAt, accessToken }</code></td></tr>
-  <tr><td>HTTP method</td><td>POST</td></tr>
-  <tr><td>API version</td><td><code>2025-01-01</code></td></tr>
-  <tr><td>Secret</td><td>(سلسلة عشوائية — نفسها في <code>SANITY_WEBHOOK_SECRET</code>)</td></tr>
-  <tr><td>Enable</td><td>✅</td></tr>
-</table>
-
-<h3>المراقبة والتشخيص</h3>
-<p>في Sanity manage → Webhook → Trigger History — تشاهد كل محاولة، نتيجتها، رمز الاستجابة من الخادم، ووقت التنفيذ.</p>
-</section>
-
-<!-- ================ 11. COMMITS ================ -->
-<section id="commits">
-<h2>11. سجل التعديلات الكامل (Commits)</h2>
-
-<p>التعديلات مرتّبة من الأحدث للأقدم. كل commit مستقل ويمكن مراجعته على GitHub.</p>
-
-<div class="commit">
-  <span class="commit-title">sanity-webhook: stop overwriting fresh accessTokens</span>
-  <span class="commit-hash">5ee8204</span>
-  <p class="commit-body">إصلاح bug خطير: الـ backfill كان يولّد <code>accessToken</code> جديد ويـoverwrite الموجود
-  لو الـ webhook projection ناقصة. النتيجة: روابط العملاء تنكسر بعد كل publish.
-  الحل: قراءة الـ token من Sanity مباشرة قبل اللجوء لـ backfill.</p>
-</div>
-
-<div class="commit">
-  <span class="commit-title">inquiry/[token]: show reply as soon as admin saves it</span>
-  <span class="commit-hash">44a0a05</span>
-  <p class="commit-body">الصفحة كانت تشترط <code>replySentAt</code> لعرض الرد. لو فشل إرسال الإيميل، العميل يبقى
-  على "لم يَرِد الرد بعد" للأبد. الآن: تُعرض كتابة الرد فور حفظها، ووقت الإرسال يظهر فقط إذا كان موجودًا.</p>
-</div>
-
-<div class="commit">
-  <span class="commit-title">fix(inquiry): bind writeClient.fetch and skip CDN</span>
-  <span class="commit-hash">f702dda</span>
-  <p class="commit-body">إصلاحان لـ 404 في صفحة المحادثة: (1) تقييد <code>this</code> عند cast لـ <code>writeClient.fetch</code>
-  (كان يرمي <code>Cannot read properties of undefined '#httpRequest'</code>). (2) استخدام <code>writeClient</code> بدل <code>client</code>
-  لتجاوز تأخير CDN للقراءة فور الكتابة.</p>
-</div>
-
-<div class="commit">
-  <span class="commit-title">fix(inquiry): TS overload for client.fetch on Sanity v7</span>
-  <span class="commit-hash">adb054c</span>
-  <p class="commit-body">حلّ خطأ TypeScript في build Vercel: Sanity v7 يفسّر template literals كـ
-  <code>QueryWithoutParams</code> ويرفض ad-hoc params. الحل: إخراج الـ query لـ <code>queries.ts</code>
-  وcast على fetch مع params arbitrary.</p>
-</div>
-
-<div class="commit">
-  <span class="commit-title">inquiry/[token]: customer-facing conversation page</span>
-  <span class="commit-hash">26aa8d1</span>
-  <p class="commit-body">إضافة الميزة الكبرى: صفحة محادثة خاصة بكل عميل عبر رابط فريد (UUID).
-  تتضمّن: حقل accessToken في الـ schema، توليده في /api/submissions، عرضه في ContactForm كزر،
-  صفحة /inquiry/[token] بـ noindex، backfill في webhook، وزر CTA في إيميل الرد.</p>
-</div>
-
-<div class="commit">
-  <span class="commit-title">resend: surface response errors instead of silently succeeding</span>
-  <span class="commit-hash">a2bbdeb</span>
-  <p class="commit-body">Resend SDK يُرجع <code>{ data, error }</code> لـ failures بدلًا من رميها كـ exception.
-  الكود القديم كان يـ <code>await</code> دون فحص <code>error</code>، فيظن النجاح. الآن: فحص <code>result.error</code>
-  وكتابته في <code>replyError</code> ليظهر في Studio.</p>
-</div>
-
-<div class="commit">
-  <span class="commit-title">reply-from-studio: send reply email when admin saves replyMessage</span>
-  <span class="commit-hash">5d1f62e</span>
-  <p class="commit-body">الميزة الأساسية للرد من Studio: حقول جديدة (<code>replyMessage</code>،
-  <code>replySentAt</code>، <code>replyError</code>) في schema، endpoint <code>/api/sanity-webhook</code>
-  مع التحقق من توقيع HMAC، إرسال البريد عبر Resend، تحديث الـ doc.</p>
-</div>
-
-<div class="commit">
-  <span class="commit-title">bg: pin wallpaper to viewport, remove drift animation</span>
-  <span class="commit-hash">094b7e0</span>
-  <p class="commit-body">الخلفية مثبّتة على الـ viewport ولا تتحرك مع scroll. تم نقلها لـ
-  <code>body::before</code> مع <code>position: fixed</code> لتفادي مشكلة <code>background-attachment: fixed</code>
-  في iOS Safari. إزالة الـ drift animation.</p>
-</div>
-
-<div class="commit">
-  <span class="commit-title">bg: update wallpaper.jpeg with new client artwork</span>
-  <span class="commit-hash">21ce996</span>
-  <p class="commit-body">تحديث صورة الخلفية بنسخة جديدة (704×1530، 46KB) بنفس الاسم.</p>
-</div>
-
-<div class="commit">
-  <span class="commit-title">bg: swap thamudic-bg.svg for client wallpaper.jpeg</span>
-  <span class="commit-hash">682f495</span>
-  <p class="commit-body">استبدال الخلفية القديمة بـ wallpaper.jpeg مع tiles متجاوبة:
-  100vw على الموبايل، 320px على التابلت، 380px على الديسكتوب. مسافة drift مربوطة بعرض الـ tile.</p>
-</div>
-
-<div class="commit">
-  <span class="commit-title">services: new portrait ts.jpeg with mihrab arch</span>
-  <span class="commit-hash">d4ba478</span>
-  <p class="commit-body">تحديث صورة الحجر بنسخة طولية (720×1280) مع border-radius مماثل لشكل البطاقة المحرابية:
-  <code>50% 50% 18px 18px / 90px 90px 18px 18px</code>.</p>
-</div>
-
-<div class="commit">
-  <span class="commit-title">services: keep ts.jpeg inside the card on mobile</span>
-  <span class="commit-hash">f425b89</span>
-  <p class="commit-body">إصلاح تجاوز الصورة لإطار البطاقة المقوّس على الموبايل: <code>w-full</code> على الموبايل،
-  <code>w-[112%] -mx-[6%]</code> فقط على ≥sm.</p>
-</div>
-
-<div class="commit">
-  <span class="commit-title">blog: live categories from Sanity + verse parens + wider services image</span>
-  <span class="commit-hash">142bdc3</span>
-  <p class="commit-body">ثلاثة إصلاحات مدمجة: (1) <code>/blog</code> الآن يقرأ chips التصنيفات من Sanity مباشرة
-  عبر <code>getAllCategories</code>. (2) تبديل أقواس الآية الكريمة (<code>﴾</code>↔<code>﴿</code>) لتصبح صحيحة في RTL.
-  (3) تكبير صورة الحجر على /services لتصبح ~93% من عرض البطاقة.</p>
-</div>
-</section>
-
-<!-- ================ 12. TEST ================ -->
-<section id="test">
-<h2>12. كيف تختبر النظام</h2>
-
-<h3>الاختبار اليدوي الكامل (E2E)</h3>
-<ol>
-  <li>افتح <code>https://sahaarr299.com/forms/inquiry</code> من جهاز عميل (مش حسابك).</li>
-  <li>املأ الفورم بإيميل ثانوي عندك (مش إيميل حساب Resend).</li>
-  <li>اضغط "أرسل استفسارك".</li>
-  <li>تظهر صفحة نجاح فيها زر <strong>"فتح صفحة المحادثة"</strong>.</li>
-  <li>اضغط الزر — يفتح <code>/inquiry/{token}</code> وتشوف رسالتك + "لم يَرِد الرد بعد".</li>
-  <li>افتح <code>/studio</code> → الرسائل الواردة → الرسالة الجديدة.</li>
-  <li>اكتب رد في "ردّ المسؤول" → غيّر الحالة لـ "تم الرد" → <strong>Publish</strong>.</li>
-  <li>خلال ثوانٍ:
-    <ul>
-      <li>✅ الإيميل يصل للعميل من <code>no-reply@sahaarr299.com</code></li>
-      <li>✅ تصلك نسخة BCC على <code>CONTACT_EMAIL_TO</code></li>
-      <li>✅ في Studio: حقل "أُرسل الرد في" يتعبّى تلقائيًا</li>
-      <li>✅ في صفحة المحادثة (refresh): الرد يظهر</li>
-      <li>✅ في إيميل العميل: زر "عرض المحادثة على الموقع" يُحيل لنفس الصفحة</li>
-    </ul>
-  </li>
-</ol>
-
-<h3>اختبار الـ build محليًا</h3>
-<pre>cd anwar-blog
-npm install
-npm run build</pre>
-<p>لازم يخرج <code>✓ Compiled successfully</code> بدون أخطاء TypeScript.</p>
-
-<h3>تشغيل الـ dev server محليًا</h3>
-<pre>npm run dev</pre>
-<p>الموقع يفتح على <code>http://localhost:3000</code>.</p>
-</section>
-
-<!-- ================ 13. TROUBLESHOOT ================ -->
 <section id="troubleshoot">
 <h2>13. استكشاف الأخطاء</h2>
 
-<h3>الإيميل لم يصل للعميل</h3>
+<h3>الإيميل لم يصل للعضو</h3>
 <ol>
-  <li>افتح Vercel → Logs → فلتر <code>/api/sanity-webhook</code>.</li>
-  <li>لو الـ status = 500 مع رسالة <code>Resend send failed: validation_error: You can only send testing emails…</code>:
-    <ul><li>قيمة <code>CONTACT_EMAIL_FROM</code> لسه <code>onboarding@resend.dev</code>. حدّثها لـ <code>no-reply@sahaarr299.com</code> وredeploy.</li></ul>
-  </li>
-  <li>لو الـ status = 401:
-    <ul><li><code>SANITY_WEBHOOK_SECRET</code> في Vercel مختلف عن الـ Secret في Sanity webhook. ضبّطهم.</li></ul>
-  </li>
-  <li>لو الـ status = 200 لكن مفيش إيميل:
-    <ul><li>اطلب من العميل فحص الـ Spam folder.</li>
-    <li>افتح Resend → Logs لمشاهدة حالة التسليم الفعلية.</li></ul>
-  </li>
+  <li>افتح Vercel ← Logs ← فلتر <code>/api/sanity-webhook</code>.</li>
+  <li>إذا الحالة 200 لكن مفيش إيميل ← افحص Resend Logs (<a href="https://resend.com/emails">resend.com/emails</a>) وخانة Spam.</li>
+  <li>إذا الحالة 401 ← <code>SANITY_WEBHOOK_SECRET</code> مختلف بين Vercel و Sanity.</li>
+  <li>إذا الحالة 500 ورسالة "You can only send testing emails" ← <code>CONTACT_EMAIL_FROM</code> يجب أن يكون من domain متحقّق منه.</li>
 </ol>
 
 <h3>صفحة /inquiry/[token] تعرض 404</h3>
-<ol>
-  <li>افتح الـ submission في Studio → اقرأ قيمة "رابط العميل (Access Token)".</li>
-  <li>قارنها بالـ token في الـ URL — لازم يكونا متطابقين.</li>
-  <li>لو مختلفين: الـ submission ربما اتسجّلت قبل ميزة accessToken. ابعت رسالة جديدة للاختبار.</li>
-</ol>
+<ul>
+  <li>افتح الـ submission في Studio ← اقرأ "رابط العميل (Access Token)" — قارنه بالـ URL.</li>
+  <li>الرسائل القديمة (قبل ميزة الأعضاء) لها token صالح، لكن غير مربوطة بحساب — هذا متوقَّع.</li>
+</ul>
 
-<h3>الرد لا يظهر في صفحة المحادثة رغم Publish</h3>
-<ol>
-  <li>اعمل refresh للصفحة (Ctrl+Shift+R).</li>
-  <li>افتح الـ submission في Studio وتأكد إن <code>replyMessage</code> فيه نصّ ومُنشَر (مش draft).</li>
-</ol>
+<h3>تحذير "SESSION_PASSWORD is not set" في Logs</h3>
+<p>المتغيّر غير مضبوط أو الـ deployment لم يلتقطه بعد. Redeploy بدون cache.</p>
 
-<h3>Build يفشل على Vercel</h3>
-<ol>
-  <li>Vercel → آخر deployment → Build Logs.</li>
-  <li>شغّل <code>npm run build</code> محليًا لاكتشاف نفس الخطأ.</li>
-  <li>أغلب الأخطاء TypeScript — راجع الـ overloads لـ <code>client.fetch</code> (Sanity v7).</li>
-</ol>
+<h3>قسم الأعضاء لا يظهر في Studio</h3>
+<p>اضمن أن آخر deployment على Vercel نجح فعلاً، ثم أعد تحميل /studio بـ <kbd>Ctrl+Shift+R</kbd>.</p>
 
-<h3>Sanity webhook يـ retry بشكل لا نهائي</h3>
-<ol>
-  <li>عند فشل الـ webhook، Sanity يعيد المحاولة كل ثوانٍ مما يُغرق Vercel logs.</li>
-  <li>الحل المؤقت: Disable الـ webhook من sanity.io/manage.</li>
-  <li>إصلاح المشكلة الأصلية (env var أو deploy فاشل).</li>
-  <li>Reset الـ submission في Studio (امسح <code>replySentAt</code> و<code>replyError</code>) وPublish.</li>
-  <li>Enable الـ webhook ثانيةً.</li>
-</ol>
+<h3>عضو سجّل ولم تصله رسالة التفعيل</h3>
+<ul>
+  <li>افحص Resend Logs لرؤية حالة التسليم.</li>
+  <li>اطلب منه فحص Spam.</li>
+  <li>يستطيع الضغط على "إعادة الإرسال" في البانر الأصفر داخل /account.</li>
+</ul>
+
+<h3>عضو نسي كلمة المرور وفشل رابط الاسترداد</h3>
+<p>الروابط صالحة لمدة 30 دقيقة فقط. يطلب رابطًا جديدًا من <code>/auth/forgot</code>.</p>
+
+<h3>رابط تفعيل البريد يعطي 404</h3>
+<p>السبب الشائع: <code>NEXT_PUBLIC_SITE_URL</code> في Vercel يشير لدومين قديم أو deployment URL. عدّله إلى <code>https://sahaarr299.com</code> ثم Redeploy، واطلب من العضو الضغط على "إعادة الإرسال" ليصله رابط جديد بالدومين الصحيح.</p>
 </section>
 
-<!-- ================ 14. MAINTENANCE ================ -->
 <section id="maintenance">
 <h2>14. الصيانة الدورية</h2>
 
-<h3>تجديد الـ domain</h3>
-<p>سنوي — Namecheap يُذكّر بالبريد. التكلفة ~$10/سنة.</p>
+<h3>تجديد الدومين</h3>
+<p>سنوي — Namecheap يُذكّر بالبريد قبل انتهاء الفترة.</p>
 
-<h3>تجديد ترخيص Resend</h3>
-<p>الخطة المجانية تكفي لـ 3,000 إيميل/شهر و100 إيميل/يوم.
-إذا تجاوزت — Resend يفصل الإرسال حتى نهاية الفترة، أو يمكن الترقية.</p>
-
-<h3>سعة Sanity</h3>
-<p>الخطة المجانية تشمل: 10K documents، 1GB assets.
-راقب الـ usage من sanity.io/manage → Usage.</p>
-
-<h3>سعة Vercel</h3>
-<p>الخطة Hobby تكفي لمشاريع شخصية. راقب bandwidth من Vercel → Usage.</p>
-
-<h3>تحديث الـ dependencies</h3>
-<pre>cd anwar-blog
-npm outdated
-npm update    # تحديث minor
-# للتحديثات الكبرى:
-npm install package@latest</pre>
+<h3>حدود الخطط المجانية</h3>
+<table>
+  <tr><th>الخدمة</th><th>الحد</th><th>أين تراقب</th></tr>
+  <tr><td>Vercel</td><td>Hobby plan</td><td>Vercel ← Usage</td></tr>
+  <tr><td>Sanity</td><td>10K مستند، 1GB أصول</td><td>sanity.io/manage ← Usage</td></tr>
+  <tr><td>Resend</td><td>3000 إيميل/شهر، 100/يوم</td><td>resend.com/dashboard</td></tr>
+</table>
 
 <h3>أرشفة الرسائل القديمة</h3>
-<p>في Studio → النماذج المرسلة → غيّر <code>status</code> إلى "أُرشفت" للرسائل المكتملة.
-يمكن إضافة filter لاحقًا لإخفاء المؤرشفة عن قائمة العرض الافتراضية.</p>
+<p>في Studio ← الرسائل الواردة ← غيّري الحالة إلى "أُرشفت" للرسائل المكتملة. لا تُحذف، فقط تُخفى من الانتباه اليومي.</p>
+
+<h3>تحديث الـ dependencies (للمطوّر)</h3>
+<pre>cd anwar-blog
+npm outdated
+npm update     # للتحديثات الصغيرة</pre>
+
+<h3>نسخ احتياطي</h3>
+<ul>
+  <li>الكود محفوظ تلقائيًا في GitHub.</li>
+  <li>المحتوى (المقالات، الأعضاء، الرسائل) محفوظ في Sanity مع نسخ احتياطية يومية على خوادمهم.</li>
+  <li>لتصدير محتوى Sanity يدويًا: sanity.io/manage ← Datasets ← Export.</li>
+</ul>
 </section>
 
 <footer>
-  <p>هذه الوثيقة تغطّي كامل التعديلات التي تمّت على الموقع حتى تاريخ 2026-06-10.</p>
-  <p>للحصول على نسخة PDF: افتح الملف في المتصفح ثم اطبع (Ctrl+P) → اختر "Save as PDF".</p>
+  <p>هذه الوثيقة تغطّي كامل النظام بنسخته الحالية (يونيو 2026).</p>
+  <p>لطباعتها PDF: افتح الملف في المتصفح ← <kbd>Ctrl+P</kbd> ← اختر "Save as PDF".</p>
 </footer>
 
 </div>
