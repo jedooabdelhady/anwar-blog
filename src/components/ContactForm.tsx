@@ -81,9 +81,6 @@ export default function ContactForm({
   }
 
   if (status.state === "success") {
-    const conversationHref = status.accessToken
-      ? `/inquiry/${status.accessToken}`
-      : null;
     return (
       <div className="rounded-3xl border border-line bg-card p-8 text-center">
         <CheckCircle2 size={48} className="mx-auto text-[#5e8a4f]" />
@@ -91,29 +88,27 @@ export default function ContactForm({
         <p className="mt-2 text-pepper/75">
           شكراً لتواصلك معنا. سنرد عليك في أقرب وقت ممكن.
         </p>
-        {conversationHref && (
-          <div className="mt-6 rounded-2xl border border-line bg-[#f7f1ea] p-5 text-right">
-            <p className="text-sm font-bold text-pepper mb-2">
-              رابط متابعة المحادثة:
-            </p>
-            <p className="text-xs text-pepper/70 mb-3 leading-relaxed">
-              احفظ هذا الرابط لمشاهدة الردّ على رسالتك في أي وقت. ستصلك نسخة من
-              الرد عبر البريد الإلكتروني أيضًا.
-            </p>
-            <a
-              href={conversationHref}
-              className="inline-flex items-center justify-center rounded-full px-5 py-2 text-white text-sm font-medium transition-colors bg-[var(--btn)] hover:bg-[var(--btn-h)]"
-              style={
-                {
-                  ["--btn" as string]: accent,
-                  ["--btn-h" as string]: accentHover,
-                } as React.CSSProperties
-              }
-            >
-              فتح صفحة المحادثة
-            </a>
-          </div>
-        )}
+        <div className="mt-6 rounded-2xl border border-line bg-[#f7f1ea] p-5 text-right">
+          <p className="text-sm font-bold text-pepper mb-2">
+            متابعة رسائلك:
+          </p>
+          <p className="text-xs text-pepper/70 mb-3 leading-relaxed">
+            تجد كل رسائلك ورؤاك في صفحة "رسائلي ورؤاي" داخل حسابك، مع حالة
+            الرد على كل واحدة. ستصلك نسخة من الرد عبر البريد الإلكتروني أيضًا.
+          </p>
+          <a
+            href="/account/inquiries"
+            className="inline-flex items-center justify-center rounded-full px-5 py-2 text-white text-sm font-medium transition-colors bg-[var(--btn)] hover:bg-[var(--btn-h)]"
+            style={
+              {
+                ["--btn" as string]: accent,
+                ["--btn-h" as string]: accentHover,
+              } as React.CSSProperties
+            }
+          >
+            عرض رسائلي
+          </a>
+        </div>
         <button
           onClick={() => setStatus({ state: "idle" })}
           className="mt-6 inline-flex items-center justify-center rounded-full px-6 py-2.5 text-pepper text-sm font-medium border border-line hover:border-sienna transition-colors"
