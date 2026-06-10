@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { ensureWritable, findByIdentifier, patchUser } from "@/lib/auth/users";
-import { newToken, expiresIn } from "@/lib/auth/tokens";
+import { newToken, hashToken, expiresIn } from "@/lib/auth/tokens";
 import { sendResetEmail } from "@/lib/auth/emails";
+import { check, tooManyRequests } from "@/lib/auth/rate-limit";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -9,6 +10,9 @@ export const dynamic = "force-dynamic";
 type Body = { identifier?: string };
 
 export async function POST(req: NextRequest) {
+  const rl = check(req, { scope: "forgot", max: 3, windowSec: 60 });
+  if (!rl.ok) return tooManyRequests(rl.retryAfterSec);
+
   let body: Body;
   try {
     body = (await req.json()) as Body;
@@ -34,13 +38,13 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ ok: true });
   }
 
-  const token = newToken();
+  const tokenPlain = newToken();
   await patchUser(user._id, {
-    resetToken: token,
+    resetToken: hashToken(tokenPlain),
     resetExpiresAt: expiresIn(30),
   });
 
-  const sent = await sendResetEmail(user.email, token);
+  const sent = await sendResetEmail(user.email, tokenPlain);
   if (!sent.ok) console.warn("[forgot] reset email failed:", sent.error);
 
   return NextResponse.json({ ok: true });

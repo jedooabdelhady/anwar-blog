@@ -1,33 +1,34 @@
-import { NextResponse } from "next/server";
-import { getSession } from "@/lib/auth/session";
-import { ensureWritable, findById, patchUser } from "@/lib/auth/users";
-import { newToken, expiresIn } from "@/lib/auth/tokens";
+import { NextRequest, NextResponse } from "next/server";
+import { requireFreshUser } from "@/lib/auth/session";
+import { ensureWritable, patchUser } from "@/lib/auth/users";
+import { newToken, hashToken, expiresIn } from "@/lib/auth/tokens";
 import { sendVerifyEmail } from "@/lib/auth/emails";
+import { check, tooManyRequests } from "@/lib/auth/rate-limit";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-export async function POST() {
-  const s = await getSession();
-  if (!s.userId)
+export async function POST(req: NextRequest) {
+  const rl = check(req, { scope: "resend-verify", max: 3, windowSec: 300 });
+  if (!rl.ok) return tooManyRequests(rl.retryAfterSec);
+
+  const user = await requireFreshUser();
+  if (!user)
     return NextResponse.json({ ok: false, error: "غير مسجَّل." }, { status: 401 });
 
   const ready = ensureWritable();
   if (!ready.ok)
     return NextResponse.json({ ok: false, error: ready.error }, { status: 503 });
 
-  const user = await findById(s.userId);
-  if (!user)
-    return NextResponse.json({ ok: false, error: "الحساب غير موجود." }, { status: 404 });
   if (user.emailVerified)
     return NextResponse.json({ ok: true, alreadyVerified: true });
 
-  const token = newToken();
+  const tokenPlain = newToken();
   await patchUser(user._id, {
-    verifyToken: token,
+    verifyToken: hashToken(tokenPlain),
     verifyExpiresAt: expiresIn(60 * 24),
   });
-  const sent = await sendVerifyEmail(user.email, token);
+  const sent = await sendVerifyEmail(user.email, tokenPlain);
   if (!sent.ok)
     return NextResponse.json({ ok: false, error: sent.error }, { status: 502 });
 

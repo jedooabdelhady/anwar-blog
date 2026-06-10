@@ -3,7 +3,8 @@ import crypto from "node:crypto";
 import { Resend } from "resend";
 import { writeClient } from "@/sanity/lib/client";
 import { sanityConfigured, writeToken } from "@/sanity/env";
-import { getCurrentUser } from "@/lib/auth/session";
+import { requireFreshUser } from "@/lib/auth/session";
+import { check, tooManyRequests } from "@/lib/auth/rate-limit";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -44,14 +45,33 @@ function validate(p: Payload): { ok: true; data: Required<Omit<Payload, "website
 }
 
 export async function POST(req: NextRequest) {
+  const rl = check(req, { scope: "submissions", max: 5, windowSec: 60 });
+  if (!rl.ok) return tooManyRequests(rl.retryAfterSec);
+
   // Auth required — anonymous submissions are no longer allowed. The website
   // gates the forms behind /auth/login, but the server enforces the same rule
-  // in case someone hits the API directly.
-  const session = await getCurrentUser();
-  if (!session) {
+  // in case someone hits the API directly. requireFreshUser also validates
+  // sessionVersion so a stolen cookie can't survive a password reset.
+  const user = await requireFreshUser();
+  if (!user) {
     return NextResponse.json(
       { ok: false, error: "auth-required", message: "يلزم تسجيل الدخول لإرسال الرسائل." },
       { status: 401 }
+    );
+  }
+
+  // Block unverified accounts from sending — keeps the inbox clean of
+  // throwaway emails and reduces an abuse vector where a fake address
+  // is used to spam Sahar with rude content she can't reply to.
+  if (!user.emailVerified) {
+    return NextResponse.json(
+      {
+        ok: false,
+        error: "email-unverified",
+        message:
+          "يلزم تفعيل بريدك الإلكتروني أولاً. افتح رسالة التفعيل أو اطلب إعادة الإرسال من صفحة حسابك.",
+      },
+      { status: 403 }
     );
   }
 
@@ -93,7 +113,7 @@ export async function POST(req: NextRequest) {
         createdAt: new Date().toISOString(),
         status: "new",
         accessToken,
-        user: { _type: "reference", _ref: session.userId },
+        user: { _type: "reference", _ref: user._id },
       });
       savedId = created._id;
     } catch (err) {

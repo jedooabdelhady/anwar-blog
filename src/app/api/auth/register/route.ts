@@ -8,8 +8,9 @@ import {
   patchUser,
 } from "@/lib/auth/users";
 import { hashPassword, isStrongEnough } from "@/lib/auth/password";
-import { newToken, expiresIn } from "@/lib/auth/tokens";
+import { newToken, hashToken, expiresIn } from "@/lib/auth/tokens";
 import { sendVerifyEmail } from "@/lib/auth/emails";
+import { check, tooManyRequests } from "@/lib/auth/rate-limit";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -25,8 +26,13 @@ type Body = {
 
 const USERNAME_RE = /^[a-zA-Z0-9_]{3,32}$/;
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const PHONE_RE = /^\+?[\d\s()-]{6,20}$/;
+const GENERIC_ERROR = "تعذّر إنشاء الحساب — راجع البيانات وحاول مجدّداً.";
 
 export async function POST(req: NextRequest) {
+  const rl = check(req, { scope: "register", max: 5, windowSec: 60 });
+  if (!rl.ok) return tooManyRequests(rl.retryAfterSec);
+
   let body: Body;
   try {
     body = (await req.json()) as Body;
@@ -56,24 +62,23 @@ export async function POST(req: NextRequest) {
       { ok: false, error: "البريد الإلكتروني غير صالح." },
       { status: 400 }
     );
+  if (phone && !PHONE_RE.test(phone))
+    return NextResponse.json(
+      { ok: false, error: "رقم الجوال غير صالح." },
+      { status: 400 }
+    );
   const strong = isStrongEnough(password);
   if (!strong.ok)
     return NextResponse.json({ ok: false, error: strong.reason }, { status: 400 });
 
+  // Single generic error for both "username taken" and "email taken" so an
+  // attacker can't probe to enumerate which accounts exist.
   const [byU, byE] = await Promise.all([findByUsername(username), findByEmail(email)]);
-  if (byU)
-    return NextResponse.json(
-      { ok: false, error: "اسم المستخدم هذا محجوز." },
-      { status: 409 }
-    );
-  if (byE)
-    return NextResponse.json(
-      { ok: false, error: "هذا البريد مسجَّل سابقاً. يمكنك تسجيل الدخول." },
-      { status: 409 }
-    );
+  if (byU || byE)
+    return NextResponse.json({ ok: false, error: GENERIC_ERROR }, { status: 409 });
 
   const passwordHash = await hashPassword(password);
-  const verifyToken = newToken();
+  const verifyTokenPlain = newToken();
   const verifyExpiresAt = expiresIn(60 * 24); // 24h
 
   const user = await createUser({
@@ -83,25 +88,24 @@ export async function POST(req: NextRequest) {
     phone,
     passwordHash,
     emailVerified: false,
-    verifyToken,
+    verifyToken: hashToken(verifyTokenPlain),
     verifyExpiresAt,
     role: "member",
+    sessionVersion: 1,
   });
 
   // Best-effort verification email — don't block the signup on email failure.
-  const sent = await sendVerifyEmail(email, verifyToken);
+  const sent = await sendVerifyEmail(email, verifyTokenPlain);
   if (!sent.ok) {
     console.warn("[register] verify email failed:", sent.error);
   }
 
-  // Auto-login the new user so they can use the site immediately. The
-  // emailVerified flag stays false until they click the link, but they
-  // can browse and post (we surface a banner on /account).
   const session = await getSession();
   session.userId = user._id;
   session.username = user.username;
   session.email = user.email;
   session.role = user.role || "member";
+  session.sessionVersion = 1;
   await session.save();
 
   await patchUser(user._id, { lastLoginAt: new Date().toISOString() });

@@ -6,6 +6,9 @@ export type SessionData = {
   username?: string;
   email?: string;
   role?: "member" | "admin";
+  /** Mirrors user.sessionVersion. Bumped on password change/reset so old
+   *  cookies stop validating without needing a server-side session store. */
+  sessionVersion?: number;
 };
 
 const password =
@@ -26,7 +29,7 @@ export const sessionOptions: SessionOptions = {
     sameSite: "lax",
     secure: process.env.NODE_ENV === "production",
     path: "/",
-    maxAge: 60 * 60 * 24 * 30, // 30 days
+    maxAge: 60 * 60 * 24 * 14, // 14 days
   },
 };
 
@@ -35,6 +38,12 @@ export async function getSession() {
   return getIronSession<SessionData>(store, sessionOptions);
 }
 
+/**
+ * Returns the current user *as identified by the session cookie alone*.
+ * Does NOT validate session freshness against the DB — callers that need
+ * authorization (every protected route + API) should use `requireFreshUser`
+ * instead so revoked sessions actually fail.
+ */
 export async function getCurrentUser() {
   const s = await getSession();
   if (!s.userId) return null;
@@ -43,5 +52,36 @@ export async function getCurrentUser() {
     username: s.username || "",
     email: s.email || "",
     role: s.role || "member",
+    sessionVersion: s.sessionVersion ?? 1,
   };
+}
+
+/**
+ * Reads the user from Sanity and confirms the session cookie's
+ * sessionVersion still matches. If the cookie is stale (because the user
+ * changed/reset their password elsewhere) the session is destroyed and we
+ * return null. Returns a fresh user snapshot — role/emailVerified etc.
+ * are always up to date.
+ */
+export async function requireFreshUser() {
+  const { findById } = await import("./users");
+  const s = await getSession();
+  if (!s.userId) return null;
+  const user = await findById(s.userId).catch(() => null);
+  if (!user) {
+    s.destroy();
+    return null;
+  }
+  const dbVersion = user.sessionVersion ?? 1;
+  const cookieVersion = s.sessionVersion ?? 1;
+  if (dbVersion !== cookieVersion) {
+    s.destroy();
+    return null;
+  }
+  // Refresh cached fields in the cookie if they drift (role promotion, etc.).
+  if (s.role !== (user.role || "member")) {
+    s.role = user.role || "member";
+    await s.save();
+  }
+  return user;
 }

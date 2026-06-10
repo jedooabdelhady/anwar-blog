@@ -69,6 +69,15 @@ export default function ContactForm({
         return;
       }
       const json = await res.json().catch(() => ({ ok: false, error: "خطأ غير متوقع." }));
+      if (res.status === 403 && json.error === "email-unverified") {
+        setStatus({
+          state: "error",
+          message:
+            json.message ||
+            "يلزم تفعيل بريدك الإلكتروني أولاً. افتح رسالة التفعيل من بريدك.",
+        });
+        return;
+      }
       if (!res.ok || !json.ok) {
         setStatus({ state: "error", message: json.error || "تعذّر الإرسال. حاول مجدداً." });
         return;

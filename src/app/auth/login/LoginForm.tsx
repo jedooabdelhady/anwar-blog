@@ -19,6 +19,7 @@ export default function LoginForm({ next }: { next: string }) {
     const payload = {
       identifier: String(fd.get("identifier") || ""),
       password: String(fd.get("password") || ""),
+      website: String(fd.get("website") || ""), // honeypot
     };
     try {
       const r = await fetch("/api/auth/login", {
@@ -42,6 +43,14 @@ export default function LoginForm({ next }: { next: string }) {
 
   return (
     <form onSubmit={onSubmit} noValidate className="space-y-5">
+      {/* Honeypot — hidden from humans & screen readers */}
+      <div aria-hidden className="hidden" style={{ position: "absolute", left: "-9999px" }}>
+        <label>
+          لا تملأ
+          <input type="text" name="website" tabIndex={-1} autoComplete="off" />
+        </label>
+      </div>
+
       <AuthField
         label="اسم المستخدم أو البريد"
         name="identifier"

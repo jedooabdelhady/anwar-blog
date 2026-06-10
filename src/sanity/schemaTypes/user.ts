@@ -102,6 +102,30 @@ export default defineType({
       type: "datetime",
       readOnly: true,
     }),
+    defineField({
+      name: "sessionVersion",
+      title: "إصدار الجلسة",
+      type: "number",
+      readOnly: true,
+      hidden: true,
+      description:
+        "يُزاد عند تغيير كلمة المرور — يُبطل الجلسات القديمة تلقائياً.",
+      initialValue: 1,
+    }),
+    defineField({
+      name: "failedLoginCount",
+      title: "محاولات دخول فاشلة",
+      type: "number",
+      readOnly: true,
+      hidden: true,
+    }),
+    defineField({
+      name: "lockedUntil",
+      title: "مقفول حتى",
+      type: "datetime",
+      readOnly: true,
+      hidden: true,
+    }),
   ],
   preview: {
     select: { title: "username", subtitle: "email", verified: "emailVerified" },

@@ -17,6 +17,9 @@ export type UserDoc = {
   resetExpiresAt?: string;
   createdAt?: string;
   lastLoginAt?: string;
+  sessionVersion?: number;
+  failedLoginCount?: number;
+  lockedUntil?: string;
 };
 
 export function ensureWritable(): { ok: true } | { ok: false; error: string } {
@@ -27,7 +30,7 @@ export function ensureWritable(): { ok: true } | { ok: false; error: string } {
   return { ok: true };
 }
 
-const FIELDS = `_id, _type, username, email, emailVerified, displayName, phone, passwordHash, role, verifyToken, verifyExpiresAt, resetToken, resetExpiresAt, createdAt, lastLoginAt`;
+const FIELDS = `_id, _type, username, email, emailVerified, displayName, phone, passwordHash, role, verifyToken, verifyExpiresAt, resetToken, resetExpiresAt, createdAt, lastLoginAt, sessionVersion, failedLoginCount, lockedUntil`;
 
 type Fetcher = <T = unknown>(query: string, params?: Record<string, unknown>) => Promise<T>;
 
@@ -59,17 +62,18 @@ export async function findById(id: string): Promise<UserDoc | null> {
   );
 }
 
-export async function findByVerifyToken(token: string): Promise<UserDoc | null> {
+/** Looks up by a sha256-hashed token (verify and reset tokens are stored hashed). */
+export async function findByVerifyTokenHash(hash: string): Promise<UserDoc | null> {
   return fetchAs<UserDoc | null>(
     `*[_type == "user" && verifyToken == $t][0]{${FIELDS}}`,
-    { t: token }
+    { t: hash }
   );
 }
 
-export async function findByResetToken(token: string): Promise<UserDoc | null> {
+export async function findByResetTokenHash(hash: string): Promise<UserDoc | null> {
   return fetchAs<UserDoc | null>(
     `*[_type == "user" && resetToken == $t][0]{${FIELDS}}`,
-    { t: token }
+    { t: hash }
   );
 }
 

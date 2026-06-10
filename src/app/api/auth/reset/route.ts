@@ -1,12 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import {
   ensureWritable,
-  findByResetToken,
+  findByResetTokenHash,
   patchUser,
   unsetUserFields,
 } from "@/lib/auth/users";
 import { hashPassword, isStrongEnough } from "@/lib/auth/password";
-import { isExpired } from "@/lib/auth/tokens";
+import { hashToken, isExpired } from "@/lib/auth/tokens";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -34,7 +34,7 @@ export async function POST(req: NextRequest) {
   if (!strong.ok)
     return NextResponse.json({ ok: false, error: strong.reason }, { status: 400 });
 
-  const user = await findByResetToken(token);
+  const user = await findByResetTokenHash(hashToken(token));
   if (!user || isExpired(user.resetExpiresAt))
     return NextResponse.json(
       { ok: false, error: "الرابط منتهي أو غير صالح. اطلب رابطاً جديداً." },
@@ -42,8 +42,18 @@ export async function POST(req: NextRequest) {
     );
 
   const passwordHash = await hashPassword(password);
-  await patchUser(user._id, { passwordHash });
-  await unsetUserFields(user._id, ["resetToken", "resetExpiresAt"]);
+  // Bumping sessionVersion invalidates every cookie issued before this point —
+  // a stolen session can't survive a password reset.
+  await patchUser(user._id, {
+    passwordHash,
+    sessionVersion: (user.sessionVersion ?? 1) + 1,
+  });
+  await unsetUserFields(user._id, [
+    "resetToken",
+    "resetExpiresAt",
+    "failedLoginCount",
+    "lockedUntil",
+  ]);
 
   return NextResponse.json({ ok: true });
 }

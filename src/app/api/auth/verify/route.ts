@@ -1,11 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import {
   ensureWritable,
-  findByVerifyToken,
+  findByVerifyTokenHash,
   patchUser,
   unsetUserFields,
 } from "@/lib/auth/users";
-import { isExpired } from "@/lib/auth/tokens";
+import { hashToken, isExpired } from "@/lib/auth/tokens";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -28,7 +28,7 @@ export async function POST(req: NextRequest) {
   if (!token)
     return NextResponse.json({ ok: false, error: "الرابط غير صالح." }, { status: 400 });
 
-  const user = await findByVerifyToken(token);
+  const user = await findByVerifyTokenHash(hashToken(token));
   if (!user || isExpired(user.verifyExpiresAt))
     return NextResponse.json(
       { ok: false, error: "الرابط منتهي أو غير صالح. سجّل دخولك واطلب إعادة الإرسال." },
