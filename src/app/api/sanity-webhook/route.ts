@@ -131,9 +131,27 @@ export async function POST(req: NextRequest) {
     ? `ردّ: ${doc.subject}`
     : `ردّ على رسالتك — ${KIND_LABEL[doc.kind || ""] || "علم تأويل الرؤى"}`;
 
-  // Backfill an accessToken if the submission was created before this feature
-  // shipped, so old conversations also get a public viewer link.
+  // Resolve accessToken for the email link. Order of preference:
+  //   1. webhook projection (fastest, no extra round-trip)
+  //   2. live read from Sanity (in case projection isn't updated yet)
+  //   3. backfill — only for genuine legacy docs with no token at all
+  // The live read is CRITICAL: an outdated projection used to make this
+  // branch overwrite a newly-issued token with a fresh UUID, which
+  // invalidated the link the customer was already holding.
   let accessToken = doc.accessToken;
+  if (!accessToken && realId) {
+    try {
+      const fresh = await (
+        writeClient.fetch.bind(writeClient) as (
+          q: string,
+          p: Record<string, string>
+        ) => Promise<{ accessToken?: string } | null>
+      )(`*[_id == $id][0]{accessToken}`, { id: realId });
+      accessToken = fresh?.accessToken;
+    } catch (err) {
+      console.warn("[sanity-webhook] accessToken lookup failed:", err);
+    }
+  }
   if (!accessToken && realId) {
     accessToken = crypto.randomUUID();
     await writeClient
