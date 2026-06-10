@@ -3,6 +3,7 @@ import crypto from "node:crypto";
 import { Resend } from "resend";
 import { writeClient } from "@/sanity/lib/client";
 import { sanityConfigured, writeToken } from "@/sanity/env";
+import { getCurrentUser } from "@/lib/auth/session";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -43,6 +44,17 @@ function validate(p: Payload): { ok: true; data: Required<Omit<Payload, "website
 }
 
 export async function POST(req: NextRequest) {
+  // Auth required — anonymous submissions are no longer allowed. The website
+  // gates the forms behind /auth/login, but the server enforces the same rule
+  // in case someone hits the API directly.
+  const session = await getCurrentUser();
+  if (!session) {
+    return NextResponse.json(
+      { ok: false, error: "auth-required", message: "يلزم تسجيل الدخول لإرسال الرسائل." },
+      { status: 401 }
+    );
+  }
+
   let body: Payload;
   try {
     body = (await req.json()) as Payload;
@@ -81,6 +93,7 @@ export async function POST(req: NextRequest) {
         createdAt: new Date().toISOString(),
         status: "new",
         accessToken,
+        user: { _type: "reference", _ref: session.userId },
       });
       savedId = created._id;
     } catch (err) {

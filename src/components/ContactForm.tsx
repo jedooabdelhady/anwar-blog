@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import { useRouter } from "next/navigation";
 import { Loader2, CheckCircle2, AlertCircle } from "lucide-react";
 
 type Kind = "public-vision" | "private-vision" | "inquiry";
@@ -14,6 +15,10 @@ type Props = {
   accentHover: string;
   /** Override placeholders or hide email/phone where it doesn't fit. */
   showSubject?: boolean;
+  /** Prefilled from the signed-in user (server reads session). */
+  prefillName?: string;
+  prefillEmail?: string;
+  prefillPhone?: string;
 };
 
 type Status =
@@ -28,7 +33,11 @@ export default function ContactForm({
   accent,
   accentHover,
   showSubject = true,
+  prefillName,
+  prefillEmail,
+  prefillPhone,
 }: Props) {
+  const router = useRouter();
   const [status, setStatus] = useState<Status>({ state: "idle" });
 
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
@@ -53,6 +62,12 @@ export default function ContactForm({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
+      if (res.status === 401) {
+        // Session expired — bounce to login and come back here.
+        const next = typeof window !== "undefined" ? window.location.pathname : "/";
+        router.replace(`/auth/login?next=${encodeURIComponent(next)}`);
+        return;
+      }
       const json = await res.json().catch(() => ({ ok: false, error: "خطأ غير متوقع." }));
       if (!res.ok || !json.ok) {
         setStatus({ state: "error", message: json.error || "تعذّر الإرسال. حاول مجدداً." });
@@ -120,12 +135,12 @@ export default function ContactForm({
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <Field name="name"  label="• الاسم (اللقب)"        required maxLength={120} autoComplete="name" />
-        <Field name="email" label="• البريد الإلكتروني"    type="email" autoComplete="email" />
+        <Field name="name"  label="• الاسم (اللقب)"        required maxLength={120} autoComplete="name" defaultValue={prefillName} />
+        <Field name="email" label="• البريد الإلكتروني"    type="email" autoComplete="email" defaultValue={prefillEmail} />
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <Field name="phone" label="• رقم الجوال (اختياري)" type="tel" autoComplete="tel" dir="ltr" />
+        <Field name="phone" label="• رقم الجوال (اختياري)" type="tel" autoComplete="tel" dir="ltr" defaultValue={prefillPhone} />
         {showSubject && <Field name="subject" label="• الموضوع (اختياري)" />}
       </div>
 
@@ -180,6 +195,7 @@ function Field({
   maxLength,
   autoComplete,
   dir,
+  defaultValue,
 }: {
   name: string;
   label: string;
@@ -188,6 +204,7 @@ function Field({
   maxLength?: number;
   autoComplete?: string;
   dir?: "ltr" | "rtl";
+  defaultValue?: string;
 }) {
   return (
     <div>
@@ -201,6 +218,7 @@ function Field({
         maxLength={maxLength}
         autoComplete={autoComplete}
         dir={dir}
+        defaultValue={defaultValue}
         className="w-full rounded-2xl border border-line bg-bg px-4 py-2.5 text-pepper placeholder:text-pepper/40 focus:border-sienna focus:outline-none focus:ring-2 focus:ring-sienna/30"
       />
     </div>

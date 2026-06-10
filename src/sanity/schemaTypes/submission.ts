@@ -84,6 +84,14 @@ export default defineType({
       description:
         "معرّف فريد لرابط المحادثة العامة. للوصول: https://sahaarr299.com/inquiry/{accessToken}",
     }),
+    defineField({
+      name: "user",
+      title: "العضو المُرسِل",
+      type: "reference",
+      to: [{ type: "user" }],
+      description:
+        "يُربط تلقائيًا إذا كانت الرسالة مُرسَلة من عضو مسجَّل دخوله.",
+    }),
   ],
   orderings: [
     {

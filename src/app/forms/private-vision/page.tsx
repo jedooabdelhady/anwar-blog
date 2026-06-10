@@ -1,12 +1,16 @@
 import ContactForm from "@/components/ContactForm";
 import FormPageShell from "@/components/FormPageShell";
+import { requireAuth } from "@/components/auth/RequireAuth";
 
 export const metadata = {
   title: "بوابة الرؤى الشخصية",
   description: "مساحة آمنة لطلب تعبير الرؤى الخاصّة. خصوصيتكم محفوظة بعناية.",
 };
 
-export default function PrivateVisionPage() {
+export const dynamic = "force-dynamic";
+
+export default async function PrivateVisionPage() {
+  const user = await requireAuth("/forms/private-vision");
   return (
     <FormPageShell
       title="بوابة الرؤى الشخصية"
@@ -18,6 +22,9 @@ export default function PrivateVisionPage() {
         submitLabel="تقديم رؤيتي"
         accent="#6B3F23"
         accentHover="#5a341c"
+        prefillName={user.displayName || user.username}
+        prefillEmail={user.email}
+        prefillPhone={user.phone}
       />
     </FormPageShell>
   );

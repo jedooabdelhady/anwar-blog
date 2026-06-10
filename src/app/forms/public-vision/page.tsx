@@ -1,12 +1,16 @@
 import ContactForm from "@/components/ContactForm";
 import FormPageShell from "@/components/FormPageShell";
+import { requireAuth } from "@/components/auth/RequireAuth";
 
 export const metadata = {
   title: "بوابة الرؤى العامة",
   description: "مساحة لتدوين الرؤى المتعلّقة بالأحداث العامّة وغير الشخصية.",
 };
 
-export default function PublicVisionPage() {
+export const dynamic = "force-dynamic";
+
+export default async function PublicVisionPage() {
+  const user = await requireAuth("/forms/public-vision");
   return (
     <FormPageShell
       title="بوابة الرؤى العامة"
@@ -18,6 +22,9 @@ export default function PublicVisionPage() {
         submitLabel="تقديم رؤيتي"
         accent="#8F8C78"
         accentHover="#75725f"
+        prefillName={user.displayName || user.username}
+        prefillEmail={user.email}
+        prefillPhone={user.phone}
       />
     </FormPageShell>
   );

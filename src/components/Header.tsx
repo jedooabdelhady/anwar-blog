@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState, useRef, useEffect } from "react";
 import { Menu, X, ChevronDown } from "lucide-react";
 import Logo from "./Logo";
+import UserMenu from "./UserMenu";
 import clsx from "clsx";
 
 const NAV = [
@@ -136,6 +137,11 @@ export default function Header({ active = "/" }: { active?: string }) {
             <Logo size={48} variant="pepper" />
           </Link>
 
+          {/* Desktop user menu (sits at the start of the row in RTL) */}
+          <div className="hidden md:block">
+            <UserMenu />
+          </div>
+
           {/* Desktop nav */}
           <ul className="hidden md:flex items-center gap-6 lg:gap-9">
             {NAV.map((item) => {
@@ -219,6 +225,11 @@ export default function Header({ active = "/" }: { active?: string }) {
             <li className="pt-3 mt-2 border-t border-line">
               <p className="text-sm text-pepper/70 mb-3">تَواصُل</p>
               <SocialStack vertical={false} onItemClick={() => setOpen(false)} />
+            </li>
+            {/* Mobile user menu */}
+            <li className="pt-3 mt-2 border-t border-line">
+              <p className="text-sm text-pepper/70 mb-3">حسابي</p>
+              <UserMenu stacked />
             </li>
           </ul>
         </div>
