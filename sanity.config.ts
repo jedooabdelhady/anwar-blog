@@ -89,6 +89,13 @@ export default defineConfig({
                   .title("النماذج المُرسلة")
                   .defaultOrdering([{ field: "createdAt", direction: "desc" }])
               ),
+            S.listItem()
+              .title("👥 الأعضاء")
+              .child(
+                S.documentTypeList("user")
+                  .title("الأعضاء المسجَّلون")
+                  .defaultOrdering([{ field: "createdAt", direction: "desc" }])
+              ),
           ]),
     }),
     // visionTool removed: developer-only feature, not relevant for editors.
