@@ -2,12 +2,20 @@ import { defineField, defineType, defineArrayMember } from "sanity";
 import { CogIcon } from "@sanity/icons";
 
 const SLIDE_COLORS = [
-  { title: "بني محمر (Sienna)",       value: "sienna" },
-  { title: "بني فاتح (Oak)",          value: "oak" },
-  { title: "بني داكن (Pepper)",       value: "pepper" },
-  { title: "زيتي (Gum)",              value: "gum" },
-  { title: "مخطوط فاتح (Smoke) 📜",   value: "smoke" },
+  { title: "🟫 بني محمر (Sienna)",     value: "sienna" },
+  { title: "🟤 بني فاتح (Oak)",         value: "oak" },
+  { title: "⬛ بني داكن (Pepper)",      value: "pepper" },
+  { title: "🫒 زيتي (Gum)",             value: "gum" },
+  { title: "📜 مخطوط فاتح (Smoke)",    value: "smoke" },
 ] as const;
+
+const COLOR_LABEL: Record<string, string> = {
+  sienna: "🟫 بني محمر",
+  oak: "🟤 بني فاتح",
+  pepper: "⬛ بني داكن",
+  gum: "🫒 زيتي",
+  smoke: "📜 مخطوط",
+};
 
 /**
  * Singleton "إعدادات الموقع" — every editable string on the home page
@@ -40,44 +48,58 @@ export default defineType({
     /* ─────────────── Hero carousel ─────────────── */
     defineField({
       name: "heroQuotes",
-      title: "شرائح البانر (اقتباسات متحركة)",
+      title: "🎠 شرائح البانر المتحرك",
       description:
-        "تتبدّل تلقائياً كل 6 ثواني. أضف/احذف بحرّية — الترتيب يحفظ كما هو.",
+        "هذه الاقتباسات تظهر في أعلى الصفحة الرئيسية وتتبدّل كل 6 ثواني. اسحب الشرائح بزر ⋮⋮ لتغيير ترتيبها. كل شريحة لها 3 حقول فقط: النص + المصدر (اختياري) + اللون.",
       type: "array",
       of: [
         defineArrayMember({
           type: "object",
           name: "quote",
+          title: "شريحة",
           fields: [
             defineField({
               name: "text",
-              title: "نص الاقتباس",
+              title: "✍️ نص الاقتباس (مطلوب)",
               description:
-                "لتغميق كلمة، ضعيها بين نجمتين هكذا: **الكلمة**. مثال: \"فلا ذنبَ لي أنْ كانتْ العين تحلمُ\" • م: **المخطوطُ**",
+                'اكتبي الاقتباس هنا. لتغميق كلمة احطّيها بين نجمتين، مثل: **الحكمة**. مثال كامل: "صدقُ الرؤى ما كان عند **الأسحار**".',
               type: "text",
-              rows: 2,
-              validation: (R) => R.required().max(300),
+              rows: 3,
+              validation: (R) => R.required().min(3).max(300),
             }),
             defineField({
               name: "source",
-              title: "المصدر (اختياري)",
+              title: "📚 المصدر (اختياري)",
+              description:
+                'مَن قائل الاقتباس أو من أين؟ مثل: "حديث شريف"، "مثل عربي"، "ابن سيرين".',
               type: "string",
               validation: (R) => R.max(80),
             }),
             defineField({
               name: "color",
-              title: "لون الخلفية",
+              title: "🎨 لون خلفية الشريحة",
+              description: "اختاري لوناً مناسباً للاقتباس.",
               type: "string",
               options: { list: [...SLIDE_COLORS], layout: "radio" },
               initialValue: "sienna",
+              validation: (R) => R.required(),
             }),
           ],
           preview: {
-            select: { title: "text", subtitle: "source" },
-            prepare: ({ title, subtitle }) => ({
-              title: title?.length > 50 ? title.slice(0, 50) + "…" : title,
-              subtitle,
-            }),
+            select: { text: "text", source: "source", color: "color" },
+            prepare: ({ text, source, color }) => {
+              const safeText = (text || "").trim();
+              const title = safeText
+                ? safeText.length > 60
+                  ? safeText.slice(0, 60) + "…"
+                  : safeText
+                : "⚠️ شريحة فارغة — اضغطي لكتابة النص";
+              const colorPart = COLOR_LABEL[color || ""] || "🎨";
+              const subtitle = source
+                ? `${colorPart} • ${source}`
+                : colorPart;
+              return { title, subtitle };
+            },
           },
         }),
       ],
@@ -91,98 +113,145 @@ export default defineType({
     /* ─────────────── Three gates (cards) ─────────────── */
     defineField({
       name: "cardPublic",
-      title: "البطاقة 1 — بوابة الرؤى العامة (أخضر زيتي)",
+      title: "🫒 البطاقة 1 — بوابة الرؤى العامة",
+      description: "البطاقة الأولى من الثلاث الظاهرة وسط الصفحة الرئيسية.",
       type: "object",
-      options: { collapsible: true, collapsed: true },
+      options: { collapsible: true, collapsed: false },
       fields: [
         defineField({
           name: "title",
-          title: "العنوان",
+          title: "عنوان البطاقة",
           type: "string",
           initialValue: "بوابة الرؤى العامة",
+          validation: (R) => R.required().max(40),
         }),
         defineField({
           name: "body",
-          title: "النص",
+          title: "نص البطاقة",
+          description: "وصف قصير يظهر تحت العنوان (سطران تقريباً).",
           type: "text",
           rows: 3,
           initialValue:
             "مساحة تُروى فيها الرؤى العامة بتفاصيلها ودلالاتها، لفهم الرموز والإشارات والمعاني الكامنة خلفها.",
+          validation: (R) => R.required().max(220),
         }),
         defineField({
           name: "cta",
           title: "نص الزر",
           type: "string",
           initialValue: "قدّم رؤياك",
+          validation: (R) => R.required().max(24),
         }),
       ],
+      preview: {
+        select: { title: "title", subtitle: "body" },
+        prepare: ({ title, subtitle }) => ({
+          title: title || "بوابة الرؤى العامة",
+          subtitle: subtitle?.slice(0, 80),
+        }),
+      },
     }),
     defineField({
       name: "cardPrivate",
-      title: "البطاقة 2 — بوابة الرؤى الشخصية (بني محمر)",
+      title: "🟫 البطاقة 2 — بوابة الرؤى الشخصية",
+      description: "البطاقة الوسطى — اللون البني المحمر.",
       type: "object",
-      options: { collapsible: true, collapsed: true },
+      options: { collapsible: true, collapsed: false },
       fields: [
         defineField({
           name: "title",
-          title: "العنوان",
+          title: "عنوان البطاقة",
           type: "string",
           initialValue: "بوابة الرؤى الشخصية",
+          validation: (R) => R.required().max(40),
         }),
         defineField({
           name: "body",
-          title: "النص",
+          title: "نص البطاقة",
           type: "text",
           rows: 3,
           initialValue:
             "مساحة خاصة بكَ، شارك رؤياك الخاصة لتُفسَّر رموزها في مساحة آمنة وهادئة بما تحمله من أثر ومعنى.",
+          validation: (R) => R.required().max(220),
         }),
         defineField({
           name: "cta",
           title: "نص الزر",
           type: "string",
           initialValue: "قدّم رؤياك",
+          validation: (R) => R.required().max(24),
         }),
       ],
+      preview: {
+        select: { title: "title", subtitle: "body" },
+        prepare: ({ title, subtitle }) => ({
+          title: title || "بوابة الرؤى الشخصية",
+          subtitle: subtitle?.slice(0, 80),
+        }),
+      },
     }),
     defineField({
       name: "cardInquiry",
-      title: "البطاقة 3 — بوابة تساؤل واستعلام (بني)",
+      title: "🟤 البطاقة 3 — بوابة تساؤل واستعلام",
+      description: "البطاقة الثالثة — اللون البني الفاتح.",
       type: "object",
-      options: { collapsible: true, collapsed: true },
+      options: { collapsible: true, collapsed: false },
       fields: [
         defineField({
           name: "title",
-          title: "العنوان",
+          title: "عنوان البطاقة",
           type: "string",
           initialValue: "بوابة تساؤل واستعلام",
+          validation: (R) => R.required().max(40),
         }),
         defineField({
           name: "body",
-          title: "النص",
+          title: "نص البطاقة",
           type: "text",
           rows: 3,
           initialValue:
             "نافذة للتساؤلات والاستفسارات العامة، تُطرح فيها الأفكار والرموز والمعاني المختلفة للبحث والتأمل.",
+          validation: (R) => R.required().max(220),
         }),
         defineField({
           name: "cta",
           title: "نص الزر",
           type: "string",
           initialValue: "ابدأ استعلامك",
+          validation: (R) => R.required().max(24),
         }),
       ],
+      preview: {
+        select: { title: "title", subtitle: "body" },
+        prepare: ({ title, subtitle }) => ({
+          title: title || "بوابة تساؤل واستعلام",
+          subtitle: subtitle?.slice(0, 80),
+        }),
+      },
     }),
 
     /* ─────────────── Blog section ─────────────── */
     defineField({
       name: "blogSection",
-      title: "قسم المدونة",
+      title: "📚 قسم المكتبة",
+      description: "العنوان والوصف الذي يظهر فوق قائمة المقالات في الصفحة الرئيسية.",
       type: "object",
-      options: { collapsible: true, collapsed: true },
+      options: { collapsible: true, collapsed: false },
       fields: [
-        defineField({ name: "title",    title: "العنوان",       type: "string", initialValue: "الواردّ العلميِ" }),
-        defineField({ name: "subtitle", title: "النص الفرعي",   type: "string", initialValue: "بحرْ العلمْ بوابةّ العالمْ فارتّق نْ" }),
+        defineField({
+          name: "title",
+          title: "العنوان",
+          type: "string",
+          initialValue: "الوارد العلمي",
+          validation: (R) => R.max(40),
+        }),
+        defineField({
+          name: "subtitle",
+          title: "النص الفرعي",
+          type: "string",
+          initialValue: "بحر العلم بوابة العالم فارتق",
+          validation: (R) => R.max(140),
+        }),
       ],
     }),
   ],
