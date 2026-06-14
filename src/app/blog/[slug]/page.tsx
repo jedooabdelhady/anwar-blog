@@ -10,6 +10,8 @@ import Footer from "@/components/Footer";
 import ShareButtons from "@/components/ShareButtons";
 import { TopWaves, BottomWaves } from "@/components/DecorativeWaves";
 import { getAllSlugs, getPostBySlug } from "@/sanity/lib/fetch";
+import { urlForImage } from "@/sanity/lib/image";
+import type { Image as SanityImage } from "sanity";
 
 /** Determine the canonical origin (env first, then request headers). */
 async function getOrigin(): Promise<string> {
@@ -48,6 +50,8 @@ export async function generateMetadata(
   };
 }
 
+type InlineImage = SanityImage & { alt?: string; caption?: string };
+
 const portableComponents = {
   block: {
     normal: ({ children }: { children?: React.ReactNode }) => (
@@ -64,6 +68,35 @@ const portableComponents = {
         {children}
       </blockquote>
     ),
+  },
+  types: {
+    // Inline images dropped into the body via Studio. The schema accepts
+    // them (post.ts) but until we registered a renderer here PortableText
+    // would silently skip them, leaving published articles imageless.
+    image: ({ value }: { value: InlineImage }) => {
+      if (!value?.asset) return null;
+      const src = urlForImage(value).width(1400).url();
+      return (
+        <figure className="my-8">
+          <div className="rounded-2xl overflow-hidden ring-1 ring-line shadow-[0_14px_34px_-22px_rgba(56,38,28,0.25)]">
+            {/* Plain <img>: inline images come in any aspect ratio so a
+                Next/Image with fixed width/height would distort them. */}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={src}
+              alt={value.alt || ""}
+              className="w-full h-auto block"
+              loading="lazy"
+            />
+          </div>
+          {value.caption && (
+            <figcaption className="mt-3 text-sm text-pepper/65 text-center leading-relaxed">
+              {value.caption}
+            </figcaption>
+          )}
+        </figure>
+      );
+    },
   },
 };
 
