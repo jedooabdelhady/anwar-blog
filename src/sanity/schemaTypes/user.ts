@@ -126,6 +126,16 @@ export default defineType({
       readOnly: true,
       hidden: true,
     }),
+    defineField({
+      name: "lastEmailError",
+      title: "آخر خطأ في إرسال البريد",
+      type: "text",
+      rows: 3,
+      readOnly: true,
+      description:
+        "يُملأ تلقائياً إذا فشل إرسال رسالة التفعيل أو الاسترداد. لو فيه قيمة هنا = إعدادات Resend/الدومين تحتاج مراجعة.",
+      hidden: ({ document }) => !document?.lastEmailError,
+    }),
   ],
   preview: {
     select: { title: "username", subtitle: "email", verified: "emailVerified" },

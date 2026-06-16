@@ -6,6 +6,7 @@ import {
   findByUsername,
   createUser,
   patchUser,
+  unsetUserFields,
 } from "@/lib/auth/users";
 import { hashPassword, isStrongEnough } from "@/lib/auth/password";
 import { newToken, hashToken, expiresIn } from "@/lib/auth/tokens";
@@ -94,10 +95,17 @@ export async function POST(req: NextRequest) {
     sessionVersion: 1,
   });
 
-  // Best-effort verification email — don't block the signup on email failure.
+  // Best-effort verification email — don't block the signup on email failure,
+  // but DO persist the error so we can see it in Studio instead of losing it
+  // in the logs. The /account banner also surfaces this to the user.
   const sent = await sendVerifyEmail(email, verifyTokenPlain);
   if (!sent.ok) {
     console.warn("[register] verify email failed:", sent.error);
+    await patchUser(user._id, {
+      lastEmailError: `verify@register: ${sent.error}`,
+    }).catch(() => {});
+  } else {
+    await unsetUserFields(user._id, ["lastEmailError"]).catch(() => {});
   }
 
   const session = await getSession();

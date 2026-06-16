@@ -20,6 +20,7 @@ export type UserDoc = {
   sessionVersion?: number;
   failedLoginCount?: number;
   lockedUntil?: string;
+  lastEmailError?: string;
 };
 
 export function ensureWritable(): { ok: true } | { ok: false; error: string } {
@@ -30,7 +31,7 @@ export function ensureWritable(): { ok: true } | { ok: false; error: string } {
   return { ok: true };
 }
 
-const FIELDS = `_id, _type, username, email, emailVerified, displayName, phone, passwordHash, role, verifyToken, verifyExpiresAt, resetToken, resetExpiresAt, createdAt, lastLoginAt, sessionVersion, failedLoginCount, lockedUntil`;
+const FIELDS = `_id, _type, username, email, emailVerified, displayName, phone, passwordHash, role, verifyToken, verifyExpiresAt, resetToken, resetExpiresAt, createdAt, lastLoginAt, sessionVersion, failedLoginCount, lockedUntil, lastEmailError`;
 
 type Fetcher = <T = unknown>(query: string, params?: Record<string, unknown>) => Promise<T>;
 

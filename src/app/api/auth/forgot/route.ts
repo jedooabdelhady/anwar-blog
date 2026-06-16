@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { ensureWritable, findByIdentifier, patchUser } from "@/lib/auth/users";
+import { ensureWritable, findByIdentifier, patchUser, unsetUserFields } from "@/lib/auth/users";
 import { newToken, hashToken, expiresIn } from "@/lib/auth/tokens";
 import { sendResetEmail } from "@/lib/auth/emails";
 import { check, tooManyRequests } from "@/lib/auth/rate-limit";
@@ -45,7 +45,14 @@ export async function POST(req: NextRequest) {
   });
 
   const sent = await sendResetEmail(user.email, tokenPlain);
-  if (!sent.ok) console.warn("[forgot] reset email failed:", sent.error);
+  if (!sent.ok) {
+    console.warn("[forgot] reset email failed:", sent.error);
+    await patchUser(user._id, {
+      lastEmailError: `reset@forgot: ${sent.error}`,
+    }).catch(() => {});
+  } else {
+    await unsetUserFields(user._id, ["lastEmailError"]).catch(() => {});
+  }
 
   return NextResponse.json({ ok: true });
 }

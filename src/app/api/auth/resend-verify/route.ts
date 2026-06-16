@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { requireFreshUser } from "@/lib/auth/session";
-import { ensureWritable, patchUser } from "@/lib/auth/users";
+import { ensureWritable, patchUser, unsetUserFields } from "@/lib/auth/users";
 import { newToken, hashToken, expiresIn } from "@/lib/auth/tokens";
 import { sendVerifyEmail } from "@/lib/auth/emails";
 import { check, tooManyRequests } from "@/lib/auth/rate-limit";
@@ -29,8 +29,13 @@ export async function POST(req: NextRequest) {
     verifyExpiresAt: expiresIn(60 * 24),
   });
   const sent = await sendVerifyEmail(user.email, tokenPlain);
-  if (!sent.ok)
+  if (!sent.ok) {
+    await patchUser(user._id, {
+      lastEmailError: `verify@resend: ${sent.error}`,
+    }).catch(() => {});
     return NextResponse.json({ ok: false, error: sent.error }, { status: 502 });
+  }
+  await unsetUserFields(user._id, ["lastEmailError"]).catch(() => {});
 
   return NextResponse.json({ ok: true });
 }
