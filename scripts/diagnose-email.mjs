@@ -27,6 +27,14 @@ for (const line of readFileSync(resolve(__dirname, "..", ".env.local"), "utf8").
   if (m) env[m[1]] = m[2];
 }
 
+// Allow CLI args and process env to override .env.local — useful when
+// you want to test a production-style FROM address without editing
+// .env.local. Examples:
+//   node scripts/diagnose-email.mjs jedoo.abdelhady@gmail.com
+//   CONTACT_EMAIL_FROM=no-reply@sahaarr299.com node scripts/diagnose-email.mjs
+for (const key of ["CONTACT_EMAIL_FROM", "CONTACT_EMAIL_TO", "NEXT_PUBLIC_SITE_URL"]) {
+  if (process.env[key]) env[key] = process.env[key];
+}
 const probeTo = process.argv[2] || env.CONTACT_EMAIL_TO;
 console.log("\n=== Email Pipeline Diagnostic ===\n");
 
