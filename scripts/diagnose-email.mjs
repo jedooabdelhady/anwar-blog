@@ -60,7 +60,8 @@ const users = await client.fetch(
     _id, username, email, emailVerified, createdAt, lastLoginAt,
     "hasVerifyToken": defined(verifyToken),
     verifyExpiresAt,
-    "isVerifyExpired": defined(verifyExpiresAt) && dateTime(verifyExpiresAt) < dateTime(now())
+    "isVerifyExpired": defined(verifyExpiresAt) && dateTime(verifyExpiresAt) < dateTime(now()),
+    lastEmailError
   }`
 );
 const totalUsers = await client.fetch(`count(*[_type == "user"])`);
@@ -70,6 +71,9 @@ for (const u of users) {
   console.log(`  ${u.emailVerified ? "✅" : "⚠️"} ${u.username} <${u.email}> — سُجل ${stamp}`);
   if (u.hasVerifyToken) {
     console.log(`     verifyToken موجود، الصلاحية ${u.verifyExpiresAt} ${u.isVerifyExpired ? "(منتهي)" : "(لازال صالحاً)"}`);
+  }
+  if (u.lastEmailError) {
+    console.log(`     ❌ lastEmailError: ${u.lastEmailError}`);
   }
 }
 console.log();

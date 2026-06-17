@@ -35,6 +35,20 @@ export async function generateMetadata(): Promise<Metadata> {
       description: s.siteTagline,
     },
     robots: { index: true, follow: true },
+    // Search-engine ownership verification. Each value is the bare token
+    // from the provider's UI (Google Search Console / Bing Webmaster) —
+    // Next renders it as the right <meta> tag automatically. Leaving an
+    // env var unset hides the tag, so this is safe to keep enabled.
+    verification: {
+      google: process.env.GOOGLE_SITE_VERIFICATION || undefined,
+      yandex: process.env.YANDEX_VERIFICATION || undefined,
+      other: process.env.BING_SITE_VERIFICATION
+        ? { "msvalidate.01": process.env.BING_SITE_VERIFICATION }
+        : undefined,
+    },
+    alternates: {
+      canonical: process.env.NEXT_PUBLIC_SITE_URL || undefined,
+    },
   };
 }
 
