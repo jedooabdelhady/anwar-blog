@@ -1,14 +1,7 @@
 import { Resend } from "resend";
+import { canonicalSiteUrl } from "@/lib/site-url";
 
-function siteUrl(): string {
-  let raw = (process.env.NEXT_PUBLIC_SITE_URL || "https://sahaarr299.com").trim();
-  raw = raw.replace(/\/+$/, "");
-  // If the editor pasted "sahaarr299.com" without scheme into Vercel,
-  // links inside emails would render as relative URLs and Gmail's spam
-  // filter would flag the whole message. Force a scheme.
-  if (!/^https?:\/\//i.test(raw)) raw = `https://${raw}`;
-  return raw;
-}
+const siteUrl = canonicalSiteUrl;
 
 /** Bare email (no display-name wrapper) — needed for List-Unsubscribe
  *  and tracking domains. */

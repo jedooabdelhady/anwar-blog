@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { getSiteSettings } from "@/sanity/lib/settings";
+import { canonicalSiteUrl } from "@/lib/site-url";
 
 /**
  * Page metadata is driven by Sanity siteSettings — the editor can change
@@ -8,8 +9,10 @@ import { getSiteSettings } from "@/sanity/lib/settings";
  */
 export async function generateMetadata(): Promise<Metadata> {
   const s = await getSiteSettings();
+  const origin = canonicalSiteUrl();
 
   return {
+    metadataBase: new URL(origin),
     title: {
       default: `${s.siteName} — مساحة عربية للتفسير والمعرفة`,
       template: `%s | ${s.siteName}`,
@@ -47,7 +50,7 @@ export async function generateMetadata(): Promise<Metadata> {
         : undefined,
     },
     alternates: {
-      canonical: process.env.NEXT_PUBLIC_SITE_URL || undefined,
+      canonical: origin,
     },
   };
 }
