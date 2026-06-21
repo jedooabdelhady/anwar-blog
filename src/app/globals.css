@@ -74,6 +74,21 @@ body::before {
   position: fixed;
   inset: 0;
   z-index: -1;
+  background-image: url("/logos/wallpaper2.jpeg");
+  background-repeat: repeat;
+  background-size: var(--bg-tile) auto;
+  background-position: center top;
+  pointer-events: none;
+}
+
+/* Article pages opt into the original wallpaper by rendering an
+ * <div class="article-wallpaper"> overlay from /blog/[slug]/layout.tsx.
+ * Same fixed sizing as body::before so it covers the default layer
+ * cleanly without changing layout. */
+.article-wallpaper {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
   background-image: url("/logos/wallpaper.jpeg");
   background-repeat: repeat;
   background-size: var(--bg-tile) auto;
