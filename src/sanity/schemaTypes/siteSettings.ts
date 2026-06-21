@@ -230,6 +230,61 @@ export default defineType({
       },
     }),
 
+    /* ─────────────── Videos section ─────────────── */
+    defineField({
+      name: "videos",
+      title: "🎬 مقاطع الفيديو",
+      description:
+        "تظهر بين البطاقات والمكتبة في الصفحة الرئيسية. الصق رابط يوتيوب لكل مقطع — الصورة المصغّرة تُجلب تلقائياً. اسحبي بزر ⋮⋮ لإعادة الترتيب، واضغطي ⋯ → Remove للحذف.",
+      type: "array",
+      of: [
+        defineArrayMember({
+          type: "object",
+          name: "video",
+          title: "مقطع فيديو",
+          fields: [
+            defineField({
+              name: "title",
+              title: "✍️ عنوان المقطع (مطلوب)",
+              description: "نص قصير يظهر تحت الصورة المصغّرة.",
+              type: "string",
+              validation: (R) => R.required().min(3).max(120),
+            }),
+            defineField({
+              name: "url",
+              title: "🔗 رابط يوتيوب (مطلوب)",
+              description:
+                'الصق الرابط الكامل من يوتيوب. أمثلة مقبولة: "https://youtu.be/XXXXXXXXXXX" أو "https://www.youtube.com/watch?v=XXXXXXXXXXX".',
+              type: "url",
+              validation: (R) =>
+                R.required().uri({ scheme: ["http", "https"] }).custom((value) => {
+                  if (!value) return true;
+                  const ok = /(youtube\.com\/(watch\?.*v=|embed\/|shorts\/)|youtu\.be\/)[A-Za-z0-9_-]{6,}/.test(
+                    value
+                  );
+                  return ok || "الرابط يجب أن يكون من يوتيوب.";
+                }),
+            }),
+            defineField({
+              name: "description",
+              title: "📝 وصف مختصر (اختياري)",
+              description: "سطر قصير يظهر تحت العنوان.",
+              type: "text",
+              rows: 2,
+              validation: (R) => R.max(160),
+            }),
+          ],
+          preview: {
+            select: { title: "title", url: "url" },
+            prepare: ({ title, url }) => ({
+              title: title || "⚠️ مقطع بدون عنوان",
+              subtitle: url || "🔗 لم يُضف رابط",
+            }),
+          },
+        }),
+      ],
+    }),
+
     /* ─────────────── Blog section ─────────────── */
     defineField({
       name: "blogSection",

@@ -1,6 +1,7 @@
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import ThreeCards from "@/components/ThreeCards";
+import VideoCards from "@/components/VideoCards";
 import BlogGrid from "@/components/BlogGrid";
 import Footer from "@/components/Footer";
 import { TopWaves, BottomWaves } from "@/components/DecorativeWaves";
@@ -29,6 +30,7 @@ export default async function Home() {
           cardPrivate={settings.cardPrivate}
           cardInquiry={settings.cardInquiry}
         />
+        <VideoCards videos={settings.videos} />
         <BlogGrid
           posts={posts.slice(0, 6)}
           title={settings.blogSection.title}

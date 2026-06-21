@@ -15,6 +15,12 @@ export type CardCopy = {
   cta: string;
 };
 
+export type VideoEntry = {
+  title: string;
+  url: string;
+  description?: string;
+};
+
 export type SiteSettings = {
   siteName: string;
   siteTagline: string;
@@ -22,6 +28,7 @@ export type SiteSettings = {
   cardPublic: CardCopy;
   cardPrivate: CardCopy;
   cardInquiry: CardCopy;
+  videos: VideoEntry[];
   blogSection: { title: string; subtitle: string };
 };
 
@@ -52,6 +59,7 @@ export const DEFAULT_SETTINGS: SiteSettings = {
     body:  "نافذة **للتساؤلات والاستفسارات العامة**، تُطرح فيها الأفكار والرموز والمعاني المختلفة للبحث والتأمل.",
     cta:   "ابدأ استعلامك",
   },
+  videos: [],
   blogSection: {
     title:    "الواردّ العلميِ",
     subtitle: "بحرْ العلمْ بوابةّ العالمْ فارتّق نْ",
@@ -61,7 +69,9 @@ export const DEFAULT_SETTINGS: SiteSettings = {
 const SETTINGS_QUERY = /* groq */ `*[_type == "siteSettings"][0]{
   siteName, siteTagline,
   heroQuotes[]{ text, source, color },
-  cardPublic, cardPrivate, cardInquiry, blogSection
+  cardPublic, cardPrivate, cardInquiry,
+  videos[]{ title, url, description },
+  blogSection
 }`;
 
 function withDefaults(raw: Partial<SiteSettings> | null): SiteSettings {
@@ -75,6 +85,7 @@ function withDefaults(raw: Partial<SiteSettings> | null): SiteSettings {
     cardPublic:  { ...DEFAULT_SETTINGS.cardPublic,  ...(raw.cardPublic  || {}) },
     cardPrivate: { ...DEFAULT_SETTINGS.cardPrivate, ...(raw.cardPrivate || {}) },
     cardInquiry: { ...DEFAULT_SETTINGS.cardInquiry, ...(raw.cardInquiry || {}) },
+    videos:      Array.isArray(raw.videos) ? raw.videos : DEFAULT_SETTINGS.videos,
     blogSection: { ...DEFAULT_SETTINGS.blogSection, ...(raw.blogSection || {}) },
   };
 }
