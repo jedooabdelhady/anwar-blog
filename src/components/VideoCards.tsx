@@ -28,36 +28,49 @@ function youtubeId(url: string): string | null {
 }
 
 /**
- * Five "torn manuscript" colour variants in the site palette. We cycle
- * through them so a row of any length looks intentional.
- * - bg: card background
- * - ink: title colour
- * - sub: description colour
- * - badge: small play badge background
- * - badgeInk: play badge icon colour
+ * Manuscript palette variants. Each one tunes ink, sub-ink, ornament
+ * colour, and play-badge contrast against its own background so text
+ * stays legible on every variant.
  */
 const VARIANTS = [
   // Light beige paper
-  { bg: "#EDDFD2", ink: "#38261C", sub: "rgba(56,38,28,0.72)", badge: "#6B3F23", badgeInk: "#fff" },
+  { bg: "#EDDFD2", ink: "#38261C", sub: "rgba(56,38,28,0.72)", ornament: "rgba(107,63,35,0.55)", line: "rgba(56,38,28,0.32)", badge: "#6B3F23", badgeInk: "#fff", number: "rgba(56,38,28,0.55)" },
   // Sage olive
-  { bg: "#8F8C78", ink: "#FAF5EC", sub: "rgba(250,245,236,0.85)", badge: "#FAF5EC", badgeInk: "#3A382E" },
+  { bg: "#8F8C78", ink: "#FAF5EC", sub: "rgba(250,245,236,0.85)", ornament: "rgba(250,245,236,0.6)", line: "rgba(250,245,236,0.35)", badge: "#FAF5EC", badgeInk: "#3A382E", number: "rgba(250,245,236,0.6)" },
   // Deep walnut
-  { bg: "#4D372A", ink: "#EDE5DE", sub: "rgba(237,229,222,0.78)", badge: "#EDE5DE", badgeInk: "#4D372A" },
+  { bg: "#4D372A", ink: "#EDE5DE", sub: "rgba(237,229,222,0.78)", ornament: "rgba(237,229,222,0.55)", line: "rgba(237,229,222,0.3)", badge: "#EDE5DE", badgeInk: "#4D372A", number: "rgba(237,229,222,0.55)" },
   // Warm linen
-  { bg: "#E8DDD0", ink: "#38261C", sub: "rgba(56,38,28,0.72)", badge: "#6B3F23", badgeInk: "#fff" },
+  { bg: "#E8DDD0", ink: "#38261C", sub: "rgba(56,38,28,0.72)", ornament: "rgba(107,63,35,0.55)", line: "rgba(56,38,28,0.32)", badge: "#6B3F23", badgeInk: "#fff", number: "rgba(56,38,28,0.55)" },
   // Brick / terracotta
-  { bg: "#A04D2B", ink: "#FAF5EC", sub: "rgba(250,245,236,0.85)", badge: "#FAF5EC", badgeInk: "#7a3b21" },
+  { bg: "#A04D2B", ink: "#FAF5EC", sub: "rgba(250,245,236,0.85)", ornament: "rgba(250,245,236,0.55)", line: "rgba(250,245,236,0.32)", badge: "#FAF5EC", badgeInk: "#7a3b21", number: "rgba(250,245,236,0.55)" },
 ] as const;
 
 /**
- * Each card uses one of two clip-path "torn paper" silhouettes so a
- * row doesn't look mechanically identical — alternating between the
- * two keeps the artisanal feel without exploding into chaos.
+ * Hand-torn paper silhouettes — two variants alternating so a row
+ * doesn't look mechanically uniform.
  */
 const TORN_A =
   "polygon(2% 1%, 9% 0%, 17% 2%, 26% 0%, 35% 2%, 44% 0%, 53% 2%, 62% 0%, 71% 2%, 80% 0%, 89% 2%, 98% 0%, 100% 6%, 99% 14%, 100% 22%, 98% 31%, 100% 40%, 99% 49%, 100% 58%, 98% 67%, 100% 76%, 99% 85%, 100% 94%, 97% 100%, 88% 99%, 79% 100%, 70% 98%, 61% 100%, 52% 98%, 43% 100%, 34% 98%, 25% 100%, 16% 98%, 7% 100%, 0% 95%, 2% 86%, 0% 77%, 2% 68%, 0% 59%, 2% 50%, 0% 41%, 2% 32%, 0% 23%, 2% 14%, 0% 5%)";
 const TORN_B =
   "polygon(0% 4%, 6% 1%, 14% 0%, 22% 2%, 31% 0%, 40% 2%, 49% 1%, 58% 2%, 67% 0%, 76% 2%, 85% 0%, 94% 1%, 100% 7%, 98% 16%, 100% 25%, 99% 34%, 100% 43%, 98% 52%, 100% 61%, 99% 70%, 100% 79%, 98% 88%, 100% 96%, 94% 99%, 85% 100%, 76% 98%, 67% 100%, 58% 98%, 49% 100%, 40% 99%, 31% 100%, 22% 98%, 13% 100%, 5% 99%, 0% 92%, 2% 83%, 0% 74%, 1% 65%, 0% 56%, 2% 47%, 0% 38%, 1% 29%, 0% 20%, 2% 11%)";
+
+/** Strings of period-appropriate glyphs we sprinkle on the cards. */
+const THAMUDIC_BANNERS = [
+  "𐩥 𐩰 𐩥 𐩰 𐩥",
+  "𐩰 𐩥 𐩰 𐩥 𐩰",
+  "𐩭 𐩪 𐩬 𐩪 𐩭",
+  "𐩬 𐩭 𐩪 𐩭 𐩬",
+  "𐩥 𐩭 𐩪 𐩭 𐩥",
+] as const;
+
+/** Eastern Arabic numerals so the index reads as ٠١ ٠٢ ٠٣ — fits the
+ *  manuscript voice better than 01 02 03. */
+function arabicNumeral(n: number): string {
+  return n
+    .toString()
+    .padStart(2, "0")
+    .replace(/\d/g, (d) => "٠١٢٣٤٥٦٧٨٩"[Number(d)]);
+}
 
 type Props = {
   videos: VideoEntry[];
@@ -115,14 +128,15 @@ export default function VideoCards({ videos, hideWhenEmpty = true }: Props) {
       </header>
 
       <div
-        className="grid gap-5 sm:gap-6 justify-center"
+        className="grid gap-6 sm:gap-7 justify-center"
         style={{
-          gridTemplateColumns: "repeat(auto-fit, minmax(180px, 220px))",
+          gridTemplateColumns: "repeat(auto-fit, minmax(200px, 240px))",
         }}
       >
         {ready.map((v, i) => {
           const look = VARIANTS[i % VARIANTS.length];
           const clip = i % 2 === 0 ? TORN_A : TORN_B;
+          const banner = THAMUDIC_BANNERS[i % THAMUDIC_BANNERS.length];
           return (
             <button
               key={`${v.id}-${i}`}
@@ -135,12 +149,10 @@ export default function VideoCards({ videos, hideWhenEmpty = true }: Props) {
               className="group relative block w-full text-right transition-transform duration-300 hover:-translate-y-1 focus-visible:outline-none"
               style={{ aspectRatio: "3 / 4" }}
             >
-              {/* Card surface — the torn-paper clip-path is what gives
-                  the ragged manuscript edge. A thin inner stroke and a
-                  drop shadow underneath sell the depth. */}
+              {/* Paper surface with torn edges */}
               <span
                 aria-hidden
-                className="absolute inset-0 transition-shadow duration-300 group-hover:shadow-[0_20px_40px_-20px_rgba(56,38,28,0.45)] shadow-[0_10px_24px_-14px_rgba(56,38,28,0.35)]"
+                className="absolute inset-0 transition-shadow duration-300 group-hover:shadow-[0_22px_44px_-22px_rgba(56,38,28,0.5)] shadow-[0_10px_24px_-14px_rgba(56,38,28,0.35)]"
                 style={{
                   background: look.bg,
                   clipPath: clip,
@@ -148,55 +160,130 @@ export default function VideoCards({ videos, hideWhenEmpty = true }: Props) {
                 }}
               />
 
-              {/* Content layer — padded inward so text never reaches the
-                  ragged edge. */}
-              <span className="relative flex flex-col items-center justify-between h-full p-5 sm:p-6 text-center">
-                {/* Top: outlined film icon, like the artefact icons in
-                    the reference. */}
+              {/* Faint Thamudic watermark wash across the paper — a
+                  vertical column of repeated glyphs at 8% opacity, so
+                  the card reads as if inscribed on an old tablet. */}
+              <span
+                aria-hidden
+                className="absolute inset-0 overflow-hidden pointer-events-none select-none"
+                style={{
+                  clipPath: clip,
+                  WebkitClipPath: clip,
+                }}
+              >
+                <span
+                  className="absolute inset-0 flex flex-col items-center justify-evenly leading-none"
+                  style={{
+                    color: look.ornament,
+                    opacity: 0.12,
+                    fontSize: "34px",
+                    letterSpacing: "0.2em",
+                  }}
+                >
+                  <span>𐩥</span>
+                  <span>𐩰</span>
+                  <span>𐩭</span>
+                  <span>𐩪</span>
+                  <span>𐩬</span>
+                </span>
+              </span>
+
+              {/* Inner ink border — a thin offset frame that makes the
+                  card feel hand-drawn on the paper, not printed. */}
+              <span
+                aria-hidden
+                className="absolute inset-[10px] pointer-events-none"
+                style={{
+                  border: `1px solid ${look.line}`,
+                  clipPath: clip,
+                  WebkitClipPath: clip,
+                  opacity: 0.55,
+                }}
+              />
+
+              {/* Content layer */}
+              <span className="relative flex flex-col items-center h-full px-5 sm:px-6 py-5 sm:py-6 text-center">
+                {/* Top: Thamudic banner */}
                 <span
                   aria-hidden
-                  className="mt-2 inline-flex items-center justify-center w-12 h-12 rounded-full transition-transform duration-300 group-hover:scale-110"
+                  className="block text-[13px] tracking-[0.4em] leading-none"
+                  style={{ color: look.ornament, opacity: 0.85 }}
+                >
+                  {banner}
+                </span>
+
+                {/* Film icon — circular, outlined */}
+                <span
+                  aria-hidden
+                  className="mt-4 inline-flex items-center justify-center w-14 h-14 rounded-full transition-transform duration-300 group-hover:scale-110"
                   style={{
                     color: look.ink,
                     border: `1.5px solid ${look.ink}`,
-                    opacity: 0.85,
+                    opacity: 0.9,
                   }}
                 >
                   <Film size={22} />
                 </span>
 
-                {/* Title — the prominent line, manuscript-style. */}
+                {/* Title — flanked by ◐ ◑, the same ornament used in
+                    section headings across the site. */}
                 <span
-                  className="font-bold leading-snug text-base sm:text-[17px] line-clamp-3"
+                  className="mt-4 inline-flex items-center justify-center gap-1.5 font-bold leading-snug text-[15px] sm:text-base line-clamp-3"
                   style={{ color: look.ink }}
                 >
-                  {v.title}
+                  <span aria-hidden style={{ color: look.ornament, fontSize: "0.7em", opacity: 0.85 }}>◐</span>
+                  <span>{v.title}</span>
+                  <span aria-hidden style={{ color: look.ornament, fontSize: "0.7em", opacity: 0.85 }}>◑</span>
                 </span>
 
-                {/* Optional subtitle (description). */}
-                {v.description ? (
-                  <span
-                    className="text-[12px] sm:text-[13px] leading-relaxed line-clamp-2 px-1"
-                    style={{ color: look.sub }}
-                  >
-                    {v.description}
-                  </span>
-                ) : (
-                  <span className="text-[12px]" style={{ color: look.sub }}>
-                    اضغط للمشاهدة
-                  </span>
-                )}
-
-                {/* Tiny play badge in the corner — hint of interactivity. */}
+                {/* Manuscript divider — short rule with a dot, the
+                    same motif we use under section headings. */}
                 <span
                   aria-hidden
-                  className="absolute bottom-4 left-4 inline-flex items-center justify-center w-9 h-9 rounded-full transition-transform duration-300 group-hover:scale-110"
-                  style={{
-                    background: look.badge,
-                    color: look.badgeInk,
-                  }}
+                  className="mt-3 inline-flex items-center gap-1.5"
+                  style={{ color: look.line }}
                 >
-                  <Play size={14} fill={look.badgeInk} stroke={look.badgeInk} />
+                  <span style={{ display: "inline-block", width: "32px", height: "1px", background: "currentColor" }} />
+                  <span style={{ display: "inline-block", width: "5px", height: "5px", background: "currentColor", borderRadius: "999px" }} />
+                  <span style={{ display: "inline-block", width: "32px", height: "1px", background: "currentColor" }} />
+                </span>
+
+                {/* Optional description — keeps the card legible */}
+                <span
+                  className="mt-3 text-[12px] sm:text-[13px] leading-relaxed line-clamp-2 px-1"
+                  style={{ color: look.sub }}
+                >
+                  {v.description || "اضغط للمشاهدة"}
+                </span>
+
+                {/* Spacer pushes the footer to the bottom */}
+                <span className="flex-1" />
+
+                {/* Footer: serial number + play badge */}
+                <span className="w-full flex items-end justify-between">
+                  <span
+                    aria-hidden
+                    className="font-bold text-[15px] sm:text-base leading-none tracking-wider"
+                    style={{ color: look.number, fontFamily: "'Times New Roman', serif" }}
+                  >
+                    {arabicNumeral(i + 1)}
+                  </span>
+                  <span
+                    aria-hidden
+                    className="inline-flex items-center justify-center w-9 h-9 rounded-full transition-transform duration-300 group-hover:scale-110 shadow-[0_6px_14px_-6px_rgba(0,0,0,0.35)]"
+                    style={{ background: look.badge, color: look.badgeInk }}
+                  >
+                    <Play size={14} fill={look.badgeInk} stroke={look.badgeInk} />
+                  </span>
+                </span>
+
+                {/* Bottom banner — mirrored Thamudic strip */}
+                <span
+                  aria-hidden
+                  className="mt-3 block text-[13px] tracking-[0.4em] leading-none"
+                  style={{ color: look.ornament, opacity: 0.85 }}
+                >
+                  {banner}
                 </span>
               </span>
             </button>
