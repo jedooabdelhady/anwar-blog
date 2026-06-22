@@ -1,18 +1,13 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import { Play, X } from "lucide-react";
+import { Film, Play, X } from "lucide-react";
 import type { VideoEntry } from "@/sanity/lib/settings";
 
 /**
  * Parses any of the YouTube URL shapes the editor might paste and
  * returns the 11-char video ID. Returns null when the URL isn't a
  * recognisable YouTube link so we can skip the card cleanly.
- *
- *   https://www.youtube.com/watch?v=ID
- *   https://youtu.be/ID
- *   https://www.youtube.com/embed/ID
- *   https://www.youtube.com/shorts/ID
  */
 function youtubeId(url: string): string | null {
   if (!url) return null;
@@ -32,29 +27,40 @@ function youtubeId(url: string): string | null {
   }
 }
 
-function thumbnailFor(id: string): string {
-  // hqdefault works for every video; maxresdefault 404s for unlisted
-  // uploads. hqdefault is 480x360 — plenty for our card sizing.
-  return `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
-}
-
 /**
- * Same arched silhouette as ThreeCards but with the rounded base —
- * "manuscript medallion" feel that matches the rest of the site.
- * Five colour variants cycle so a row of 3 always looks intentional.
+ * Five "torn manuscript" colour variants in the site palette. We cycle
+ * through them so a row of any length looks intentional.
+ * - bg: card background
+ * - ink: title colour
+ * - sub: description colour
+ * - badge: small play badge background
+ * - badgeInk: play badge icon colour
  */
 const VARIANTS = [
-  { bg: "#EDDFD2", overlay: "rgba(56,38,28,0.35)", ring: "rgba(107,63,35,0.18)" },
-  { bg: "#E8DDD0", overlay: "rgba(56,38,28,0.35)", ring: "rgba(122,92,67,0.18)" },
-  { bg: "#F0EBE0", overlay: "rgba(56,38,28,0.35)", ring: "rgba(143,140,120,0.18)" },
-  { bg: "#E3D8C9", overlay: "rgba(56,38,28,0.35)", ring: "rgba(56,38,28,0.16)" },
-  { bg: "#ECE2D6", overlay: "rgba(56,38,28,0.35)", ring: "rgba(176,153,125,0.18)" },
+  // Light beige paper
+  { bg: "#EDDFD2", ink: "#38261C", sub: "rgba(56,38,28,0.72)", badge: "#6B3F23", badgeInk: "#fff" },
+  // Sage olive
+  { bg: "#8F8C78", ink: "#FAF5EC", sub: "rgba(250,245,236,0.85)", badge: "#FAF5EC", badgeInk: "#3A382E" },
+  // Deep walnut
+  { bg: "#4D372A", ink: "#EDE5DE", sub: "rgba(237,229,222,0.78)", badge: "#EDE5DE", badgeInk: "#4D372A" },
+  // Warm linen
+  { bg: "#E8DDD0", ink: "#38261C", sub: "rgba(56,38,28,0.72)", badge: "#6B3F23", badgeInk: "#fff" },
+  // Brick / terracotta
+  { bg: "#A04D2B", ink: "#FAF5EC", sub: "rgba(250,245,236,0.85)", badge: "#FAF5EC", badgeInk: "#7a3b21" },
 ] as const;
+
+/**
+ * Each card uses one of two clip-path "torn paper" silhouettes so a
+ * row doesn't look mechanically identical — alternating between the
+ * two keeps the artisanal feel without exploding into chaos.
+ */
+const TORN_A =
+  "polygon(2% 1%, 9% 0%, 17% 2%, 26% 0%, 35% 2%, 44% 0%, 53% 2%, 62% 0%, 71% 2%, 80% 0%, 89% 2%, 98% 0%, 100% 6%, 99% 14%, 100% 22%, 98% 31%, 100% 40%, 99% 49%, 100% 58%, 98% 67%, 100% 76%, 99% 85%, 100% 94%, 97% 100%, 88% 99%, 79% 100%, 70% 98%, 61% 100%, 52% 98%, 43% 100%, 34% 98%, 25% 100%, 16% 98%, 7% 100%, 0% 95%, 2% 86%, 0% 77%, 2% 68%, 0% 59%, 2% 50%, 0% 41%, 2% 32%, 0% 23%, 2% 14%, 0% 5%)";
+const TORN_B =
+  "polygon(0% 4%, 6% 1%, 14% 0%, 22% 2%, 31% 0%, 40% 2%, 49% 1%, 58% 2%, 67% 0%, 76% 2%, 85% 0%, 94% 1%, 100% 7%, 98% 16%, 100% 25%, 99% 34%, 100% 43%, 98% 52%, 100% 61%, 99% 70%, 100% 79%, 98% 88%, 100% 96%, 94% 99%, 85% 100%, 76% 98%, 67% 100%, 58% 98%, 49% 100%, 40% 99%, 31% 100%, 22% 98%, 13% 100%, 5% 99%, 0% 92%, 2% 83%, 0% 74%, 1% 65%, 0% 56%, 2% 47%, 0% 38%, 1% 29%, 0% 20%, 2% 11%)";
 
 type Props = {
   videos: VideoEntry[];
-  /** When the editor leaves the section blank we render nothing — but
-   *  if you want a soft placeholder during development pass false. */
   hideWhenEmpty?: boolean;
 };
 
@@ -73,7 +79,6 @@ export default function VideoCards({ videos, hideWhenEmpty = true }: Props) {
 
   const close = useCallback(() => setActiveId(null), []);
 
-  // Close on Escape; lock the body scroll while the modal is open.
   useEffect(() => {
     if (!activeId) return;
     const onKey = (e: KeyboardEvent) => {
@@ -109,70 +114,97 @@ export default function VideoCards({ videos, hideWhenEmpty = true }: Props) {
         </p>
       </header>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7">
+      <div
+        className="grid gap-5 sm:gap-6 justify-center"
+        style={{
+          gridTemplateColumns: "repeat(auto-fit, minmax(180px, 220px))",
+        }}
+      >
         {ready.map((v, i) => {
           const look = VARIANTS[i % VARIANTS.length];
+          const clip = i % 2 === 0 ? TORN_A : TORN_B;
           return (
-            <article
+            <button
               key={`${v.id}-${i}`}
-              className="border border-line p-5 sm:p-6 flex flex-col shadow-[0_1px_0_rgba(56,38,28,0.04),0_18px_32px_-22px_rgba(56,38,28,0.22)] transition-transform duration-300 hover:-translate-y-1"
-              style={{
-                background: look.bg,
-                /* Manuscript silhouette: top corners domed (matches the
-                   three-cards arch motif), bottom corners softly squared. */
-                borderRadius: "22px 22px 22px 22px / 22px 22px 22px 22px",
+              type="button"
+              onClick={() => {
+                setActiveId(v.id);
+                setActiveTitle(v.title);
               }}
+              aria-label={`تشغيل: ${v.title}`}
+              className="group relative block w-full text-right transition-transform duration-300 hover:-translate-y-1 focus-visible:outline-none"
+              style={{ aspectRatio: "3 / 4" }}
             >
-              <button
-                type="button"
-                onClick={() => {
-                  setActiveId(v.id);
-                  setActiveTitle(v.title);
+              {/* Card surface — the torn-paper clip-path is what gives
+                  the ragged manuscript edge. A thin inner stroke and a
+                  drop shadow underneath sell the depth. */}
+              <span
+                aria-hidden
+                className="absolute inset-0 transition-shadow duration-300 group-hover:shadow-[0_20px_40px_-20px_rgba(56,38,28,0.45)] shadow-[0_10px_24px_-14px_rgba(56,38,28,0.35)]"
+                style={{
+                  background: look.bg,
+                  clipPath: clip,
+                  WebkitClipPath: clip,
                 }}
-                aria-label={`تشغيل: ${v.title}`}
-                className="group relative block w-full aspect-video overflow-hidden rounded-2xl ring-1 ring-line focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sienna"
-                style={{ background: "#000" }}
-              >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={thumbnailFor(v.id)}
-                  alt={v.title}
-                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  loading="lazy"
-                />
-                {/* Brand-coloured wash so the thumbnail blends with the
-                    site palette instead of clashing against the bright
-                    red of YouTube previews. */}
-                <span
-                  aria-hidden
-                  className="absolute inset-0 transition-opacity duration-300 group-hover:opacity-0"
-                  style={{ background: look.overlay }}
-                />
-                {/* Play badge — circular sienna with white triangle.
-                    Pulses gently on hover. */}
-                <span
-                  aria-hidden
-                  className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 inline-flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 rounded-full shadow-[0_8px_20px_-8px_rgba(0,0,0,0.45)] transition-transform duration-300 group-hover:scale-110"
-                  style={{ background: "#6B3F23" }}
-                >
-                  <Play size={22} fill="#fff" stroke="#fff" />
-                </span>
-              </button>
+              />
 
-              <h3 className="mt-5 text-pepper font-bold text-base sm:text-lg leading-snug text-right">
-                {v.title}
-              </h3>
-              {v.description && (
-                <p className="mt-2 text-pepper/75 text-sm leading-relaxed text-right">
-                  {v.description}
-                </p>
-              )}
-            </article>
+              {/* Content layer — padded inward so text never reaches the
+                  ragged edge. */}
+              <span className="relative flex flex-col items-center justify-between h-full p-5 sm:p-6 text-center">
+                {/* Top: outlined film icon, like the artefact icons in
+                    the reference. */}
+                <span
+                  aria-hidden
+                  className="mt-2 inline-flex items-center justify-center w-12 h-12 rounded-full transition-transform duration-300 group-hover:scale-110"
+                  style={{
+                    color: look.ink,
+                    border: `1.5px solid ${look.ink}`,
+                    opacity: 0.85,
+                  }}
+                >
+                  <Film size={22} />
+                </span>
+
+                {/* Title — the prominent line, manuscript-style. */}
+                <span
+                  className="font-bold leading-snug text-base sm:text-[17px] line-clamp-3"
+                  style={{ color: look.ink }}
+                >
+                  {v.title}
+                </span>
+
+                {/* Optional subtitle (description). */}
+                {v.description ? (
+                  <span
+                    className="text-[12px] sm:text-[13px] leading-relaxed line-clamp-2 px-1"
+                    style={{ color: look.sub }}
+                  >
+                    {v.description}
+                  </span>
+                ) : (
+                  <span className="text-[12px]" style={{ color: look.sub }}>
+                    اضغط للمشاهدة
+                  </span>
+                )}
+
+                {/* Tiny play badge in the corner — hint of interactivity. */}
+                <span
+                  aria-hidden
+                  className="absolute bottom-4 left-4 inline-flex items-center justify-center w-9 h-9 rounded-full transition-transform duration-300 group-hover:scale-110"
+                  style={{
+                    background: look.badge,
+                    color: look.badgeInk,
+                  }}
+                >
+                  <Play size={14} fill={look.badgeInk} stroke={look.badgeInk} />
+                </span>
+              </span>
+            </button>
           );
         })}
       </div>
 
-      {/* Lightbox — only mounted when something is playing. */}
+      {/* Lightbox */}
       {activeId && (
         <div
           role="dialog"
