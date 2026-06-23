@@ -17,6 +17,11 @@ const GRADIENT: Record<SlideColor, string> = {
   pepper: "linear-gradient(135deg, #4D372A 0%, #5A4232 50%, #38261C 100%)",
   gum:    "linear-gradient(135deg, #8F8C78 0%, #9D9A86 50%, #75725F 100%)",
   smoke:  "linear-gradient(135deg, #EFEDE3 0%, #E5E3D8 50%, #DBD9CF 100%)",
+  // Editor-supplied additions: deep bronze with a honey highlight, and
+  // a soft honey that runs a touch darker at the edges so the text stays
+  // readable without dropping the warm tone.
+  bronze: "linear-gradient(135deg, #805E33 0%, #9B7544 50%, #6B4F2B 100%)",
+  honey:  "linear-gradient(135deg, #DAAA72 0%, #E6BE8C 50%, #C9955C 100%)",
 };
 
 /** Foreground tones per slide + the color used for the Najdi pattern band. */
@@ -29,6 +34,8 @@ const TEXT_TONE: Record<
   pepper: { fg: "#EDE5DE", sub: "rgba(237,229,222,0.85)", logo: "clay",   band: "#B0997D" },
   gum:    { fg: "#EDE5DE", sub: "rgba(237,229,222,0.85)", logo: "clay",   band: "#EDE5DE" },
   smoke:  { fg: "#38261C", sub: "rgba(56,38,28,0.70)",    logo: "pepper", band: "#8B6849" },
+  bronze: { fg: "#EDE5DE", sub: "rgba(237,229,222,0.85)", logo: "clay",   band: "#DAAA72" },
+  honey:  { fg: "#3B2718", sub: "rgba(59,39,24,0.75)",    logo: "pepper", band: "#805E33" },
 };
 
 const AUTO_ROTATE_MS = 6000;

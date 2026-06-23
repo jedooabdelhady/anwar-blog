@@ -1,7 +1,14 @@
 import { client } from "./client";
 import { sanityConfigured } from "../env";
 
-export type SlideColor = "sienna" | "oak" | "pepper" | "gum" | "smoke";
+export type SlideColor =
+  | "sienna"
+  | "oak"
+  | "pepper"
+  | "gum"
+  | "smoke"
+  | "bronze"
+  | "honey";
 
 export type HeroQuote = {
   text: string;

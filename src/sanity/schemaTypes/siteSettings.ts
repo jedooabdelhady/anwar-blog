@@ -7,6 +7,8 @@ const SLIDE_COLORS = [
   { title: "⬛ بني داكن (Pepper)",      value: "pepper" },
   { title: "🫒 زيتي (Gum)",             value: "gum" },
   { title: "📜 مخطوط فاتح (Smoke)",    value: "smoke" },
+  { title: "🥃 برونزي (Bronze) — #805E33", value: "bronze" },
+  { title: "🍯 عسلي (Honey) — #DAAA72",    value: "honey"  },
 ] as const;
 
 const COLOR_LABEL: Record<string, string> = {
@@ -15,6 +17,8 @@ const COLOR_LABEL: Record<string, string> = {
   pepper: "⬛ بني داكن",
   gum: "🫒 زيتي",
   smoke: "📜 مخطوط",
+  bronze: "🥃 برونزي",
+  honey: "🍯 عسلي",
 };
 
 /**

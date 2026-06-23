@@ -125,11 +125,12 @@ export default function VideoCards({ videos, hideWhenEmpty = true }: Props) {
         <header className="text-center mb-8 sm:mb-10">
           <h2
             id="videos-heading"
-            className="text-2xl sm:text-3xl font-bold text-pepper inline-flex items-center justify-center gap-3"
+            className="text-base sm:text-lg font-semibold inline-flex items-center justify-center gap-2 tracking-wide"
+            style={{ color: "rgba(56,38,28,0.55)" }}
           >
-            <span aria-hidden style={{ color: "#6B3F23", fontSize: "0.75em" }}>▴</span>
+            <span aria-hidden style={{ color: "rgba(107,63,35,0.55)", fontSize: "0.85em" }}>∴</span>
             <span>شروحٌّ سمعيّة</span>
-            <span aria-hidden style={{ color: "#6B3F23", fontSize: "0.75em" }}>▴</span>
+            <span aria-hidden style={{ color: "rgba(107,63,35,0.55)", fontSize: "0.85em" }}>∴</span>
           </h2>
           {/* Divider — sits on its own line below the title and acts
               as the visible separator between the heading and the
