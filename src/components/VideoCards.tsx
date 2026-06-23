@@ -54,14 +54,11 @@ const TORN_A =
 const TORN_B =
   "polygon(0% 4%, 6% 1%, 14% 0%, 22% 2%, 31% 0%, 40% 2%, 49% 1%, 58% 2%, 67% 0%, 76% 2%, 85% 0%, 94% 1%, 100% 7%, 98% 16%, 100% 25%, 99% 34%, 100% 43%, 98% 52%, 100% 61%, 99% 70%, 100% 79%, 98% 88%, 100% 96%, 94% 99%, 85% 100%, 76% 98%, 67% 100%, 58% 98%, 49% 100%, 40% 99%, 31% 100%, 22% 98%, 13% 100%, 5% 99%, 0% 92%, 2% 83%, 0% 74%, 1% 65%, 0% 56%, 2% 47%, 0% 38%, 1% 29%, 0% 20%, 2% 11%)";
 
-/** Strings of period-appropriate glyphs we sprinkle on the cards. */
-const THAMUDIC_BANNERS = [
-  "𐩥 𐩰 𐩥 𐩰 𐩥",
-  "𐩰 𐩥 𐩰 𐩥 𐩰",
-  "𐩭 𐩪 𐩬 𐩪 𐩭",
-  "𐩬 𐩭 𐩪 𐩭 𐩬",
-  "𐩥 𐩭 𐩪 𐩭 𐩥",
-] as const;
+/** Fixed Thamudic glyph strings used on every card (per editor brief).
+ *  Stays consistent across cards so the section reads as a single
+ *  inscription rather than a row of unrelated tablets. */
+const TOP_BANNER = "𐩧 𐩱 𐩺 𐩱 𐩫";
+const BOTTOM_BANNER = "𐩱 𐩡 𐩨 𐩦 𐩧 𐩱";
 
 /** Eastern Arabic numerals so the index reads as ٠١ ٠٢ ٠٣ — fits the
  *  manuscript voice better than 01 02 03. */
@@ -130,12 +127,38 @@ export default function VideoCards({ videos, hideWhenEmpty = true }: Props) {
             id="videos-heading"
             className="text-2xl sm:text-3xl font-bold text-pepper inline-flex items-center justify-center gap-3"
           >
-            <span aria-hidden style={{ color: "#6B3F23", fontSize: "0.75em" }}>◐</span>
-            <span>مَقاطِعُ مرئية</span>
-            <span aria-hidden style={{ color: "#6B3F23", fontSize: "0.75em" }}>◑</span>
+            <span aria-hidden style={{ color: "#6B3F23", fontSize: "0.75em" }}>▴</span>
+            <span>∴ شروحٌّ سمعيّة ∴</span>
+            <span aria-hidden style={{ color: "#6B3F23", fontSize: "0.75em" }}>▴</span>
           </h2>
-          <p className="mt-2 text-pepper/75 text-sm sm:text-base">
-            مختارات من تأويل الرؤى — اضغط على المقطع للمشاهدة
+          {/* Divider directly under the title — a small ▲ flanked by
+              two hairlines, echoing the manuscript rule used elsewhere
+              but with the triangle motif the editor asked for. */}
+          <span
+            aria-hidden
+            className="mt-3 inline-flex items-center gap-2"
+            style={{ color: "#6B3F23", opacity: 0.7 }}
+          >
+            <span
+              style={{
+                display: "inline-block",
+                width: "56px",
+                height: "1px",
+                background: "currentColor",
+              }}
+            />
+            <span style={{ fontSize: "0.7em", lineHeight: 1 }}>▲</span>
+            <span
+              style={{
+                display: "inline-block",
+                width: "56px",
+                height: "1px",
+                background: "currentColor",
+              }}
+            />
+          </span>
+          <p className="mt-3 text-pepper/75 text-sm sm:text-base">
+            مختارات من تأويل الرؤى — اضغط على المقطع للاستماع
           </p>
         </header>
 
@@ -153,7 +176,6 @@ export default function VideoCards({ videos, hideWhenEmpty = true }: Props) {
         {ready.map((v, i) => {
           const look = VARIANTS[i % VARIANTS.length];
           const clip = i % 2 === 0 ? TORN_A : TORN_B;
-          const banner = THAMUDIC_BANNERS[i % THAMUDIC_BANNERS.length];
           return (
             <button
               key={`${v.id}-${i}`}
@@ -226,7 +248,7 @@ export default function VideoCards({ videos, hideWhenEmpty = true }: Props) {
                   className="block text-[13px] tracking-[0.4em] leading-none"
                   style={{ color: look.ornament, opacity: 0.85 }}
                 >
-                  {banner}
+                  {TOP_BANNER}
                 </span>
 
                 {/* Film icon — circular, outlined */}
@@ -253,15 +275,15 @@ export default function VideoCards({ videos, hideWhenEmpty = true }: Props) {
                   <span aria-hidden style={{ color: look.ornament, fontSize: "0.7em", opacity: 0.85 }}>◑</span>
                 </span>
 
-                {/* Manuscript divider — short rule with a dot, the
-                    same motif we use under section headings. */}
+                {/* Manuscript divider — short rule with a small triangle
+                    in the middle (▲), echoing the section-title rule. */}
                 <span
                   aria-hidden
                   className="mt-3 inline-flex items-center gap-1.5"
                   style={{ color: look.line }}
                 >
                   <span style={{ display: "inline-block", width: "32px", height: "1px", background: "currentColor" }} />
-                  <span style={{ display: "inline-block", width: "5px", height: "5px", background: "currentColor", borderRadius: "999px" }} />
+                  <span style={{ fontSize: "10px", lineHeight: 1, color: "currentColor" }}>▲</span>
                   <span style={{ display: "inline-block", width: "32px", height: "1px", background: "currentColor" }} />
                 </span>
 
@@ -294,13 +316,13 @@ export default function VideoCards({ videos, hideWhenEmpty = true }: Props) {
                   </span>
                 </span>
 
-                {/* Bottom banner — mirrored Thamudic strip */}
+                {/* Bottom banner — closing inscription, different from top */}
                 <span
                   aria-hidden
                   className="mt-3 block text-[13px] tracking-[0.4em] leading-none"
                   style={{ color: look.ornament, opacity: 0.85 }}
                 >
-                  {banner}
+                  {BOTTOM_BANNER}
                 </span>
               </span>
             </button>
