@@ -132,36 +132,34 @@ export default function VideoCards({ videos, hideWhenEmpty = true }: Props) {
             <span>شروحٌّ سمعيّة</span>
             <span aria-hidden style={{ color: "rgba(107,63,35,0.55)", fontSize: "0.85em" }}>∴</span>
           </h2>
-          {/* Divider — sits on its own line below the title and acts
-              as the visible separator between the heading and the
-              subtitle/grid. Made wider and given vertical breathing
-              room so it reads as a deliberate horizontal rule, not
-              a tight ornament glued under the title. */}
+          {/* Divider — short, hairline-thin, low-opacity. Same weight
+              as the rules used inside each card so it reads as part
+              of the same vocabulary instead of dominating the header. */}
           <div
             aria-hidden
-            className="my-5 sm:my-6 flex items-center justify-center gap-3"
-            style={{ color: "#6B3F23", opacity: 0.6 }}
+            className="my-4 sm:my-5 flex items-center justify-center gap-2"
+            style={{ color: "#6B3F23", opacity: 0.28 }}
           >
             <span
               style={{
                 display: "inline-block",
-                width: "min(120px, 28vw)",
+                width: "min(56px, 14vw)",
                 height: "1px",
                 background: "currentColor",
               }}
             />
-            <span style={{ fontSize: "0.8em", lineHeight: 1 }}>▲</span>
+            <span style={{ fontSize: "9px", lineHeight: 1 }}>▲</span>
             <span
               style={{
                 display: "inline-block",
-                width: "min(120px, 28vw)",
+                width: "min(56px, 14vw)",
                 height: "1px",
                 background: "currentColor",
               }}
             />
           </div>
           <p className="text-pepper/75 text-sm sm:text-base">
-            مختارات من تأويل الرؤى — اضغط على المقطع للاستماع
+            مختارات منِ قَ علم تأويل الرؤى ، إضغط للإستماع والانتفاعط
           </p>
         </header>
 
