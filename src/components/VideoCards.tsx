@@ -111,28 +111,45 @@ export default function VideoCards({ videos, hideWhenEmpty = true }: Props) {
   return (
     <section
       aria-labelledby="videos-heading"
-      className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12 py-12 sm:py-16"
+      className="mx-auto max-w-7xl px-4 sm:px-8 lg:px-12 py-10 sm:py-14"
     >
-      <header className="text-center mb-10">
-        <h2
-          id="videos-heading"
-          className="text-2xl sm:text-3xl font-bold text-pepper inline-flex items-center justify-center gap-3"
-        >
-          <span aria-hidden style={{ color: "#6B3F23", fontSize: "0.75em" }}>◐</span>
-          <span>مَقاطِعُ مرئية</span>
-          <span aria-hidden style={{ color: "#6B3F23", fontSize: "0.75em" }}>◑</span>
-        </h2>
-        <p className="mt-2 text-pepper/75 text-sm sm:text-base">
-          مختارات من تأويل الرؤى — اضغط على المقطع للمشاهدة
-        </p>
-      </header>
-
+      {/* Panel wrapper — a soft cream pad that visually lifts the
+          videos out of the wallpaper backdrop above and the blog
+          section below. No hard border (per editor request); the
+          colour shift + rounded corners + subtle ring do the work. */}
       <div
-        className="grid gap-6 sm:gap-7 justify-center"
+        className="relative rounded-[28px] sm:rounded-[36px] px-4 sm:px-8 lg:px-12 py-10 sm:py-14"
         style={{
-          gridTemplateColumns: "repeat(auto-fit, minmax(200px, 240px))",
+          background: "rgba(243, 235, 224, 0.92)",
+          boxShadow:
+            "0 1px 0 rgba(56,38,28,0.04) inset, 0 24px 48px -28px rgba(56,38,28,0.28)",
         }}
       >
+        <header className="text-center mb-8 sm:mb-10">
+          <h2
+            id="videos-heading"
+            className="text-2xl sm:text-3xl font-bold text-pepper inline-flex items-center justify-center gap-3"
+          >
+            <span aria-hidden style={{ color: "#6B3F23", fontSize: "0.75em" }}>◐</span>
+            <span>مَقاطِعُ مرئية</span>
+            <span aria-hidden style={{ color: "#6B3F23", fontSize: "0.75em" }}>◑</span>
+          </h2>
+          <p className="mt-2 text-pepper/75 text-sm sm:text-base">
+            مختارات من تأويل الرؤى — اضغط على المقطع للمشاهدة
+          </p>
+        </header>
+
+        <div
+          className="grid gap-5 sm:gap-6 lg:gap-7 justify-center"
+          style={{
+            /* Mobile: single column, capped width so the torn paper
+               doesn't span edge-to-edge. Tablet+: 2 across, desktop
+               3+. minmax with 100% fallback lets a single card center
+               nicely on the narrowest phones. */
+            gridTemplateColumns:
+              "repeat(auto-fit, minmax(min(220px, 100%), 240px))",
+          }}
+        >
         {ready.map((v, i) => {
           const look = VARIANTS[i % VARIANTS.length];
           const clip = i % 2 === 0 ? TORN_A : TORN_B;
@@ -289,6 +306,7 @@ export default function VideoCards({ videos, hideWhenEmpty = true }: Props) {
             </button>
           );
         })}
+        </div>
       </div>
 
       {/* Lightbox */}
