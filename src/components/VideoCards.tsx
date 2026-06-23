@@ -128,36 +128,38 @@ export default function VideoCards({ videos, hideWhenEmpty = true }: Props) {
             className="text-2xl sm:text-3xl font-bold text-pepper inline-flex items-center justify-center gap-3"
           >
             <span aria-hidden style={{ color: "#6B3F23", fontSize: "0.75em" }}>▴</span>
-            <span>∴ شروحٌّ سمعيّة ∴</span>
+            <span>شروحٌّ سمعيّة</span>
             <span aria-hidden style={{ color: "#6B3F23", fontSize: "0.75em" }}>▴</span>
           </h2>
-          {/* Divider directly under the title — a small ▲ flanked by
-              two hairlines, echoing the manuscript rule used elsewhere
-              but with the triangle motif the editor asked for. */}
-          <span
+          {/* Divider — sits on its own line below the title and acts
+              as the visible separator between the heading and the
+              subtitle/grid. Made wider and given vertical breathing
+              room so it reads as a deliberate horizontal rule, not
+              a tight ornament glued under the title. */}
+          <div
             aria-hidden
-            className="mt-3 inline-flex items-center gap-2"
-            style={{ color: "#6B3F23", opacity: 0.7 }}
+            className="my-5 sm:my-6 flex items-center justify-center gap-3"
+            style={{ color: "#6B3F23", opacity: 0.6 }}
           >
             <span
               style={{
                 display: "inline-block",
-                width: "56px",
+                width: "min(120px, 28vw)",
                 height: "1px",
                 background: "currentColor",
               }}
             />
-            <span style={{ fontSize: "0.7em", lineHeight: 1 }}>▲</span>
+            <span style={{ fontSize: "0.8em", lineHeight: 1 }}>▲</span>
             <span
               style={{
                 display: "inline-block",
-                width: "56px",
+                width: "min(120px, 28vw)",
                 height: "1px",
                 background: "currentColor",
               }}
             />
-          </span>
-          <p className="mt-3 text-pepper/75 text-sm sm:text-base">
+          </div>
+          <p className="text-pepper/75 text-sm sm:text-base">
             مختارات من تأويل الرؤى — اضغط على المقطع للاستماع
           </p>
         </header>
