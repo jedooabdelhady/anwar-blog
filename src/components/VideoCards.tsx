@@ -159,7 +159,7 @@ export default function VideoCards({ videos, hideWhenEmpty = true }: Props) {
             />
           </div>
           <p className="text-pepper/75 text-sm sm:text-base">
-            مختارات منِ قَ علم تأويل الرؤى ، إضغط للإستماع والانتفاعط
+            مختارات منِ قَ علم تأويل الرؤى ، إضغط للإستماع والانتفاع
           </p>
         </header>
 
