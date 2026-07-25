@@ -15,5 +15,7 @@ export default defineCliConfig({
     dataset: "production",
   },
   studioHost: "sahaarr299",
-  autoUpdates: true,
+  deployment: {
+    autoUpdates: true,
+  },
 });
