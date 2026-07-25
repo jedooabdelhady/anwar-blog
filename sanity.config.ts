@@ -6,7 +6,8 @@ import { anwarStudioTheme } from "./src/sanity/theme";
 import { StudioLogo } from "./src/sanity/StudioLogo";
 
 export default defineConfig({
-  basePath: "/studio",
+  // No basePath: the Studio is now hosted at sahaarr299.sanity.studio
+  // (served from the root), not embedded at /studio in the Next app.
   projectId,
   dataset,
   title: "لوحة علم تأويل الرؤى",

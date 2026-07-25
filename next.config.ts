@@ -10,6 +10,24 @@ const nextConfig: NextConfig = {
   experimental: {
     optimizePackageImports: ["lucide-react"],
   },
+  // The admin Studio moved off the site (it was a 20 MB bundle that
+  // wouldn't fit in Cloudflare Workers' free tier) and is now hosted
+  // for free at sahaarr299.sanity.studio. Keep the old /studio link
+  // working by redirecting it there.
+  async redirects() {
+    return [
+      {
+        source: "/studio",
+        destination: "https://sahaarr299.sanity.studio",
+        permanent: false,
+      },
+      {
+        source: "/studio/:path*",
+        destination: "https://sahaarr299.sanity.studio/:path*",
+        permanent: false,
+      },
+    ];
+  },
 };
 
 export default nextConfig;
