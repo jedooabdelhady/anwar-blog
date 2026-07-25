@@ -1,0 +1,1287 @@
+[
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              },
+              {
+                "flag": "max",
+                "constraint": 120
+              }
+            ]
+          }
+        ],
+        "name": "title",
+        "type": "string",
+        "title": "العنوان"
+      },
+      {
+        "options": {
+          "source": "title",
+          "maxLength": 120
+        },
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "custom"
+              },
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "slug",
+        "type": "slug",
+        "title": "الرابط (Slug)"
+      },
+      {
+        "rows": 3,
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "max",
+                "constraint": 280
+              }
+            ]
+          }
+        ],
+        "name": "excerpt",
+        "type": "text",
+        "title": "نبذة مختصرة"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "fields": [
+          {
+            "name": "alt",
+            "type": "string",
+            "title": "نص بديل (Alt)"
+          }
+        ],
+        "name": "image",
+        "type": "image",
+        "title": "صورة الغلاف"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "to": [
+          {
+            "type": "category"
+          }
+        ],
+        "name": "category",
+        "type": "reference",
+        "title": "التصنيف"
+      },
+      {
+        "to": [
+          {
+            "type": "author"
+          }
+        ],
+        "name": "author",
+        "type": "reference",
+        "title": "الكاتب"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "publishedAt",
+        "type": "datetime",
+        "title": "تاريخ النشر"
+      },
+      {
+        "of": [
+          {
+            "lists": [
+              {
+                "value": "bullet",
+                "title": "Bulleted list"
+              },
+              {
+                "value": "number",
+                "title": "Numbered list"
+              }
+            ],
+            "marks": {
+              "annotations": [
+                {
+                  "i18nTitleKey": "inputs.portable-text.annotation.link",
+                  "options": {
+                    "modal": {
+                      "type": "popover"
+                    }
+                  },
+                  "fields": [
+                    {
+                      "validation": [
+                        {
+                          "level": "error",
+                          "rules": [
+                            {
+                              "flag": "uri",
+                              "constraint": {
+                                "options": {
+                                  "scheme": [
+                                    "/^http$/",
+                                    "/^https$/",
+                                    "/^tel$/",
+                                    "/^mailto$/"
+                                  ],
+                                  "allowRelative": true,
+                                  "relativeOnly": false,
+                                  "allowCredentials": false
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      ],
+                      "description": "A valid web, email, phone, or relative link.",
+                      "name": "href",
+                      "type": "url",
+                      "title": "Link"
+                    }
+                  ],
+                  "name": "link",
+                  "type": "object"
+                }
+              ],
+              "decorators": [
+                {
+                  "value": "strong",
+                  "title": "عريض"
+                },
+                {
+                  "value": "em",
+                  "title": "مائل"
+                },
+                {
+                  "value": "underline",
+                  "title": "تحته خط"
+                }
+              ]
+            },
+            "of": [],
+            "styles": [
+              {
+                "value": "normal",
+                "title": "نص"
+              },
+              {
+                "value": "h2",
+                "title": "عنوان 2"
+              },
+              {
+                "value": "h3",
+                "title": "عنوان 3"
+              },
+              {
+                "value": "blockquote",
+                "title": "اقتباس"
+              }
+            ],
+            "type": "block"
+          },
+          {
+            "options": {
+              "hotspot": true
+            },
+            "fields": [
+              {
+                "name": "alt",
+                "type": "string",
+                "title": "نص بديل (Alt)"
+              },
+              {
+                "name": "caption",
+                "type": "string",
+                "title": "تعليق على الصورة"
+              }
+            ],
+            "type": "image"
+          }
+        ],
+        "name": "body",
+        "type": "array",
+        "title": "المحتوى"
+      },
+      {
+        "fields": [
+          {
+            "name": "metaTitle",
+            "type": "string",
+            "title": "عنوان Meta"
+          },
+          {
+            "rows": 2,
+            "name": "metaDescription",
+            "type": "text",
+            "title": "وصف Meta"
+          }
+        ],
+        "name": "seo",
+        "type": "object",
+        "title": "تحسين محركات البحث (SEO)"
+      }
+    ],
+    "name": "post",
+    "type": "document",
+    "title": "مقال"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              },
+              {
+                "flag": "max",
+                "constraint": 80
+              }
+            ]
+          }
+        ],
+        "name": "title",
+        "type": "string",
+        "title": "اسم التصنيف"
+      },
+      {
+        "options": {
+          "source": "title",
+          "maxLength": 80
+        },
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "custom"
+              },
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "slug",
+        "type": "slug",
+        "title": "المعرّف (Slug)"
+      },
+      {
+        "rows": 2,
+        "name": "description",
+        "type": "text",
+        "title": "وصف مختصر"
+      }
+    ],
+    "name": "category",
+    "type": "document",
+    "title": "تصنيف"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              },
+              {
+                "flag": "max",
+                "constraint": 80
+              }
+            ]
+          }
+        ],
+        "name": "name",
+        "type": "string",
+        "title": "الاسم"
+      },
+      {
+        "options": {
+          "source": "name"
+        },
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "custom"
+              },
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "slug",
+        "type": "slug",
+        "title": "المعرّف"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "name": "avatar",
+        "type": "image",
+        "title": "الصورة الشخصية"
+      },
+      {
+        "rows": 3,
+        "name": "bio",
+        "type": "text",
+        "title": "نبذة"
+      }
+    ],
+    "name": "author",
+    "type": "document",
+    "title": "كاتب"
+  },
+  {
+    "fields": [
+      {
+        "options": {
+          "list": [
+            {
+              "title": "رؤية عامة (آراء ومقترحات)",
+              "value": "public-vision"
+            },
+            {
+              "title": "رؤية خاصة (مشروع / نقاش)",
+              "value": "private-vision"
+            },
+            {
+              "title": "تساؤل واستعلام",
+              "value": "inquiry"
+            }
+          ],
+          "layout": "radio"
+        },
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "valid",
+                "constraint": [
+                  "public-vision",
+                  "private-vision",
+                  "inquiry"
+                ]
+              },
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "kind",
+        "type": "string",
+        "title": "نوع النموذج"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              },
+              {
+                "flag": "max",
+                "constraint": 120
+              }
+            ]
+          }
+        ],
+        "name": "name",
+        "type": "string",
+        "title": "الاسم"
+      },
+      {
+        "name": "email",
+        "type": "string",
+        "title": "البريد"
+      },
+      {
+        "name": "phone",
+        "type": "string",
+        "title": "الجوال"
+      },
+      {
+        "name": "subject",
+        "type": "string",
+        "title": "الموضوع"
+      },
+      {
+        "rows": 6,
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              },
+              {
+                "flag": "min",
+                "constraint": 3
+              }
+            ]
+          }
+        ],
+        "name": "message",
+        "type": "text",
+        "title": "الرسالة"
+      },
+      {
+        "readOnly": true,
+        "name": "createdAt",
+        "type": "datetime",
+        "title": "وصلت في"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "جديدة",
+              "value": "new"
+            },
+            {
+              "title": "قيد المراجعة",
+              "value": "review"
+            },
+            {
+              "title": "تم الرد",
+              "value": "answered"
+            },
+            {
+              "title": "أُرشفت",
+              "value": "archived"
+            }
+          ]
+        },
+        "initialValue": "new",
+        "name": "status",
+        "type": "string",
+        "title": "الحالة"
+      },
+      {
+        "rows": 8,
+        "description": "اكتب الرد هنا ثم انشر المستند — سيُرسَل تلقائيًا للعميل عبر البريد. يتطلب وجود بريد العميل بالأعلى.",
+        "name": "replyMessage",
+        "type": "text",
+        "title": "ردّ المسؤول"
+      },
+      {
+        "description": "يُحدَّث تلقائيًا بعد إرسال الرد. لو فاضي معناه أن الرد لم يُرسَل بعد.",
+        "readOnly": true,
+        "name": "replySentAt",
+        "type": "datetime",
+        "title": "أُرسل الرد في"
+      },
+      {
+        "readOnly": true,
+        "hidden": "conditional",
+        "name": "replyError",
+        "type": "string",
+        "title": "خطأ في إرسال الرد"
+      },
+      {
+        "description": "معرّف فريد لرابط المحادثة العامة. للوصول: https://sahaarr299.com/inquiry/{accessToken}",
+        "readOnly": true,
+        "name": "accessToken",
+        "type": "string",
+        "title": "رابط العميل (Access Token)"
+      },
+      {
+        "description": "يُربط تلقائيًا إذا كانت الرسالة مُرسَلة من عضو مسجَّل دخوله.",
+        "to": [
+          {
+            "type": "user"
+          }
+        ],
+        "name": "user",
+        "type": "reference",
+        "title": "العضو المُرسِل"
+      }
+    ],
+    "name": "submission",
+    "type": "document",
+    "title": "النماذج المُرسلة"
+  },
+  {
+    "fields": [
+      {
+        "initialValue": "علم تأويل الرؤى",
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              },
+              {
+                "flag": "max",
+                "constraint": 60
+              }
+            ]
+          }
+        ],
+        "name": "siteName",
+        "type": "string",
+        "title": "اسم الموقع"
+      },
+      {
+        "rows": 2,
+        "initialValue": "موقع عربي متخصص في علم تأويل الرؤى والأحلام، مع محتوى ثري في المعرفة والإلهام.",
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "max",
+                "constraint": 200
+              }
+            ]
+          }
+        ],
+        "name": "siteTagline",
+        "type": "text",
+        "title": "وصف مختصر للموقع (SEO)"
+      },
+      {
+        "initialValue": [
+          {
+            "_type": "quote",
+            "_key": "q1",
+            "text": "الحكمة هي نور العقل.",
+            "source": "مثل عربي",
+            "color": "sienna"
+          },
+          {
+            "_type": "quote",
+            "_key": "q2",
+            "text": "الرؤيا الصالحة من الله، والحُلم من الشيطان.",
+            "source": "حديث شريف",
+            "color": "pepper"
+          },
+          {
+            "_type": "quote",
+            "_key": "q3",
+            "text": "أصدقُ الرؤى ما كان عند الأسحار.",
+            "source": "أثر",
+            "color": "oak"
+          }
+        ],
+        "description": "هذه الاقتباسات تظهر في أعلى الصفحة الرئيسية وتتبدّل كل 6 ثواني. اسحب الشرائح بزر ⋮⋮ لتغيير ترتيبها. كل شريحة لها 3 حقول فقط: النص + المصدر (اختياري) + اللون.",
+        "of": [
+          {
+            "fields": [
+              {
+                "rows": 3,
+                "validation": [
+                  {
+                    "level": "error",
+                    "rules": [
+                      {
+                        "flag": "presence",
+                        "constraint": "required"
+                      },
+                      {
+                        "flag": "min",
+                        "constraint": 3
+                      },
+                      {
+                        "flag": "max",
+                        "constraint": 300
+                      }
+                    ]
+                  }
+                ],
+                "description": "اكتبي الاقتباس هنا. لتغميق كلمة احطّيها بين نجمتين، مثل: **الحكمة**. مثال كامل: \"صدقُ الرؤى ما كان عند **الأسحار**\".",
+                "name": "text",
+                "type": "text",
+                "title": "✍️ نص الاقتباس (مطلوب)"
+              },
+              {
+                "validation": [
+                  {
+                    "level": "error",
+                    "rules": [
+                      {
+                        "flag": "max",
+                        "constraint": 80
+                      }
+                    ]
+                  }
+                ],
+                "description": "مَن قائل الاقتباس أو من أين؟ مثل: \"حديث شريف\"، \"مثل عربي\"، \"ابن سيرين\".",
+                "name": "source",
+                "type": "string",
+                "title": "📚 المصدر (اختياري)"
+              },
+              {
+                "options": {
+                  "list": [
+                    {
+                      "title": "🟫 بني محمر (Sienna)",
+                      "value": "sienna"
+                    },
+                    {
+                      "title": "🟤 بني فاتح (Oak)",
+                      "value": "oak"
+                    },
+                    {
+                      "title": "⬛ بني داكن (Pepper)",
+                      "value": "pepper"
+                    },
+                    {
+                      "title": "🫒 زيتي (Gum)",
+                      "value": "gum"
+                    },
+                    {
+                      "title": "📜 مخطوط فاتح (Smoke)",
+                      "value": "smoke"
+                    },
+                    {
+                      "title": "🥃 برونزي (Bronze) — #805E33",
+                      "value": "bronze"
+                    },
+                    {
+                      "title": "🍯 عسلي (Honey) — #DAAA72",
+                      "value": "honey"
+                    }
+                  ],
+                  "layout": "radio"
+                },
+                "initialValue": "sienna",
+                "validation": [
+                  {
+                    "level": "error",
+                    "rules": [
+                      {
+                        "flag": "valid",
+                        "constraint": [
+                          "sienna",
+                          "oak",
+                          "pepper",
+                          "gum",
+                          "smoke",
+                          "bronze",
+                          "honey"
+                        ]
+                      },
+                      {
+                        "flag": "presence",
+                        "constraint": "required"
+                      }
+                    ]
+                  }
+                ],
+                "description": "اختاري لوناً مناسباً للاقتباس.",
+                "name": "color",
+                "type": "string",
+                "title": "🎨 لون خلفية الشريحة"
+              }
+            ],
+            "type": "object",
+            "name": "quote",
+            "title": "شريحة"
+          }
+        ],
+        "name": "heroQuotes",
+        "type": "array",
+        "title": "🎠 شرائح البانر المتحرك"
+      },
+      {
+        "options": {
+          "collapsible": true,
+          "collapsed": false
+        },
+        "description": "البطاقة الأولى من الثلاث الظاهرة وسط الصفحة الرئيسية.",
+        "fields": [
+          {
+            "initialValue": "بوابة الرؤى العامة",
+            "validation": [
+              {
+                "level": "error",
+                "rules": [
+                  {
+                    "flag": "presence",
+                    "constraint": "required"
+                  },
+                  {
+                    "flag": "max",
+                    "constraint": 40
+                  }
+                ]
+              }
+            ],
+            "name": "title",
+            "type": "string",
+            "title": "عنوان البطاقة"
+          },
+          {
+            "rows": 3,
+            "initialValue": "مساحة تُروى فيها الرؤى العامة بتفاصيلها ودلالاتها، لفهم الرموز والإشارات والمعاني الكامنة خلفها.",
+            "validation": [
+              {
+                "level": "error",
+                "rules": [
+                  {
+                    "flag": "presence",
+                    "constraint": "required"
+                  },
+                  {
+                    "flag": "max",
+                    "constraint": 220
+                  }
+                ]
+              }
+            ],
+            "description": "وصف قصير يظهر تحت العنوان (سطران تقريباً).",
+            "name": "body",
+            "type": "text",
+            "title": "نص البطاقة"
+          },
+          {
+            "initialValue": "قدّم رؤياك",
+            "validation": [
+              {
+                "level": "error",
+                "rules": [
+                  {
+                    "flag": "presence",
+                    "constraint": "required"
+                  },
+                  {
+                    "flag": "max",
+                    "constraint": 24
+                  }
+                ]
+              }
+            ],
+            "name": "cta",
+            "type": "string",
+            "title": "نص الزر"
+          }
+        ],
+        "name": "cardPublic",
+        "type": "object",
+        "title": "🫒 البطاقة 1 — بوابة الرؤى العامة"
+      },
+      {
+        "options": {
+          "collapsible": true,
+          "collapsed": false
+        },
+        "description": "البطاقة الوسطى — اللون البني المحمر.",
+        "fields": [
+          {
+            "initialValue": "بوابة الرؤى الشخصية",
+            "validation": [
+              {
+                "level": "error",
+                "rules": [
+                  {
+                    "flag": "presence",
+                    "constraint": "required"
+                  },
+                  {
+                    "flag": "max",
+                    "constraint": 40
+                  }
+                ]
+              }
+            ],
+            "name": "title",
+            "type": "string",
+            "title": "عنوان البطاقة"
+          },
+          {
+            "rows": 3,
+            "initialValue": "مساحة خاصة بكَ، شارك رؤياك الخاصة لتُفسَّر رموزها في مساحة آمنة وهادئة بما تحمله من أثر ومعنى.",
+            "validation": [
+              {
+                "level": "error",
+                "rules": [
+                  {
+                    "flag": "presence",
+                    "constraint": "required"
+                  },
+                  {
+                    "flag": "max",
+                    "constraint": 220
+                  }
+                ]
+              }
+            ],
+            "name": "body",
+            "type": "text",
+            "title": "نص البطاقة"
+          },
+          {
+            "initialValue": "قدّم رؤياك",
+            "validation": [
+              {
+                "level": "error",
+                "rules": [
+                  {
+                    "flag": "presence",
+                    "constraint": "required"
+                  },
+                  {
+                    "flag": "max",
+                    "constraint": 24
+                  }
+                ]
+              }
+            ],
+            "name": "cta",
+            "type": "string",
+            "title": "نص الزر"
+          }
+        ],
+        "name": "cardPrivate",
+        "type": "object",
+        "title": "🟫 البطاقة 2 — بوابة الرؤى الشخصية"
+      },
+      {
+        "options": {
+          "collapsible": true,
+          "collapsed": false
+        },
+        "description": "البطاقة الثالثة — اللون البني الفاتح.",
+        "fields": [
+          {
+            "initialValue": "بوابة تساؤل واستعلام",
+            "validation": [
+              {
+                "level": "error",
+                "rules": [
+                  {
+                    "flag": "presence",
+                    "constraint": "required"
+                  },
+                  {
+                    "flag": "max",
+                    "constraint": 40
+                  }
+                ]
+              }
+            ],
+            "name": "title",
+            "type": "string",
+            "title": "عنوان البطاقة"
+          },
+          {
+            "rows": 3,
+            "initialValue": "نافذة للتساؤلات والاستفسارات العامة، تُطرح فيها الأفكار والرموز والمعاني المختلفة للبحث والتأمل.",
+            "validation": [
+              {
+                "level": "error",
+                "rules": [
+                  {
+                    "flag": "presence",
+                    "constraint": "required"
+                  },
+                  {
+                    "flag": "max",
+                    "constraint": 220
+                  }
+                ]
+              }
+            ],
+            "name": "body",
+            "type": "text",
+            "title": "نص البطاقة"
+          },
+          {
+            "initialValue": "ابدأ استعلامك",
+            "validation": [
+              {
+                "level": "error",
+                "rules": [
+                  {
+                    "flag": "presence",
+                    "constraint": "required"
+                  },
+                  {
+                    "flag": "max",
+                    "constraint": 24
+                  }
+                ]
+              }
+            ],
+            "name": "cta",
+            "type": "string",
+            "title": "نص الزر"
+          }
+        ],
+        "name": "cardInquiry",
+        "type": "object",
+        "title": "🟤 البطاقة 3 — بوابة تساؤل واستعلام"
+      },
+      {
+        "description": "تظهر بين البطاقات والمكتبة في الصفحة الرئيسية. الصق رابط يوتيوب لكل مقطع — الصورة المصغّرة تُجلب تلقائياً. اسحبي بزر ⋮⋮ لإعادة الترتيب، واضغطي ⋯ → Remove للحذف.",
+        "of": [
+          {
+            "fields": [
+              {
+                "validation": [
+                  {
+                    "level": "error",
+                    "rules": [
+                      {
+                        "flag": "presence",
+                        "constraint": "required"
+                      },
+                      {
+                        "flag": "min",
+                        "constraint": 3
+                      },
+                      {
+                        "flag": "max",
+                        "constraint": 120
+                      }
+                    ]
+                  }
+                ],
+                "description": "نص قصير يظهر تحت الصورة المصغّرة.",
+                "name": "title",
+                "type": "string",
+                "title": "✍️ عنوان المقطع (مطلوب)"
+              },
+              {
+                "validation": [
+                  {
+                    "level": "error",
+                    "rules": [
+                      {
+                        "flag": "presence",
+                        "constraint": "required"
+                      },
+                      {
+                        "flag": "uri",
+                        "constraint": {
+                          "options": {
+                            "scheme": [
+                              "/^http$/",
+                              "/^https$/"
+                            ],
+                            "allowRelative": false,
+                            "relativeOnly": false,
+                            "allowCredentials": false
+                          }
+                        }
+                      },
+                      {
+                        "flag": "custom"
+                      }
+                    ]
+                  }
+                ],
+                "description": "الصق الرابط الكامل من يوتيوب. أمثلة مقبولة: \"https://youtu.be/XXXXXXXXXXX\" أو \"https://www.youtube.com/watch?v=XXXXXXXXXXX\".",
+                "name": "url",
+                "type": "url",
+                "title": "🔗 رابط يوتيوب (مطلوب)"
+              },
+              {
+                "rows": 2,
+                "validation": [
+                  {
+                    "level": "error",
+                    "rules": [
+                      {
+                        "flag": "max",
+                        "constraint": 160
+                      }
+                    ]
+                  }
+                ],
+                "description": "سطر قصير يظهر تحت العنوان.",
+                "name": "description",
+                "type": "text",
+                "title": "📝 وصف مختصر (اختياري)"
+              }
+            ],
+            "type": "object",
+            "name": "video",
+            "title": "مقطع فيديو"
+          }
+        ],
+        "name": "videos",
+        "type": "array",
+        "title": "🎬 مقاطع الفيديو"
+      },
+      {
+        "options": {
+          "collapsible": true,
+          "collapsed": false
+        },
+        "description": "العنوان والوصف الذي يظهر فوق قائمة المقالات في الصفحة الرئيسية.",
+        "fields": [
+          {
+            "initialValue": "الوارد العلمي",
+            "validation": [
+              {
+                "level": "error",
+                "rules": [
+                  {
+                    "flag": "max",
+                    "constraint": 40
+                  }
+                ]
+              }
+            ],
+            "name": "title",
+            "type": "string",
+            "title": "العنوان"
+          },
+          {
+            "initialValue": "بحر العلم بوابة العالم فارتق",
+            "validation": [
+              {
+                "level": "error",
+                "rules": [
+                  {
+                    "flag": "max",
+                    "constraint": 140
+                  }
+                ]
+              }
+            ],
+            "name": "subtitle",
+            "type": "string",
+            "title": "النص الفرعي"
+          }
+        ],
+        "name": "blogSection",
+        "type": "object",
+        "title": "📚 قسم المكتبة"
+      }
+    ],
+    "name": "siteSettings",
+    "type": "document",
+    "title": "إعدادات الموقع"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              },
+              {
+                "flag": "min",
+                "constraint": 3
+              },
+              {
+                "flag": "max",
+                "constraint": 32
+              },
+              {
+                "flag": "regex",
+                "constraint": {
+                  "pattern": "/^[a-zA-Z0-9_]+$/",
+                  "name": "username",
+                  "invert": false
+                }
+              }
+            ]
+          }
+        ],
+        "description": "فريد، أحرف لاتينية وأرقام و _ فقط، 3-32 حرفاً.",
+        "name": "username",
+        "type": "string",
+        "title": "اسم المستخدم"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "description": "يُحفظ بحروف صغيرة.",
+        "name": "email",
+        "type": "string",
+        "title": "البريد الإلكتروني"
+      },
+      {
+        "initialValue": false,
+        "name": "emailVerified",
+        "type": "boolean",
+        "title": "تم التحقق من البريد"
+      },
+      {
+        "description": "الاسم الذي يظهر على الرسائل والتعليقات.",
+        "name": "displayName",
+        "type": "string",
+        "title": "الاسم الظاهر"
+      },
+      {
+        "name": "phone",
+        "type": "string",
+        "title": "الجوال (اختياري)"
+      },
+      {
+        "readOnly": true,
+        "hidden": true,
+        "name": "passwordHash",
+        "type": "string",
+        "title": "كلمة المرور (مشفّرة)"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "عضو",
+              "value": "member"
+            },
+            {
+              "title": "مسؤول",
+              "value": "admin"
+            }
+          ]
+        },
+        "initialValue": "member",
+        "name": "role",
+        "type": "string",
+        "title": "الدور"
+      },
+      {
+        "readOnly": true,
+        "hidden": true,
+        "name": "verifyToken",
+        "type": "string",
+        "title": "رمز تفعيل البريد"
+      },
+      {
+        "readOnly": true,
+        "hidden": true,
+        "name": "verifyExpiresAt",
+        "type": "datetime",
+        "title": "صلاحية رمز التفعيل"
+      },
+      {
+        "readOnly": true,
+        "hidden": true,
+        "name": "resetToken",
+        "type": "string",
+        "title": "رمز استرداد كلمة المرور"
+      },
+      {
+        "readOnly": true,
+        "hidden": true,
+        "name": "resetExpiresAt",
+        "type": "datetime",
+        "title": "صلاحية رمز الاسترداد"
+      },
+      {
+        "readOnly": true,
+        "name": "createdAt",
+        "type": "datetime",
+        "title": "تاريخ التسجيل"
+      },
+      {
+        "readOnly": true,
+        "name": "lastLoginAt",
+        "type": "datetime",
+        "title": "آخر دخول"
+      },
+      {
+        "initialValue": 1,
+        "description": "يُزاد عند تغيير كلمة المرور — يُبطل الجلسات القديمة تلقائياً.",
+        "readOnly": true,
+        "hidden": true,
+        "name": "sessionVersion",
+        "type": "number",
+        "title": "إصدار الجلسة"
+      },
+      {
+        "readOnly": true,
+        "hidden": true,
+        "name": "failedLoginCount",
+        "type": "number",
+        "title": "محاولات دخول فاشلة"
+      },
+      {
+        "readOnly": true,
+        "hidden": true,
+        "name": "lockedUntil",
+        "type": "datetime",
+        "title": "مقفول حتى"
+      },
+      {
+        "rows": 3,
+        "description": "يُملأ تلقائياً إذا فشل إرسال رسالة التفعيل أو الاسترداد. لو فيه قيمة هنا = إعدادات Resend/الدومين تحتاج مراجعة.",
+        "readOnly": true,
+        "hidden": "conditional",
+        "name": "lastEmailError",
+        "type": "text",
+        "title": "آخر خطأ في إرسال البريد"
+      }
+    ],
+    "name": "user",
+    "type": "document",
+    "title": "الأعضاء"
+  }
+]

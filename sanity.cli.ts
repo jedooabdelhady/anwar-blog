@@ -16,6 +16,7 @@ export default defineCliConfig({
   },
   studioHost: "sahaarr299",
   deployment: {
+    appId: "wb1fya1qf0t7iamp5b2nc3mg",
     autoUpdates: true,
   },
 });
