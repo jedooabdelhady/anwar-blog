@@ -13,14 +13,19 @@ export const apiVersion =
 export const dataset =
   process.env.NEXT_PUBLIC_SANITY_DATASET || "production";
 
+// Fallback to the real (public) project ID so build-time module
+// evaluation on hosts that don't yet have env vars in scope (e.g.
+// Cloudflare Pages during OpenNext's page-data collection) doesn't
+// crash inside createClient with "projectId can only contain…".
+// The project ID is not a secret — it shows up in every asset URL.
 export const projectId =
-  process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "placeholder";
+  process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "oziuv7qc";
 
 export const writeToken = process.env.SANITY_WRITE_TOKEN || "";
 
 /**
  * True once the user has wired a real Sanity project.
- * Used by pages/API routes to decide whether to query Sanity or fall back to
- * the seed `POSTS` array.
+ * Now that the fallback is the real projectId, sanity is always "configured"
+ * in production — the write token check downstream still gates mutations.
  */
-export const sanityConfigured = projectId !== "placeholder";
+export const sanityConfigured = Boolean(projectId);

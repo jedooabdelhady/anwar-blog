@@ -1,0 +1,23 @@
+/**
+ * Cloudflare Workers config for OpenNext.
+ * Build output is a Worker script + static assets — Cloudflare Pages
+ * treats this as a normal Pages project (auto-detected on push).
+ */
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "sahaarr299",
+  "main": ".open-next/worker.js",
+  "compatibility_date": "2025-06-01",
+  // nodejs_compat gives bcryptjs, iron-session, crypto, Buffer, and
+  // node:stream everything they need in the Workers runtime.
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+  "assets": {
+    "binding": "ASSETS",
+    "directory": ".open-next/assets"
+  },
+  // Turn on observability so we can see per-request logs from the
+  // Cloudflare dashboard while debugging the first few deploys.
+  "observability": {
+    "enabled": true
+  }
+}
