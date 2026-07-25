@@ -1,14 +1,15 @@
 import { defineCloudflareConfig } from "@opennextjs/cloudflare";
-import r2IncrementalCache from "@opennextjs/cloudflare/overrides/incremental-cache/r2-incremental-cache";
 
 /**
  * OpenNext Cloudflare configuration.
  *
- * We don't bind an R2 bucket in wrangler.jsonc yet, so the r2 cache
- * silently falls back to the runtime's in-memory cache — good enough
- * for the site's current traffic. Add an R2 binding named `NEXT_INC_CACHE_R2_BUCKET`
- * later if we start relying heavily on ISR.
+ * No incremental cache override is set, so OpenNext falls back to the
+ * default in-memory cache. That's the right choice for this site's
+ * traffic — an R2 bucket would add cost + a binding to configure, and
+ * ISR here just re-fetches from Sanity on a 60s revalidate anyway.
+ *
+ * If we ever need cross-instance ISR persistence, add an R2 bucket
+ * binding named NEXT_INC_CACHE_R2_BUCKET in wrangler.jsonc and switch
+ * this back to r2IncrementalCache.
  */
-export default defineCloudflareConfig({
-  incrementalCache: r2IncrementalCache,
-});
+export default defineCloudflareConfig();
