@@ -47,3 +47,7 @@ next-env.d.ts
 .open-next/
 .wrangler/
 cloudflare-env.d.ts
+
+# Sanity Studio build output (deployed to sanity.studio, not tracked)
+/dist/
+/.sanity/
