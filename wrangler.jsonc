@@ -18,6 +18,13 @@
     "binding": "ASSETS",
     "directory": ".open-next/assets"
   },
+  // Custom domain routes — binds sahaarr299.com (+ www) to this Worker.
+  // The zone is managed by Cloudflare (nameservers moved from Namecheap),
+  // so `custom_domain: true` auto-provisions the DNS record + SSL cert.
+  "routes": [
+    { "pattern": "sahaarr299.com", "custom_domain": true },
+    { "pattern": "www.sahaarr299.com", "custom_domain": true }
+  ],
   // Public (non-secret) env vars. Anything sensitive is stored via
   // `wrangler secret put` and lives in Cloudflare's encrypted store.
   "vars": {
