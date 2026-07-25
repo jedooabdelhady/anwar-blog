@@ -1,22 +1,34 @@
 /**
- * Cloudflare Workers config for OpenNext.
- * Build output is a Worker script + static assets — Cloudflare Pages
- * treats this as a normal Pages project (auto-detected on push).
+ * Cloudflare Workers deployment config (OpenNext output).
+ *
+ * Deploys as a Worker + Assets binding — the modern Cloudflare
+ * pattern that Cloudflare Pages doesn't understand yet. Run
+ * `npm run deploy` locally to publish; secrets are stored server-
+ * side via `wrangler secret put` (see README-cloudflare-deploy.md).
  */
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "sahaarr299",
   "main": ".open-next/worker.js",
-  "compatibility_date": "2025-06-01",
-  // nodejs_compat gives bcryptjs, iron-session, crypto, Buffer, and
-  // node:stream everything they need in the Workers runtime.
+  // Bumped to a recent date so the Workers runtime picks up all the
+  // latest Node compat shims and streams behaviour OpenNext relies on.
+  "compatibility_date": "2025-09-23",
   "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
   "assets": {
     "binding": "ASSETS",
     "directory": ".open-next/assets"
   },
-  // Turn on observability so we can see per-request logs from the
-  // Cloudflare dashboard while debugging the first few deploys.
+  // Public (non-secret) env vars. Anything sensitive is stored via
+  // `wrangler secret put` and lives in Cloudflare's encrypted store.
+  "vars": {
+    "NEXT_PUBLIC_SANITY_PROJECT_ID": "oziuv7qc",
+    "NEXT_PUBLIC_SANITY_DATASET": "production",
+    "NEXT_PUBLIC_SANITY_API_VERSION": "2025-01-01",
+    "NEXT_PUBLIC_SITE_URL": "https://sahaarr299.com",
+    "CONTACT_EMAIL_TO": "sahaarr299@gmail.com",
+    "CONTACT_EMAIL_FROM": "no-reply@sahaarr299.com",
+    "GOOGLE_SITE_VERIFICATION": "6neLp4rpIoToKM8bi0c3XWWY_MyuqUNKQ94G0kWgsr4"
+  },
   "observability": {
     "enabled": true
   }
