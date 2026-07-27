@@ -19,8 +19,8 @@
     "directory": ".open-next/assets"
   },
   // Custom domain routes — binds sahaarr299.com (+ www) to this Worker.
-  // The zone is managed by Cloudflare (nameservers moved from Namecheap),
-  // so `custom_domain: true` auto-provisions the DNS record + SSL cert.
+  // Now that the zone lives in Sahar's account (nameservers moved to
+  // emely/rohin), deploying from her account provisions the DNS + SSL.
   "routes": [
     { "pattern": "sahaarr299.com", "custom_domain": true },
     { "pattern": "www.sahaarr299.com", "custom_domain": true }
